@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SCNUOJ</title>
+	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'bootstrap.min'%>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<%= render "common/navbar" %>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12" id="max">
+				<%= yield %>
+			</div>
+		</div>
+	</div>
+	<%= render "common/footer" %>
+</body>
+</html>
+<style type="text/css">
+	div#max{
+		min-height: 470px
+	}
+
+</style>

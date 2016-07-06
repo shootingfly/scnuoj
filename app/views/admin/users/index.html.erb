@@ -1,0 +1,30 @@
+<h4>用户列表</h4>
+<table class="table table-stripped table-bordered table-hover datatable">
+<thead>
+  <tr>
+    <th width="5%">学号</th>
+    <th width="15%">用户昵称</th>
+    <th width="20%">班级</th>
+    <th width="15%">宿舍</th>
+    <th width="10%">电话</th>
+    <th width="25%">个性签名</th>
+    <th width="10%">操作</th>
+  </tr>
+</thead>
+<tbody>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.stu_num %></td>
+      <td><%= user.username %></td>
+      <td><%= user.classgrade %></td>
+      <td><%= user.dormitory %></td>
+      <td><%= user.phone %></td>
+      <td><%= user.signature %></td>
+      <td>
+        <%= link_to '编辑', edit_admin_user_path(user), class: "btn btn-xs btn-primary" %>
+        <%= link_to '删除', admin_users_path(user), method: :delete, class: "btn btn-xs btn-primary" %>
+      </td>
+    </tr>
+    <% end %>
+</tbody>
+</table>

@@ -1,0 +1,27 @@
+<h4>管理员列表</h4>
+			<table class="table table-stripped table-bordered table-hover datatable">
+				<thead>
+					<tr>
+		        <th width="5%">ID</th> 
+		        <th width="25%">帐号</th> 
+		        <th width="25%">角色</th> 
+		        <th width="25%">备注</th> 
+		        <th width="20%">操作</th> 
+					</tr>
+				</thead>
+				<tbody>
+				<% @managers.each do |manager| %>
+				<tr>
+					<td><%= manager.id %></td>
+					<td><%= manager.manager_name %></td>
+					<td><%= manager.level %></td>
+					<td><%= manager.remark %></td>
+					<td>
+					<%= link_to("修改", edit_admin_manager_path(manager), class: "btn btn-warning btn-xs") %>
+					<%= link_to("删除", admin_managers_path(manager), class: "btn btn-danger btn-xs", method: :delete )%>
+					</td>
+				</tr>
+				<% end %>
+				</tbody>
+</table>
+<%= link_to("添加管理员", new_admin_manager_path(@manager), class: "btn btn-default btn-xs pull-right") %>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scnuoj</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'bootstrap.min'%>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render "admin/common/navbar" %>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-2">
+			<%= render "admin/common/sidebar" %>
+		</div>
+		<div class="col-sm-10">
+			<%= notice_message %>
+			<%= yield %>
+		</div>
+	</div>
+</div>
+<%= render "admin/common/footer" %>
+</body>
+</html>

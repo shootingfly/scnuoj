@@ -1,0 +1,9 @@
+<%= simple_form_for(@contest, html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :title, label: "比赛名称" %>
+  <%= f.input :remark, label: "备注" %>
+  <%= f.input :start_time, as: :datetime, label: "开始时间"%>
+  <%= f.input :end_time, as: :datetime, label: "结束时间" %>
+  <%= f.input :is_publish, collection: ["public", "private"], selected: "public", label: "比赛类型" %>
+  <%= f.button :submit, value: "提交", class: "col-sm-4 col-sm-offset-4 btn-primary" %>
+<% end %>
