@@ -1,0 +1,67 @@
+<h4>个人信息</h4>
+<div class="col-sm-5 col-sm-offset-1">
+	<div class="panel panel-success">
+	 <div class="panel-heading">
+		<h5>基本资料</h5>
+	 </div>
+	 <table class="table table-stripped">
+		<tr>
+			<th>用户昵称</th>
+			<td><%= @user.username %></td>
+		</tr>
+		<tr>
+			<th>学号</th>
+			<td><%= @user.student_num %></td>
+		</tr>
+		<tr>
+			<th>宿舍</th>
+			<td><%= @user.dormitory %></td>
+		</tr>
+		<tr>
+			<th>电话</th>
+			<td><%= @user.phone %></td>
+		</tr>
+		<tr>
+			<th>个性签名</th>
+			<td><%= @user.signature %></td>
+		</tr>
+		<tr>
+			<th>AC</th>
+			<td><%= @user.ac %> </td>
+		</tr>
+		<tr>
+			<th>Submit</th>
+			<td><%= @user.submit %></td>
+		</tr>
+	 </table>
+	</div>
+</div>
+<div class="col-sm-5">
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h5>错误记录</h5>
+		</div>
+		<table class="table table-stripped">
+		<tr>
+			<th>Wrong Answer</th>
+			<td><%= @user_error.WA %></td>
+		</tr>
+		<tr>
+			<th>Compilation Error</th>
+			<td><%= @user_error.CE %></td>
+		</tr>
+		<tr>
+			<th>Runtime Error</th>
+			<td><%= @user_error.RE %></td>
+		</tr>
+		<tr>
+			<th>Time Limit Exccedded</th>
+			<td><%= @user_error.TLE %></td>
+		</tr>
+		<tr>
+			<th>Memory Limit Exceedded</th>
+			<td><%= @user_error.MLE %></td>
+		</tr>
+		</table>
+	</div>
+</div>

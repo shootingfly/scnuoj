@@ -44,6 +44,6 @@ class Admin::ProblemsController < Admin::ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:stu_num, :problemname, :password, :classgrade, :dormitory, :phone, :signature)
+      params.require(:problem).permit(:stu_num, :username, :password, :classgrade, :dormitory, :phone, :signature)
     end
 end
