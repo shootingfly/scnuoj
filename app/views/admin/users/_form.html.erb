@@ -1,5 +1,5 @@
 <%= simple_form_for(@user, url: admin_users_path(@user), html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f| %>
-  <%= f.input :stu_num, label: "学号"%>
+  <%= f.input :student_id, label: "学号"%>
   <%= f.input :username, label: "用户昵称"%>
   <%= f.input :password, label: "密码"%>
   <%= f.input :classgrade, label: "班级"%>

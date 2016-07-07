@@ -4,18 +4,18 @@
 	</div>
 	<div class="col-sm-5">
 		<ul class="nav navbar-nav">
-			<li class="active"><%= link_to "首页" %></li>
-			<li><%= link_to "题目" %></li>
-			<li><%= link_to "状态" %></li>
-			<li><%= link_to "排名" %></li>
+			<li><%= link_to "首页" %></li>
+			<li><%= link_to "题目", problems_path %></li>
+			<li><%= link_to "状态", status_path %></li>
+			<li><%= link_to "排名", rank_path %></li>
 			<li><%= link_to "比赛" %></li>
 		</ul>
 	</div>
 	<div class="col-sm-2 col-sm-offset-1">
 		<ul class="nav navbar-nav">
-			<% if @current_user %>		
-				<li><%= link_to @current_user.username, "#" %></li>
-				<li><%= link_to "logout", logout_path %></li>
+			<% if current_user %>		
+				<li><%= link_to current_user.username, "#" %></li>
+				<li><%= link_to "注销", logout_path, method: "delete" %></li>
 			<% else %>
 				<li><%= link_to "登录", login_path %></li>
 			<% end %>

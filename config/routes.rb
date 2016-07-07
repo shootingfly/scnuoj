@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
   
+  # resources :ranks, :only => :index
+  # resources :status, :only => :index
+  # resources :problems, :only => {'index', 'show'}
+
   get 'user/:id' => 'users#show'
   post 'user/edit' => 'users#edit'
   put 'user/update' => 'users#update'
-  get 'rank' => 'ranks#index'
-  get 'status' => 'statuses#index'
-  get 'contest' => 'contests#index'
-  get 'contest/:id' => 'contests#show'
-  get 'problem' => 'problems#index'
-  get 'problem/:id' => 'problems#show'
+  get 'rank' => 'ranks#index', :as => 'rank'
+  get 'status' => 'statuses#index', :as => 'status'
+  # get 'contest' => 'contests#index'
+  # get 'contest/:id' => 'contests#show'
+  # resources :problems
+  get 'problems' => 'problems#index', :as => 'problems'
+  get 'problems/:problem_id' => 'problems#show', :as => 'problem'
+
+  get 'login' => 'users#login', :as => 'login'
+  post 'create_login_session' => 'users#create_login_session'
+  delete 'logout' => 'users#logout', :as => 'logout'
+
 
   namespace :admin do
     resources :managers
@@ -20,7 +30,7 @@ Rails.application.routes.draw do
   end
 
 
-  root 'welcome#index'
+  root 'problems#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

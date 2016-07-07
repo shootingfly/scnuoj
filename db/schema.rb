@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705110401) do
+ActiveRecord::Schema.define(version: 20160706160234) do
 
   create_table "contests", force: :cascade do |t|
     t.string   "contest_id"
@@ -66,11 +66,12 @@ ActiveRecord::Schema.define(version: 20160705110401) do
   create_table "users", force: :cascade do |t|
     t.string "student_id"
     t.string "username"
-    t.string "password"
+    t.string "password_digest"
     t.string "classgrade"
     t.string "dormitory"
     t.string "phone"
     t.string "signature"
+    t.string "auth_token"
   end
 
 end

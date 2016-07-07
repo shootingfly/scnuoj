@@ -30,6 +30,6 @@ class ProblemsController < ApplicationController
   end
 
   def show
-  	@problem = Problem.find(params[:problem_id])
+  	@problem = Problem.find_by_problem_id(params[:problem_id])
   end
 end

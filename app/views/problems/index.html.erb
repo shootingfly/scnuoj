@@ -12,7 +12,7 @@
       <tr>
         <td><%= problem.problem_id %></td>  
         <td>
-        <%= link_to(problem.title, problem_path(problem)) %></td>  
+        <%= link_to problem.title, problem_path(problem.problem_id) %></td>  
         <td><%= problem.ac %></td>  
         <td><%= problem.submit %></td>  
       </tr>

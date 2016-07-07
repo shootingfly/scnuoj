@@ -17,3 +17,8 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
 //= require_tree .
+$(document).ready(function(){
+$('li a').click (e) ->
+  $('li.active').removeClass 'active'
+  $(this).parent('li').addClass 'active'
+  });
