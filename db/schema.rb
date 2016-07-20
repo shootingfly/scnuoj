@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706160234) do
+ActiveRecord::Schema.define(version: 20160708121629) do
+
+  create_table "codes", force: :cascade do |t|
+    t.text     "code"
+    t.string   "language"
+    t.integer  "problem_id"
+    t.string   "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "contests", force: :cascade do |t|
     t.string   "contest_id"

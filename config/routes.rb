@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   post 'create_login_session' => 'users#create_login_session'
   delete 'logout' => 'users#logout', :as => 'logout'
 
-
+  resources :codes
+  post 'judge' => 'codes#judge', as: 'codes_judge'
   namespace :admin do
     resources :managers
     resources :users

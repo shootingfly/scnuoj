@@ -1,4 +1,4 @@
-<%= simple_form_for(admin_managers_path, html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f| %>
+<%= simple_form_for(@manager, html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f| %>
   <%= f.input :admin_name, label: "用户名"%>
   <%= f.input :admin_pwd, as: :password, label: "密码"%>
   <%= f.input :level, collection: ["超级管理员", "学生管理员"], selected: "学生管理员", label: "角色" %>

@@ -10,7 +10,7 @@ class Admin::ManagersController < Admin::ApplicationController
 	def create
 		@manager = Manager.new(manager_params)
 		if @manager.save
-			redirect_to new_admin_manager_path, notice: "添加#{@manager.manager_name}成功!"
+			redirect_to root_path, notice: "添加#{@manager.manager_name}成功!"
 		else	
 			render :new
 		end
