@@ -29,7 +29,6 @@ def create_login_session
     end
     redirect_to :root
   else
-    logger.debug("fail3")
     redirect_to :login
   end
 end

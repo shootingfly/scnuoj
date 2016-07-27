@@ -1,0 +1,9 @@
+<%= form_tag "/admin/create_login_session" do  %>
+	<%= text_field_tag 'username', nil,placeholder: 'Enter search term...'
+ %>
+	<%= password_field_tag 'password', nil, placehold: "password" %>
+	<%= submit_tag "submit" %>
+<% end %>
+<style type="text/css">
+layout: false
+</style>

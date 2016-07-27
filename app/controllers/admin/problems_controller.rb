@@ -17,8 +17,10 @@ class Admin::ProblemsController < Admin::ApplicationController
 
   def create
     @problem = Problem.new(problem_params)
+    @problem.ac = 0
+    @problem.submit = 0
     if @problem.save
-      redirect_to admin_problem_path(@problem), notice: 'problem was successfully created.' 
+      redirect_to new_admin_problem_path, notice: 'problem was successfully created.' 
     else
       render :new
     end
@@ -26,7 +28,7 @@ class Admin::ProblemsController < Admin::ApplicationController
 
   def update
     if @problem.update(problem_params)
-      redirect_to @problem, notice: 'problem was successfully updated.' 
+      redirect_to admin_problem_path(@problem), notice: "problem #{@problem.problem_id} was successfully updated." 
     else
       render :edit
     end
@@ -34,16 +36,16 @@ class Admin::ProblemsController < Admin::ApplicationController
 
   def destroy
     @problem.destroy
-    redirect_to problems_url, notice: 'problem was successfully destroyed.' 
+    redirect_to admin_problems_path, notice: 'problem was successfully destroyed.' 
   end
 
   private
     def set_problem
-      @problem = problem.find(params[:id])
+      @problem = Problem.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def problem_params
-      params.require(:problem).permit(:stu_num, :username, :password, :classgrade, :dormitory, :phone, :signature)
+      params.require(:problem).permit(:problem_id, :title, :description, :input, :output)
     end
 end

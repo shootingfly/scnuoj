@@ -1,24 +1,25 @@
 <h4>个人排名</h4>
 <table class="table table-stripped table-bordered table-hover datatable">
-<thead>
-  <tr>
+  <thead>
+    <tr>
     <th>排名</th>
     <th>用户昵称</th>
     <th>班级</th>
     <th>宿舍</th>
     <th>AC数</th>
     <th>提交数</th>
-  </tr>
-</thead>
-<tbody>
-  <% @ranks.each do |rank| %>
-    <tr>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ranks.each do |rank| %>
+      <tr>
       <td><%= rank.rank %></td>
-      <td><%= link_to rank.username, admin_user_path(rank.username) %></td>
+      <td><%= link_to(rank.username, admin_user_path(rank.username)) %></td>
       <td><%= rank.classgrade %></td>
       <td><%= rank.dormitory %></td>
       <td><%= rank.ac %></td>
       <td><%= rank.submit %></td>
-    </tr>
-  <% end %>
-</tbody>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

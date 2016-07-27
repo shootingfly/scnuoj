@@ -1,2 +1,26 @@
-<h1>Oj::Statuses#index</h1>
-<p>Find me in app/views/oj/statuses/index.html.erb</p>
+<h4>状态监测</h4>
+<table class="table table-stripped table-bordered table-hover datatable">
+  <thead>
+    <tr>
+      <th>运行号</th>
+      <th>用户昵称</th>
+      <th>标题</th>
+      <th>时间复杂度</th>
+      <th>空间复杂度</th>
+      <th>编程语言</th>
+      <th>提交时间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @statuses.each do |status| %>
+      <tr>
+        <td><%= status.run_id %></td>
+        <td><%= status.title %></td>
+        <td><%= status.time_cost %></td>
+        <td><%= status.space_cost %></td>
+        <td><%= status.language %></td>
+        <td><%= status.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

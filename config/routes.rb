@@ -1,5 +1,10 @@
+require 'resque/server'
 Rails.application.routes.draw do
-  
+  mount Resque::Server.new, :at => "/resque"
+  get 'home' => 'static_pages#home', :as => 'home'
+
+  get 'aboutus' => 'static_pages#aboutus', :as => 'aboutus'
+
   # resources :ranks, :only => :index
   # resources :status, :only => :index
   # resources :problems, :only => {'index', 'show'}
@@ -26,12 +31,13 @@ Rails.application.routes.draw do
     resources :users
     resources :problems
     resources :contests
-    get 'ranks' => 'ranks#index'
-    get 'statuses' => 'statuses#index'
+    resources :ranks, only: :index
+    resources :statuses, only: :index
+    get 'login' => 'managers#login'
+    post 'create_login_session' => 'managers#create_login_session'
   end
 
-
-  root 'problems#index'
+  root 'static_pages#home'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

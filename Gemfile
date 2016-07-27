@@ -3,7 +3,12 @@ source 'https://ruby.taobao.org'
 gem 'simple_form'
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'bootstrap-sass', '~> 3.3.6'
-
+gem 'bootstrap_helper'
+gem 'bootswatch-rails'
+gem 'cancancan', '~>1.10'
+gem 'carrierwave'
+gem 'resque'
+gem 'resque-web'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record

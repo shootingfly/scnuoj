@@ -1,7 +1,14 @@
-<%= simple_form_for(@problem) do |f| %>
+<%= simple_form_for([:admin, @problem], :html => {:multipart => true, :class => "form-horizontal"}, :wrap => "horizontal_form") do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
+  <%= f.input :problem_id %>
+  <%= f.input :title %>
+  <%= f.input :description, as: :file %>
+  <%= f.input :description_cache, as: :hidden %>
+  <%= f.input :input, as: :file %>
+  <%= f.input :output, as: :file %>
+  <%= f.input :output_cache, as: :hidden %>
   </div>
 
   <div class="form-actions">

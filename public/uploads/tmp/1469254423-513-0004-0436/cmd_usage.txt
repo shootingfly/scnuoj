@@ -1,0 +1,26 @@
+1.安装vmvare 10
+2.安装UbuntuKylin 16.04 32位
+3.点击输入法，添加搜狗输入法
+4.修改分辨率
+xrandr //显示所有分辨率节点
+
+sudo xrandr --output Virtual1 --mode "1440x900" //设置分辨率为1440x900
+
+5.更新apt源
+sudo apt update
+
+6.安装sublime3
+cd ~/Desktop
+mkdir software
+cd software
+wget https://download.sublimetext.com/sublime-text_build-3114_i386.deb
+sudo dpkg -i sublime-text_build-3114_i386.deb
+
+7.换apt源
+
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+sudo gedit /etc/apt/sources.list
+
+
+
+

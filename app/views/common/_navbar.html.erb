@@ -1,15 +1,14 @@
 <nav class="navbar navbar-inverse">
 	<div class="col-sm-4 navbar-brand">
-		<%= link_to "SCNUOJ" %> 
+		<%= link_to "SCNUOJ", root_path %> 
 	</div>
 	<div class="col-sm-5">
-		<ul class="nav navbar-nav">
-			<li><%= link_to "首页" %></li>
-			<li><%= link_to "题目", problems_path %></li>
-			<li><%= link_to "状态", status_path %></li>
-			<li><%= link_to "排名", rank_path %></li>
-			<li><%= link_to "比赛" %></li>
-		</ul>
+		<%= render_list class: "nav navbar-nav" do |li|
+			li << link_to("首页", home_path)
+			li << link_to("题目", problems_path)
+			li << link_to("状态", status_path)
+			li << link_to("排名", rank_path)
+		end %>
 	</div>
 	<div class="col-sm-2 col-sm-offset-1">
 		<ul class="nav navbar-nav">

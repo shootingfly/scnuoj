@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708121629) do
+ActiveRecord::Schema.define(version: 20160723052321) do
 
   create_table "codes", force: :cascade do |t|
     t.text     "code"
@@ -49,6 +49,9 @@ ActiveRecord::Schema.define(version: 20160708121629) do
     t.string  "title"
     t.integer "ac"
     t.integer "submit"
+    t.string  "description"
+    t.string  "input"
+    t.string  "output"
   end
 
   create_table "ranks", force: :cascade do |t|

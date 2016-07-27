@@ -11,4 +11,8 @@ module ApplicationHelper
 		end
 		alerts.join("\n").html_safe
 	end
+
+	def table_style
+		"class='table table-stripped table-bordered table-hover datatable'"
+	end
 end
