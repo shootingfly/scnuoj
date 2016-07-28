@@ -1,5 +1,5 @@
 class Code < ActiveRecord::Base
-	def judge str
-    	Resque.enqueue(JudgeJob)
-	end
+	# def judge(code,time)
+ #    	Resque.enqueue(JudgeJob, code, time)
+	# end
 end

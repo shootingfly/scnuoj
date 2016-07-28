@@ -7,9 +7,11 @@ class CodesController < ApplicationController
 	def create
 		@code = Code.new(code_params)
 		if @code.save
-			@code.judge("I love U")
+			ProblemJudgeJob.perform_later(@code)
+			# @code.judge(code_params[:code], 1000) 
+
 			# GuestsCleanupJob.new.perform(@code)
-			redirect_to :root
+			redirect_to status_path
 		else
 			render :new
 		end
