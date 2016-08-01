@@ -20,9 +20,9 @@ def login
 end
 
 def create_login_session
-  user = User.find_by_student_id(params[:student_id])
-  if user && user.authenticate(params[:password])
-    if params[:remember_me]
+  user = User.find_by_student_id(params[:signin][:student_id])
+  if user && user.authenticate(params[:signin][:password])
+    if params[:signin][:remember_me]
       cookies.permanent[:auth_token] = user.auth_token
     else
       cookies[:auth_token] = user.auth_token

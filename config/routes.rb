@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'problems/:problem_id' => 'problems#show', :as => 'problem'
 
   get 'login' => 'users#login', :as => 'login'
-  post 'create_login_session' => 'users#create_login_session'
+  post 'create_login_session' => 'users#create_login_session', :as => 'create_login_session'
   delete 'logout' => 'users#logout', :as => 'logout'
 
   resources :codes

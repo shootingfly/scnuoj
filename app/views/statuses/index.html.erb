@@ -5,6 +5,7 @@
       <th>运行号</th>
       <th>用户昵称</th>
       <th>标题</th>
+      <th>result</th>
       <th>时间复杂度</th>
       <th>空间复杂度</th>
       <th>编程语言</th>
@@ -15,7 +16,9 @@
     <% @statuses.each do |status| %>
       <tr>
         <td><%= status.run_id %></td>
-        <td><%= status.title %></td>
+        <td><%= status.username %></td>
+        <td><%= status.problem_id %></td>
+        <td><%= status.result %></td>
         <td><%= status.time_cost %></td>
         <td><%= status.space_cost %></td>
         <td><%= status.language %></td>
