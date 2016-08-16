@@ -2,7 +2,11 @@ class Admin::UsersController < Admin::ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    @users = User.all
+    respond_to do |format|
+      format.html
+      format.json {render json: UserDatatable.new(view_context)}
+    end
+    # @users = User.all
   end
 
   def show

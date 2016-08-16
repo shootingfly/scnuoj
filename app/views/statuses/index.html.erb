@@ -1,5 +1,5 @@
 <h4>状态监测</h4>
-<table class="table table-stripped table-bordered table-hover datatable">
+<table class="table table-stripped table-bordered table-hover datatable" data-source="<%= status_path(format: :json) %>">
   <thead>
     <tr>
       <th>运行号</th>
@@ -13,17 +13,5 @@
     </tr>
   </thead>
   <tbody>
-    <% @statuses.each do |status| %>
-      <tr>
-        <td><%= status.run_id %></td>
-        <td><%= status.username %></td>
-        <td><%= status.problem_id %></td>
-        <td><%= status.result %></td>
-        <td><%= status.time_cost %></td>
-        <td><%= status.space_cost %></td>
-        <td><%= status.language %></td>
-        <td><%= status.created_at %></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>

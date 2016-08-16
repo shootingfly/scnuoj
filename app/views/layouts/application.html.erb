@@ -6,6 +6,12 @@
 
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <style type="text/css">
+	div#max{
+		min-height: 470px
+	}
+
+</style>
 </head>
 <body>
 	<%= render "common/navbar" %>
@@ -19,18 +25,13 @@
 	<%= render "common/footer" %>
 </body>
 </html>
-<style type="text/css">
-	div#max{
-		min-height: 470px
-	}
-
-</style>
-<script>
-$(function() {
+<script type="text/javascript">
+	$(function() {
     $(".datatable").DataTable({
-     serverSide: false,
+     serverSide: true,
      ordering : true,
      processing: true,
+     ajax: $('.datatable').data('source'),
      searchDelay: 1000,
             language: {
             lengthMenu: '<select><option value="10">10</option>' + '<option value="25">25</option>' + '<option value="50">50</option>' + '<option value="100">100</option>' + '</select>条记录',
@@ -58,4 +59,4 @@ $(function() {
         //ajax: "/problem"
     });
 });
-</script> 
+</script>

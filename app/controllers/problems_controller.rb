@@ -26,7 +26,10 @@ class ProblemsController < ApplicationController
 		# end
   # end
   def index
-  	@problems = Problem.all
+  	respond_to do |format|
+      format.html
+      format.json {render json: ProblemDatatable.new(view_context) }
+    end
   end
 
   def show

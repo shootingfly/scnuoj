@@ -2,6 +2,8 @@ source 'https://ruby.taobao.org'
 
 gem 'simple_form'
 gem 'jquery-datatables-rails', '~> 3.3.0'
+gem 'ajax-datatables-rails'
+gem 'kaminari'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap_helper'
 gem 'bootswatch-rails'

@@ -1,4 +1,4 @@
-<table class="table tabe-stripped table-bordered table-hover datatable"> 
+<table class="table tabe-stripped table-bordered table-hover datatable" data-source="<%= problems_path(format: :json) %>"> 
 	<thead> 
 	 <tr> 
 	   <th width="6%">题号</th> 
@@ -8,14 +8,5 @@
 	 </tr> 
 	</thead> 
 	<tbody>
-    <% @problems.each do |problem| %>
-      <tr>
-        <td><%= problem.problem_id %></td>  
-        <td>
-        <%= link_to problem.title, problem_path(problem.problem_id) %></td>  
-        <td><%= problem.ac %></td>  
-        <td><%= problem.submit %></td>  
-      </tr>
-    <% end %>
   </tbody> 
 </table>

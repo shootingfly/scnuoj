@@ -2,7 +2,11 @@ class Admin::ProblemsController < Admin::ApplicationController
   before_action :set_problem, only: [:show, :edit, :update, :destroy]
 
   def index
-    @problems = Problem.all
+    # @problems = Problem.all
+    respond_to do |format|
+      format.html
+      format.json {render json: ProblemDatatable.new(view_context) }
+    end
   end
 
   def show
