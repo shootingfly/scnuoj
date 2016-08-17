@@ -13,11 +13,8 @@
 		<%= f.submit value:"提交", class:"btn btn-block btn-success"%>
 	</div>
 <% end %>
+
 <script type="text/javascript">
-	$(document).ready(function(){
-var myTextarea = document.getElementById('editor');
-CodeMirror.fromTextArea(myTextarea,{
-	value: "1+2",
-	lineNumbers: true
-});
+	var editor = new UE.ui.Editor();
+	editor.render("editor");
 </script>

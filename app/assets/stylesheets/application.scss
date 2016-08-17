@@ -10,37 +10,6 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  */
-// Example using 'cosmo' bootswatch
-/*Amelia
-Cerulean
-Cosmo
-Cyborg
-Darkly
-Flatly
-Journal
-Lumen
-Paper
-Readable
-Sandstone
-Simplex
-Slate
-Spacelab
-Superhero
-United
-Yeti*/
-//Import bootstrap-sprockets
-@import "bootstrap-sprockets";
-
-// Import cosmo variables
-@import "bootswatch/slate/variables";
-
-// Then bootstrap itself
-@import "bootstrap";
-
-
-
-// And finally bootswatch style itself
-@import "bootswatch/slate/bootswatch";
 @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 // Whatever application styles you have go last
 h4, th, td{

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'aboutus' => 'static_pages#aboutus', :as => 'aboutus'
 
+  post 'settheme' => 'static_pages#set_theme', :as => 'theme'
   # resources :ranks, :only => :index
   # resources :status, :only => :index
   # resources :problems, :only => {'index', 'show'}

@@ -6,4 +6,5 @@ class StatusesController < ApplicationController
   		format.json {render json: StatusDatatable.new(view_context)}
   	end
   end
+
 end
