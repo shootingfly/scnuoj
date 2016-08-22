@@ -1,6 +1,9 @@
 class Admin::ManagersController < Admin::ApplicationController
 	def index
-		@managers = Manager.all
+		respond_to do |format|
+			format.html
+			format.json {render json: Admin::ManagerDatatable.new(view_context)}
+		end
 	end
 
 	def new

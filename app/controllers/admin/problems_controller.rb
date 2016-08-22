@@ -5,7 +5,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     # @problems = Problem.all
     respond_to do |format|
       format.html
-      format.json {render json: ProblemDatatable.new(view_context) }
+      format.json {render json: Admin::ProblemDatatable.new(view_context) }
     end
   end
 
@@ -39,8 +39,13 @@ class Admin::ProblemsController < Admin::ApplicationController
   end
 
   def destroy
+    @problem_id = @problem.problem_id
     @problem.destroy
-    redirect_to admin_problems_path, notice: 'problem was successfully destroyed.' 
+    respond_to do |format|
+      format.html {redirect_to admin_problems_path, notice: 'problem was successfully destroyed.'}
+      format.js
+    end
+    # redirect_to admin_problems_path, notice: 'problem was successfully destroyed.' 
   end
 
   private

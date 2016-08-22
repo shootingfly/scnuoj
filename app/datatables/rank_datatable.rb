@@ -1,12 +1,13 @@
-class UserDatatable < AjaxDatatablesRails::Base
+class RankDatatable < AjaxDatatablesRails::Base
 
-  include AjaxDatatablesRails::Extensions::Kaminari
   def sortable_columns
-    @sortable_columns ||= ['User.student_id', 'User.username']
+    # Declare strings in this format: ModelName.column_name
+    @sortable_columns ||= []
   end
 
   def searchable_columns
-    @searchable_columns ||= ['User.student_id']
+    # Declare strings in this format: ModelName.column_name
+    @searchable_columns ||= []
   end
 
   private
@@ -14,8 +15,6 @@ class UserDatatable < AjaxDatatablesRails::Base
   def data
     records.map do |record|
       [
-        record.student_id,
-        record.username
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
       ]
@@ -23,7 +22,7 @@ class UserDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    User.all 
+    # insert query here
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

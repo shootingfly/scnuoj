@@ -1,48 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title><%= yield :title %></title>
-  <% @theme = current_theme %>
-  <%= stylesheet_link_tag  @theme, media: 'all', 'data-turbolinks-track' => true  %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<%= render "admin/common/navbar" %>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-sm-2">
-			<%= render "admin/common/sidebar" %>
-		</div>
-		<div class="col-sm-10" id="max">
-			<%= notice_message %>
-			<%= yield %>
-		</div>
-	</div>
-</div>
-<%= render "admin/common/footer" %>
-</body>
-</html>
-<style type="text/css">
-  div#max{
-    min-height: 470px
-  }
 
-</style>
-<script type="text/javascript">
-  $(function() {
+	$(function() {
     $(".datatable").DataTable({
      serverSide: true,
      ordering : true,
      processing: true,
      ajax: $('.datatable').data('source'),
-     columnDefs: [
-        {
-            "orderable": false,
-            "targets": -1
-        }
-     ],
      searchDelay: 1000,
             language: {
             lengthMenu: '<select><option value="10">10</option>' + '<option value="25">25</option>' + '<option value="50">50</option>' + '<option value="100">100</option>' + '</select>条记录',
@@ -70,4 +32,3 @@
         //ajax: "/problem"
     });
 });
-</script>

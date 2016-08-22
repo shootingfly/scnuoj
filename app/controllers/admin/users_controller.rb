@@ -4,9 +4,8 @@ class Admin::UsersController < Admin::ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.json {render json: UserDatatable.new(view_context)}
+      format.json {render json: Admin::UserDatatable.new(view_context)}
     end
-    # @users = User.all
   end
 
   def show
@@ -38,7 +37,10 @@ class Admin::UsersController < Admin::ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path, notice: 'User was successfully destroyed.' 
+    respond_to do |format|
+      format.html {redirect_to admin_users_path, notice: 'User was successfully destroyed.'}
+      format.js
+    end
   end
 
   private

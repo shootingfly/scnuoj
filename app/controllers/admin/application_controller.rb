@@ -5,9 +5,9 @@ class Admin::ApplicationController < ActionController::Base
 
   layout "admin"
 
-    def theme
-    @theme = "yeti"
+  def current_theme
+    @theme = cookies[:theme] || "yeti"
   end
   
-  helper_method :theme
+  helper_method :current_theme
 end

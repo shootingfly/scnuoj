@@ -1,46 +1,39 @@
+# use resque to monitor Judge Job
+# url: /resque
 require 'resque/server'
 Rails.application.routes.draw do
 
   # mount Resque::Server.new, :at => "/resque"
-  mount ResqueWeb::Engine => "/resque"
-  get 'home' => 'static_pages#home', :as => 'home'
+  mount ResqueWeb::Engine => "/resque" 
 
-  get 'aboutus' => 'static_pages#aboutus', :as => 'aboutus'
-
-  post 'settheme' => 'static_pages#set_theme', :as => 'theme'
-  # resources :ranks, :only => :index
-  # resources :status, :only => :index
-  # resources :problems, :only => {'index', 'show'}
-
-  get 'user/:id' => 'users#show'
-  post 'user/edit' => 'users#edit'
-  put 'user/update' => 'users#update'
-  get 'rank' => 'ranks#index', :as => 'rank'
-  get 'status' => 'statuses#index', :as => 'status'
-  # get 'contest' => 'contests#index'
-  # get 'contest/:id' => 'contests#show'
-  # resources :problems
-  get 'problems' => 'problems#index', :as => 'problems'
-  get 'problems/:problem_id' => 'problems#show', :as => 'problem'
-
-  get 'login' => 'users#login', :as => 'login'
-  post 'create_login_session' => 'users#create_login_session', :as => 'create_login_session'
-  delete 'logout' => 'users#logout', :as => 'logout'
-
-  resources :codes
-  post 'judge' => 'codes#judge', as: 'codes_judge'
+  # background
   namespace :admin do
     resources :managers
     resources :users
     resources :problems
-    resources :contests
     resources :ranks, only: :index
     resources :statuses, only: :index
-    get 'login' => 'managers#login'
-    post 'create_login_session' => 'managers#create_login_session'
+    get 'login' => 'managers#login', as: :manager_login
+    post 'create_login_session' => 'managers#create_login_session', as: :create_manager_login_session
+    delete 'logout' => 'managers#logout', as: :manager_logout
   end
 
+  # foreground
+  resources :users, only: [:show, :edit, :update]
+  resources :problems, only: [:index, :show]
+  resources :ranks, only: :index
+  resources :statuses, only: :index
+  resources :codes, only: [:new, :create]
+
+  get 'login' => 'users#login', as: :login
+  post 'create_login_session' => 'users#create_login_session', as: :create_login_session
+  delete 'logout' => 'users#logout', as: :logout
+  get 'home' => 'static_pages#home', as: :home
+  get 'aboutus' => 'static_pages#aboutus', as: :aboutus
+  post 'settheme' => 'static_pages#set_theme', as: :theme
+
   root 'static_pages#home'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -6,14 +6,28 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-# problems = Array(1000..1100)
-# problems.each do |i|
-# 	Problem.create(problem_id: "#{i}", title: "题目#{i}", ac: "#{i}", submit: "#{i}")
-# end
+problems = Array(1000..1100)
+problems.each do |i|
+  if i.odd?
+    grade = "A"
+  else
+    grade = "S"
+  end
+  Problem.create(
+    problem_id: "#{i}", 
+    title: "Problem#{i}", 
+    grade: "#{grade}",
+    ac: "#{i}", 
+    submit: "#{i}"
+  )
+end
+
+
+
 
 users = Array(1..100)
 users.each do |i|
-	User.create(student_id: "#{i}", username: "haha#{i}")
+  User.create(student_id: "#{i}", username: "haha#{i}")
 end
 # {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
 # {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
