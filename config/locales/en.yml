@@ -21,4 +21,13 @@
 
 en:
   hello: "Hello world"
+  scnuoj: "SCNUOJ"
+  home: "Home"
+  problem: "Problem"
+  status: "Status"
+  rank: "Rank"
+  login: "Login"
+  logout: "Logout"
+
+
  

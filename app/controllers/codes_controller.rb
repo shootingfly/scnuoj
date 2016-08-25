@@ -7,9 +7,9 @@ class CodesController < ApplicationController
 	def create
 		@code = Code.new(code_params)
 		if @code.save
-			new_status @code.id
+			new_status(@code.id)
 			ProblemJudgeJob.perform_later(@code)
-			redirect_to status_path
+			redirect_to statuses_path
 		else
 			render :new
 		end
@@ -17,13 +17,13 @@ class CodesController < ApplicationController
 
 	private
 	def code_params
-		params.require(:code).permit!#(:username, :problem_id, :code, :language)
+		params.require(:code).permit!(:student_id, :problem_id, :code, :language)
 	end
 
 	def new_status id
 		@status = Status.new
 		@status.run_id = id
-		@status.username = code_params[:username] 
+		@status.username = User.find_by_student_id(code_params[:student_id]).username 
 		@status.problem_id = code_params[:problem_id]
 		@status.result = "running"
 		@status.time_cost = 0
@@ -31,4 +31,5 @@ class CodesController < ApplicationController
 		@status.language = code_params[:language]
 		@status.save
 	end
+
 end

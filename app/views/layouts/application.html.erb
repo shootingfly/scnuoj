@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>SCNUOJ</title>
+	<% I18n.locale = :en %>
   <% @theme = current_theme %>
   <%= stylesheet_link_tag  @theme, media: 'all', 'data-turbolinks-track' => true  %>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true  %>
@@ -24,6 +25,6 @@
 		</div>
 	</div>
 	<%= render "common/footer" %>
+	<%= javascript_include_tag 'datatable', 'data-turbolinks-track' => true %>
 </body>
 </html>
-<%= javascript_include_tag 'datatable', 'data-turbolinks-track' => true %>

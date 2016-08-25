@@ -1,10 +1,10 @@
 <%= form_for @code||Code.new, method: :post, class:"form-horizontal" do |f| %>
-	<%= f.hidden_field :username, value: "1" %>
-	<%= f.hidden_field :problem_id, value:"1001" %>
+	<%= f.hidden_field :student_id, value: "#{current_user.student_id}" %>
+	<%= f.hidden_field :problem_id, value:"#{params[:problem_id]}" %>
 	<div class="form-group">
-		<%= f.label :problem_id, "题目号：#{@problem.problem_id}" %>
+		<%= f.label :problem_id, "题目号：#{params[:problem_id]}" %>
 		<%= f.label :language, "语言" %>
-		<%= f.select :language, ["cplusplus", "c"] %>
+		<%= f.select :language, options_for_select(%w(g c)) %>
 	</div>
 	<div class="form-group">
 		<%= f.text_area :code, id:"editor", class:"form-control"%>

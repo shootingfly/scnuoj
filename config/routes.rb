@@ -20,11 +20,14 @@ Rails.application.routes.draw do
 
   # foreground
   resources :users, only: [:show, :edit, :update]
-  resources :problems, only: [:index, :show]
+  resources :problems, only: :index
   resources :ranks, only: :index
   resources :statuses, only: :index
   resources :codes, only: [:new, :create]
-
+  # get 'problems/:problem_id/judge' => 'codes#new', as: :new_code
+  # post 'problems/:problem_id/judge' => 'codes#create', as: :codes
+  # get 'problems' => 'problems#index', as: :problems
+  get 'problems/:problem_id' => 'problems#show', as: :problem
   get 'login' => 'users#login', as: :login
   post 'create_login_session' => 'users#create_login_session', as: :create_login_session
   delete 'logout' => 'users#logout', as: :logout

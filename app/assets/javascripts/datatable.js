@@ -4,6 +4,8 @@
      serverSide: true,
      ordering : true,
      processing: true,
+     retrieve: true,
+     destroy: true,
      ajax: $('.datatable').data('source'),
      searchDelay: 1000,
             language: {

@@ -9,5 +9,7 @@ class ProblemsController < ApplicationController
 
   def show
   	@problem = Problem.find_by_problem_id(params[:problem_id])
+  	puts "--logger: #{@problem}"
   end
+
 end

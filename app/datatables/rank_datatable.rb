@@ -1,29 +1,34 @@
 class RankDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
-    # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= []
+    @sortable_columns ||= %w(
+      username
+    )
   end
 
   def searchable_columns
-    # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= []
+    @searchable_columns ||= %w(
+      username
+    )
   end
 
   private
 
   def data
-    records.map do |record|
+    records.map do |rank|
       [
-        # comma separated list of the values for each cell of a table row
-        # example: record.attribute,
+        rank.rank,
+        rank.username,
+        rank.classgrade,
+        rank.dormitory,
+        rank.ac,
+        rank.submit
       ]
     end
   end
 
   def get_raw_records
-    # insert query here
+    Rank.all
   end
 
-  # ==== Insert 'presenter'-like methods below if necessary
 end

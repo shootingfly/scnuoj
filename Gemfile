@@ -1,10 +1,10 @@
 source 'https://ruby.taobao.org'
 
+gem 'jquery-turbolinks'
+gem 'nprogress-rails'
 gem 'simple_form'
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'ajax-datatables-rails'
-gem 'ueditor-rails'
-gem 'baidu_ueditor_rails', github: 'doabit/baidu_ueditor_rails'
 gem 'kaminari'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bootstrap_helper'

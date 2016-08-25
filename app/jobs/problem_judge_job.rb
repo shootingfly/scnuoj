@@ -1,49 +1,57 @@
-# require './config/compile.rb'
+# I/O library
 require 'open3'
+# Calculate time in case timeout
 require 'timeout'
 
 class ProblemJudgeJob < ActiveJob::Base
   queue_as :judge
 
+  # Like main function
+  def perform code, time = 1000
+    read_db(code)
+    result = execute_judge(time)
+    write_db(result, code)
+  end
+
   def read_db code
-    logger.info "Go into the read_db step: \n"
-    logger.info "1 . current_directory is #{Dir.pwd}"
     # generate source file
-    system "rm main*"
+    Dir.chdir("./public/users/#{code.student_id}")
     system "touch main.c"
     file = File.open("main.c", "w+")
     file.write(code.code)
     file.close
     # generate standard input and output
-    input_file = File.open("#{ROOT_PATH}/#{INPUT_PATH}/1000.in")
-    output_file = File.open("#{ROOT_PATH}/#{OUTPUT_PATH}/1000.out")
-    @standard_input = input_file.read if input_file
-    @standard_output = output_file.read if output_file
+    problem_id = code.problem_id
+    in_file = File.open("#{INPUT_PATH}/#{problem_id}.in")
+    out_file = File.open("#{OUTPUT_PATH}/#{problem_id}.out")
+    @std_in = in_file.read unless in_file.nil?
+    @std_out = out_file.read unless out_file.nil?
+    in_file.close
+    out_file.close
   end
 
   def execute_judge time
-    logger.info "Go into the execute_judge step: \n"
-    # compile
-    error = ""
+    # Compile
+    @error = ""
     begin
         Timeout::timeout(time) {
-            stdin, stdout, stderr = Open3.popen3("gcc main.c -o main")
-            error = stderr.read || ""
+            $stdin, $stdout, $stderr = Open3.popen3("gcc main.c -o main")
+            @error = $stderr.read || ""
         }
     rescue Timeout::Error
         return CE
     end
-    if not error.empty?
+    unless @error.empty?
         return CE
     end
-    # run
+    # Execute
     # rescue Time Limit Exceeded
     begin
         # rescue Runtime Error
         Timeout::timeout(time) {
             begin
                 $stdin, $stdout, $stderr = Open3.popen3("./main")
-                $stdin.puts(@standard_input)
+                $stdin.puts(@std_in)
             rescue RuntimeError
                 return RE
             end
@@ -52,11 +60,11 @@ class ProblemJudgeJob < ActiveJob::Base
         return TLE
     end
     # compare with standard output
-    error = $stderr.read
+    @error = $stderr.read
     @output = $stdout.read
-    if @output == @standard_output
+    if @output == @std_out
         return AC
-    elsif @output.strip == @standard_output.strip
+    elsif @output.strip == @std_out.strip
         return PE
     else
         return WA
@@ -64,71 +72,36 @@ class ProblemJudgeJob < ActiveJob::Base
   end
 
   def write_db(result, code)
-    status = Status.find_by(run_id: code.id)
+    # Update status
+    status = Status.find_by_run_id(code.id)
     status.result = result
     status.save
-    # status.update(result: "CE")
+    # Update user
+    user = User.find_by_student_id(code.student_id)
+    user_detail = UserDetail.find_by_student_id(code.student_id)
+    case result
+    when AC
+      user.ac += 1
+    when WA
+      user_detail.wa += 1
+    when PE
+      user_detail.pe += 1
+    when TLE
+      user_detail.tle += 1
+    when CE
+      user_detail.ce += 1
+    end
+    user.submit += 1
+    user_detail.save
+    user.save
+    system "rm main*"
   end
 
-  def perform code = nil, time = 1000
-    read_db(code)
-    result = execute_judge(time)
-    write_db(result,code)
-  end
-
-
-  # def perform(code = nil, time = 1000)
-  #   # Do something later
-  #   read_db(code)
-  #   result = execute_judge()
-  #   write_db(result)
-
-
-
-  #   sleep 1
-  #   logger.info "shooting start"
-  #   logger.info "current_directory: #{Dir.pwd}"
-  #   # student_id = User.find_by_username("#{code.username}").student_id
-  #   # workspace = "#{ROOT_PATH}/public/users/#{student_id}"
-  #   workspace = "#{ROOT_PATH}/public/users/fei"
-  #   Dir.chdir(workspace)
-  #   system "rm main.*"
-  #   system "touch main.c"
-  #   f = File.open("main.c", "w+")
-  #   f.write(code.code)
-  #   f.close
-  #   status = Timeout::timeout(time) {
-  #       stdin, stdout, stderr = Open3.popen3("gcc main.c -o main")
-  #       error = stderr.read || ""
-  #       if not error.empty?
-  #           logger.info "problemerro: Compile Error"
-  #           return CE
-  #       end
-  #   }
-  #   output = ""
-  #   logger.info "problemerro: Compile Error" if status == false
-  #   standard_input = File.open("#{ROOT_PATH}/#{INPUT_PATH}/1000.in").read
-  #   status = Timeout::timeout(time) {
-  #       stdin, stdout, stderr = Open3.popen3("./main")
-  #       stdin.puts(standard_input)
-  #       error = stderr.read
-  #       output = stdout.read
-  #   }
-  #   standard_output = File.open("#{ROOT_PATH}/#{OUTPUT_PATH}/1000.out").read
-  #   if output == standard_output
-  #        logger.info "problemerro: AC"
-  #        return AC
-  #   end
-  #   logger.info "problemerro: something"
-  #   logger.info "shooting end"
-  # end
-
-  private
   CE = "Compile Error"
   AC = "Accepted"
   PE = "PE"
   WA = "Wrong Answer"
-  ROOT_PATH = "/home/rocky/Desktop/rails_workspace/scnuoj/scnuoj"
-  INPUT_PATH = "public/uploads/problem/input"
-  OUTPUT_PATH = "public/uploads/problem/output"
+  TLE = "Time Limited Error"
+  INPUT_PATH = "#{Rails.public_path}/uploads/problem/input"
+  OUTPUT_PATH = "#{Rails.public_path}/uploads/problem/output"
 end

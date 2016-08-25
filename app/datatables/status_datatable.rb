@@ -14,6 +14,7 @@ class StatusDatatable < AjaxDatatablesRails::Base
   end
 
   def searchable_columns
+
     @searchable_columns ||= %w(
       Status.run_id 
       Status.username
@@ -26,10 +27,9 @@ class StatusDatatable < AjaxDatatablesRails::Base
     )
   end
 
-  private
-
   def data
     records.map do |record|
+      created_at = record.created_at.strftime("%m/%d %H:%M:%S")
       [
         record.run_id, 
         record.username,
@@ -38,7 +38,7 @@ class StatusDatatable < AjaxDatatablesRails::Base
         record.time_cost, 
         record.space_cost, 
         record.language,
-        record.created_at
+        created_at
       ]
     end
   end

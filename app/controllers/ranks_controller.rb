@@ -1,5 +1,8 @@
 class RanksController < ApplicationController
   def index
-  	@ranks = Rank.all
+  	respond_to do |format|
+  		format.html
+  		format.json {render json: RankDatatable.new(view_context)}
+  	end
   end
 end
