@@ -12,15 +12,12 @@
  */
 @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 // Whatever application styles you have go last
-h4, th, td{
+h3, h4, th, td{
 	text-align: center;
 }
-
-.table{
-	class: "table table-stripped table-bordered table-hover datatable";
+.navbar{
+	border-radius: 0;
 }
-// Bootstrap body padding for fixed navbar
-//body { padding-top: 60px; }
 
 #container{
 	min-height: 400px;

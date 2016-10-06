@@ -2,7 +2,7 @@
 	$(function() {
     $(".datatable").DataTable({
      serverSide: true,
-     ordering : true,
+     ordering : false,
      processing: true,
      retrieve: true,
      destroy: true,

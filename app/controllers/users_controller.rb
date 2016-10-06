@@ -1,15 +1,17 @@
 class UsersController < ApplicationController
+
+  before_action :set_user, only: [:show, :edit, :update]
+
   def show
-    @user = User.find(params[:id])
+    @user_detail = @user.user_detail
+    @page_title = @user.username
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.new(user_params)
-    if @user.update
+    if @user.update(user_params)
       redirect_to user_path
     else
       render :edit
@@ -17,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   def login
+    @page_title = 'Login'
     @user = User.new
   end
 
@@ -28,7 +31,11 @@ class UsersController < ApplicationController
       else
         cookies[:auth_token] = @user.auth_token
       end
-      redirect_to :root
+      @profile = Profile.find_by_user_id(@user.id)
+      cookies[:theme] = @profile.theme
+      cookies[:mode] = @profile.mode
+      cookies[:keymap] = @profile.keymap
+      redirect_to :back
     else
       render :login
     end
@@ -40,6 +47,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
+
   def user_params
     params.require(:user).permit!
   end

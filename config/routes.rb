@@ -35,6 +35,10 @@ Rails.application.routes.draw do
   get 'aboutus' => 'static_pages#aboutus', as: :aboutus
   post 'settheme' => 'static_pages#set_theme', as: :theme
 
+  get 'user/:id/profile' => 'profiles#edit', as: :edit_profile
+
+  # resource :profiles, only:[:update]
+  post 'user/:id/profile' =>'profiles#update', as: :profile
   root 'static_pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.

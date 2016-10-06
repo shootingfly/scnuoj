@@ -21,8 +21,9 @@ class Admin::UsersController < Admin::ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			# @user.create_user_detail
-			redirect_to new_admin_path, notice: 'User was successfully created.' 
+			@user.create_user_detail(user: @user)
+			@user.create_profile({user: @user, theme: 'cosmo', mode: 'ruby', keymap: 'sublime'});
+			redirect_to new_admin_user_path, notice: 'User was successfully created.' 
 		else
 			render :new
 		end

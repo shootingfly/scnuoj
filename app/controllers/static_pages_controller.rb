@@ -2,9 +2,11 @@ class StaticPagesController < ApplicationController
 
   protect_from_forgery
   def home
+  	@page_title = 'Home'
   end
 
   def aboutus
+  	@page_title = 'About Us'
   end
 
   def set_theme

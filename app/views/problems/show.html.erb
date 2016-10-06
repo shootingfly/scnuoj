@@ -1,5 +1,10 @@
-<h4>题目</h4>
-<%= link_to_unless(current_user.nil?, 'submit', controller: "codes", action: "new", problem_id: @problem.problem_id) do %>
-	<%= link_to 'login', login_path %>
-<% end %>
-<%= render file: "/public/uploads/problem/description/#{@problem.problem_id}"%>
+<div class="col-sm-6">
+	<%= render file: "/public/uploads/problem/description/#{@problem.problem_id}"%>
+</div>
+<div class="col-sm-6">
+	<% if current_user %>
+		<%= render template: "codes/new" %>
+	<% else %>
+		<%= render template: "users/login" %>
+	<% end %>
+</div>

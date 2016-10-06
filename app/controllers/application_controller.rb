@@ -13,10 +13,14 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
-	end
+  end
 	
   def current_theme
     return cookies[:theme] || "yeti"
+  end
+
+  def current_mode
+    return cookies[:mode] 
   end
 
   helper_method :current_user, :current_theme

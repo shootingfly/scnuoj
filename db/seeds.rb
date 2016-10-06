@@ -17,6 +17,7 @@ problems.each do |i|
     problem_id: "#{i}", 
     title: "Problem#{i}", 
     grade: "#{grade}",
+    source: "Admin",
     ac: "#{i}", 
     submit: "#{i}"
   )
@@ -27,7 +28,14 @@ end
 
 users = Array(1..100)
 users.each do |i|
-  User.create(student_id: "#{i}", username: "haha#{i}")
+  User.create(    student_id: 1234567,
+    username: 1234567,
+    password_digest: 1234567,
+    classgrade: "1234567",
+    dormitory: "1234567",
+    phone: 1234567,
+    signature: "1234567"
+  )
 end
 # {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
 # {problem_id:'1', title:"sadsa", ac: 1, submit: 10},

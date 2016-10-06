@@ -1,7 +1,6 @@
 class CodesController < ApplicationController
 	# protect_from_forgery :except => :create
 	def new
-		@code = Code.new
 	end
 
 	def create
@@ -17,7 +16,7 @@ class CodesController < ApplicationController
 
 	private
 	def code_params
-		params.require(:code).permit!(:student_id, :problem_id, :code, :language)
+		params.require(:code).permit!
 	end
 
 	def new_status id

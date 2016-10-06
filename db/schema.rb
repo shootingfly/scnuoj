@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160824093316) do
+ActiveRecord::Schema.define(version: 20160928094310) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "codes", force: :cascade do |t|
     t.text     "code"
@@ -53,6 +56,17 @@ ActiveRecord::Schema.define(version: 20160824093316) do
     t.string  "input"
     t.string  "output"
     t.string  "grade"
+    t.string  "source"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "theme"
+    t.string   "mode"
+    t.string   "keymap"
+    t.string   "lacale"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ranks", force: :cascade do |t|
@@ -88,6 +102,8 @@ ActiveRecord::Schema.define(version: 20160824093316) do
     t.integer  "oe",         default: 0,  null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "ac",         default: 0,  null: false
+    t.integer  "submit",     default: 0,  null: false
   end
 
   create_table "users", force: :cascade do |t|

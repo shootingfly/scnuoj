@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SCNUOJ</title>
+	<%= render_page_title %>
 	<% I18n.locale = :en %>
-  <% @theme = current_theme %>
-  <%= stylesheet_link_tag  @theme, media: 'all', 'data-turbolinks-track' => true  %>
+  	<% @theme = current_theme %>
+  	<%= stylesheet_link_tag  @theme, media: 'all', 'data-turbolinks-track' => true  %>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true  %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
+  	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  	<%= csrf_meta_tags %>
   <style type="text/css">
 	div#max{
 		min-height: 470px
@@ -17,12 +17,8 @@
 </head>
 <body>
 	<%= render "common/navbar" %>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-12" id="max">
-				<%= yield %>
-			</div>
-		</div>
+	<div class="container" id="max">
+		<%= yield %>
 	</div>
 	<%= render "common/footer" %>
 	<%= javascript_include_tag 'datatable', 'data-turbolinks-track' => true %>

@@ -1,6 +1,6 @@
 class StatusesController < ApplicationController
   def index
-  	# @statuses = Status.order("run_id DESC").limit(1000)
+  	@page_title = 'Statuses'
   	respond_to do |format|
   		format.html
   		format.json {render json: StatusDatatable.new(view_context)}

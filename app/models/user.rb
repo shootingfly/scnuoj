@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
 	
 	has_one :user_detail, dependent: :destroy
-
+	has_one :profile, dependent: :destroy
+	
 	has_secure_password
 	
 	before_create {
 		generate_token(:auth_token)
 		# generate_diretory
-		system "public/users/#{self.student_id}"
+		system "mkdir public/users/#{self.student_id}"
 		# self.create_user_detail
 	}
 

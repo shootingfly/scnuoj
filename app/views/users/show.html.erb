@@ -1,2 +1,82 @@
-<h1>Oj::Users#show</h1>
-<p>Find me in app/views/oj/users/show.html.erb</p>
+ <body>
+ <h4 class="text-center"><%= @user.username %>的个人主页</h4>
+ <div class="col-md-1"></div>
+ <div class="col-md-5"> 
+<div class="panel panel-info " >
+  <div class="panel-heading text-center">个人资料信息</div>
+  <table class="table table-striped">
+	<tbody>
+	<tr>
+		<th>用户昵称</th>
+		<td><%= @user.username %></td>
+	</tr>
+	<tr>
+		<th>学号</th>
+		<td><%= @user.student_id %></td>
+	</tr>
+	<tr>
+		<th>班级</th>
+		<td><%= @user.classgrade %></td>
+	</tr>
+	<tr>
+		<th>宿舍</th>
+		<td><%= @user.dormitory %></td>
+	</tr>
+	<tr>
+		<th>电话</th>
+		<td><%= @user.phone %></td>
+	</tr>
+	<tr>
+		<th>个性签名</th>
+		<td><%= @user.signature %></td>
+	</tr>
+	</tbody>
+  </table>
+</div>
+</div>
+ <div class="col-md-5">
+<div class="panel panel-info ">
+  <div class="panel-heading text-center">错误记录卡</div>
+  <table class="table table-striped">
+	<tbody>
+	<tr>
+		<th>AC数</th>
+		<td><%= @user_detail.ac %></td>
+	</tr>
+	<tr>
+		<th>提交数</th>
+		<td><%= @user_detail.submit %></td>
+	</tr>
+	<tr>
+		<th>Wrong Answer</th>
+		<td><%= @user_detail.wa %></td>
+	</tr>
+	<tr>
+		<th>Compilation Error</th>
+		<td><%= @user_detail.ce %></td>
+	</tr>
+	<tr>
+		<th>Runtime Error</th>
+		<td><%= @user_detail.re %></td>
+	</tr>
+	<tr>
+		<th>Time Limit Exceeded</th>
+		<td><%= @user_detail.te %></td>
+	</tr>
+	<tr>
+		<th>Memory Limit Exceeded</th>
+		<td><%= @user_detail.me %></td>
+	</tr>
+	<tr>
+		<th>Output Limit Exceeded</th>
+		<td><%= @user_detail.oe %></td>
+	</tr>
+	<tr>
+		<th rowspan="4">Accepted</th>
+		<td><%= @user_detail.ac_record %></td>
+	</tr>
+	</tbody>
+  </table>
+</div>
+</div>
+</body>

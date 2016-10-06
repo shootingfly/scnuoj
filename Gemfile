@@ -1,5 +1,9 @@
 source 'https://ruby.taobao.org'
 
+gem 'pry'
+gem 'pry-nav'
+gem 'pry-stack_explorer' # 如果不查看方法栈，可以省略
+gem 'pg'
 gem 'jquery-turbolinks'
 gem 'nprogress-rails'
 gem 'simple_form'

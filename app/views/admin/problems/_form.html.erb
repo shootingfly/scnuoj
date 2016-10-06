@@ -1,17 +1,13 @@
-<%= simple_form_for([:admin, @problem], :html => {:multipart => true, :class => "form-horizontal"}, :wrap => "horizontal_form") do |f| %>
+<div class="col-sm-5 col-sm-offset-3">
+<%= simple_form_for([:admin, @problem], html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f| %>
   <%= f.error_notification %>
-
-  <div class="form-inputs">
-  <%= f.input :problem_id %>
-  <%= f.input :title %>
-  <%= f.input :description, as: :file %>
+  <%= f.input :problem_id, label: "学号" %>
+  <%= f.input :title, label: "学号" %>
+  <%= f.input :description, as: :file , label: "学号"%>
   <%= f.input :description_cache, as: :hidden %>
-  <%= f.input :input, as: :file %>
-  <%= f.input :output, as: :file %>
+  <%= f.input :input, as: :file , label: "学号"%>
+  <%= f.input :output, as: :file , label: "学号"%>
   <%= f.input :output_cache, as: :hidden %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+  <%= f.button :submit , value: "提交", class: "col-sm-9 col-sm-offset-3 btn"%>
 <% end %>
+  </div>

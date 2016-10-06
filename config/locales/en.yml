@@ -28,6 +28,9 @@ en:
   rank: "Rank"
   login: "Login"
   logout: "Logout"
+  student_id: "Student ID"
+  submit: "Submit"
+  remember_me: "Remember me"
 
 
  
