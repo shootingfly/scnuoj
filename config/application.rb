@@ -31,7 +31,7 @@ module Scnuoj
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.assets.enabled = false
+    config.assets.enabled = true
     config.assets.logger = false
     config.assets.precompile += %w(datatable default cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti)
     # Do not swallow errors in after_commit/after_rollback callbacks.
