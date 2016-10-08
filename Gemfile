@@ -1,4 +1,5 @@
 source 'https://rubygems.org/'
+ruby '2.2.4'
 
 gem 'pry'
 gem 'pry-nav'
@@ -16,6 +17,7 @@ gem 'bootstrap_helper'
 gem 'bootswatch-rails'
 gem 'cancancan', '~>1.10'
 gem 'carrierwave'
+gem 'redis'
 gem 'resque'
 gem 'resque-web', require: 'resque_web'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

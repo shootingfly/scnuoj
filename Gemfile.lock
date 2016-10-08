@@ -258,6 +258,7 @@ DEPENDENCIES
   pry-stack_explorer
   rails (= 4.2.6)
   rails_12factor
+  redis
   resque
   resque-web
   sass-rails (~> 5.0)
