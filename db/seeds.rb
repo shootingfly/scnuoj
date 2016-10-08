@@ -28,9 +28,9 @@ end
 
 users = Array(1..100)
 users.each do |i|
-  User.create(    student_id: 1234567,
-    username: 1234567,
-    password_digest: 1234567,
+  User.create(    student_id: i,
+    username: i,
+    password_digest: i,
     classgrade: "1234567",
     dormitory: "1234567",
     phone: 1234567,
