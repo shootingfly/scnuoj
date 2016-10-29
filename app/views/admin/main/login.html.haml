@@ -1,0 +1,25 @@
+%br
+%br
+%br
+%br
+= form_tag(admin_login_session_path, method: :post, class: "form-horizontal") do |f|
+	.form-group
+		%label.control-label.col-sm-3
+			%i.glyphicon.glyphicon-user
+		.col-sm-4
+			= text_field_tag 'username', nil, class: "form-control"
+	.form-group
+		%label.control-label.col-sm-3
+			%i.glyphicon.glyphicon-lock
+		.col-sm-4
+			= password_field_tag 'password', nil, class: "form-control"
+	.form-group
+		%label.control-label.col-sm-3
+			Captcha
+		.col-sm-4
+			= rucaptcha_input_tag(class: 'form-control')
+		.col-sm-4
+			= rucaptcha_image_tag(alt: 'Captcha')
+	.form-group
+		.col-sm-4.col-sm-offset-3
+			= button_tag t('login'), class: "btn btn-primary btn-block"

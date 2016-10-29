@@ -25,7 +25,7 @@ class Admin::UserDatatable < AjaxDatatablesRails::Base
 
   private
 
-  def_delegators :@view, :link_to, :admin_user_path, :content_tag, :concat
+  def_delegators :@view, :link_to, :admin_user_path, :admin_edit_user_path, :content_tag, :concat
 
   def data
     records.map do |user|
@@ -36,10 +36,12 @@ class Admin::UserDatatable < AjaxDatatablesRails::Base
         user.dormitory,
         user.phone,
         user.signature,
-        content_tag(:div, "id": user.student_id) do
-          concat(link_to('', admin_user_path(user), class: "glyphicon glyphicon-edit"))
+        content_tag(:div, "id": user.id) do
+          concat(link_to('查看', admin_user_path(user.student_id), class: "btn btn-xs btn-info"))
+          concat(' ')
+          concat(link_to('编辑' , admin_edit_user_path(user.student_id), class: "btn btn-xs btn-warning")) 
           concat(" ")
-          concat(link_to('', admin_user_path(user), method: :delete, class: "glyphicon glyphicon-trash"))
+          concat(link_to('删除', admin_user_path(user.student_id), method: :delete, remote: true, class: "btn btn-danger btn-xs"))
         end
       ]
     end
@@ -49,5 +51,4 @@ class Admin::UserDatatable < AjaxDatatablesRails::Base
     User.all
   end
 
-  # ==== Insert 'presenter'-like methods below if necessary
 end

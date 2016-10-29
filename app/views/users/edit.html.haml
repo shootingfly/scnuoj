@@ -1,0 +1,11 @@
+%h4= t('edit_user')
+%div
+  = simple_form_for(@user, html: {class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
+    = f.input :student_id, label: t('student_id')
+    = f.input :username, label: t('username')
+    = f.input :password, label: t('password')
+    = f.input :classgrade, label: t('classgrade')
+    = f.input :dormitory, label: t('dormitory')
+    = f.input :phone, label: t('phone')
+    = f.input :signature, label: t('signature')
+    = f.button :submit, value: t('submit')

@@ -16,7 +16,7 @@ class Admin::ManagerDatatable < AjaxDatatablesRails::Base
 
   private
 
-  def_delegators :@view, :link_to, :content_tag, :concat, :admin_manager_path, :edit_admin_manager_path
+  def_delegators :@view, :link_to, :content_tag, :concat, :admin_manager_path, :admin_edit_manager_path
 
   def data
     records.map do |manager|
@@ -27,7 +27,7 @@ class Admin::ManagerDatatable < AjaxDatatablesRails::Base
         content_tag(:div) do
           concat(link_to("show", admin_manager_path(manager), class: "btn btn-xs btn-info"))
           concat(' ')
-          concat(link_to('edit', edit_admin_manager_path(manager), class: "btn btn-xs btn-warning"))
+          concat(link_to('edit', admin_edit_manager_path(manager), class: "btn btn-xs btn-warning"))
           concat(' ')
           concat(link_to('delete', admin_manager_path(manager), method: :delete, remote: true, confirm: "Are you Sure", class: "btn btn-xs btn-danger"))
         end

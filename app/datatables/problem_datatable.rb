@@ -19,7 +19,6 @@ class ProblemDatatable < AjaxDatatablesRails::Base
   def_delegators :@view, :link_to, :problem_path, :current_user, :image_tag
   
   def data
-  	binding.pry
   	ac_record =  current_user.user_detail.ac_record if current_user
 	records.map do |problem|
 	  is_ac = 

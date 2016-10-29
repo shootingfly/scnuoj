@@ -1,0 +1,11 @@
+.col-sm-5.col-sm-offset-3
+  = simple_form_for([:admin, @problem], html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
+    = f.error_notification
+    = f.input :problem_id, label: "学号"
+    = f.input :title, label: "学号"
+    = f.input :description, as: :file , label: "学号"
+    = f.input :description_cache, as: :hidden
+    = f.input :input, as: :file , label: "学号"
+    = f.input :output, as: :file , label: "学号"
+    = f.input :output_cache, as: :hidden
+    = f.button :submit , value: "提交", class: "col-sm-9 col-sm-offset-3 btn"

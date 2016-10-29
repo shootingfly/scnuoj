@@ -1,0 +1,59 @@
+%h4.text-center
+	= @user.username
+	的个人主页
+.col-md-1
+.col-md-5
+	.panel.panel-info
+		.panel-heading.text-center 个人资料信息
+		%table.table.table-striped
+			%tbody
+				%tr
+					%th 用户昵称
+					%td= @user.username
+				%tr
+					%th 学号
+					%td= @user.student_id
+				%tr
+					%th 班级
+					%td= @user.classgrade
+				%tr
+					%th 宿舍
+					%td= @user.dormitory
+				%tr
+					%th 电话
+					%td= @user.phone
+				%tr
+					%th 个性签名
+					%td= @user.signature
+.col-md-5
+	.panel.panel-info
+		.panel-heading.text-center 错误记录卡
+		%table.table.table-striped
+			%tbody
+				%tr
+					%th AC数
+					%td= @user_detail.ac
+				%tr
+					%th 提交数
+					%td= @user_detail.submit
+				%tr
+					%th Wrong Answer
+					%td= @user_detail.wa
+				%tr
+					%th Compilation Error
+					%td= @user_detail.ce
+				%tr
+					%th Runtime Error
+					%td= @user_detail.re
+				%tr
+					%th Time Limit Exceeded
+					%td= @user_detail.te
+				%tr
+					%th Memory Limit Exceeded
+					%td= @user_detail.me
+				%tr
+					%th Output Limit Exceeded
+					%td= @user_detail.oe
+				%tr
+					%th{:rowspan => "4"} Accepted
+					%td= @user_detail.ac_record

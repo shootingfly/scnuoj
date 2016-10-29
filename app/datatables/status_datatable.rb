@@ -17,28 +17,23 @@ class StatusDatatable < AjaxDatatablesRails::Base
     )
   end
 
-  def_delegators :@view, :current_user
+  def_delegators :@view, :current_user, :link_to, :user_path
 
   def data
-    records.map do |record|
-      is_yours = 
-        if current_user.username == record.username
-            if record.result == "Accepted"
-              "true"
-            else
-              "sorry"
-             end
-        else
-            " "
-        end
-      created_at = record.created_at.strftime("%m/%d %H:%M:%S")
+    records.map do |status|
+      created_at = status.created_at.strftime("%m-%d %H:%M:%S")
+      
+         if status.result == "Accepted"
+          status.result ="<label class='text-success'>#{status.result }</label>" 
+         elsif status.result == "Compile Error"
+          status.result ="<label class='text-danger'>#{status.result }</label>" 
+         end
       [
-        is_yours,
-        record.run_id, 
-        record.username,
-        record.problem_id,
-        record.result,
-        record.language,
+        status.run_id, 
+        link_to(status.username, user_path(status.student_id) ),
+        status.problem_id,
+        status.result,
+        status.language,
         created_at
       ]
     end

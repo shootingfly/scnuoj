@@ -1,4 +1,0 @@
-<h4>题目</h4>
-<%= link_to_unless(current_user.nil?, 'submit', controller: "codes", action: "new", problem_id: @problem.problem_id) do %>
-	<%= link_to 'login', login_path %>
-<% end %>

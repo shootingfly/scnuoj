@@ -1,51 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-problems = Array(1000..1100)
-problems.each do |i|
-  if i.odd?
-    grade = "A"
-  else
-    grade = "S"
-  end
-  Problem.create(
-    problem_id: "#{i}", 
-    title: "Problem#{i}", 
-    grade: "#{grade}",
-    source: "Admin",
-    ac: "#{i}", 
-    submit: "#{i}"
-  )
+ # Remember close validate on user before db:seed 
+# rake db:seed  or rake db:setup
+10.times do|index|
+    Manager.create(
+        username: "test#{index}",
+        password: "123456",
+        role: "Admin",
+        remark: Faker::Internet.safe_email
+    )
+    username = Faker::Internet.user_name
+    User.create(
+        student_id: Faker::Number.number(11),
+        username: username,
+        password_digest: "123456",
+        classgrade: "1#{index % 6}0#{index % 6}",
+        dormitory: "West 2 #{Faker::Number.number(3)}",
+        phone: Faker::PhoneNumber.phone_number,
+        signature: "Hi , I am #{username}"
+    )
+    Problem.create(
+        problem_id: Faker::Number.between(1000, 2000),
+        title: Faker::Book.title,
+        ac: 0,
+        submit: 0,
+        grade: index.odd? ? 'S' : 'A',
+        source: index.odd? ? 'ZOJ' : 'POJ' 
+        )
 end
-
-
-
-
-users = Array(1..100)
-users.each do |i|
-  User.create(    student_id: i,
-    username: i,
-    password_digest: i,
-    classgrade: "1234567",
-    dormitory: "1234567",
-    phone: 1234567,
-    signature: "1234567"
-  )
-end
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10},
-# {problem_id:'1', title:"sadsa", ac: 1, submit: 10}]
-# )
+ 

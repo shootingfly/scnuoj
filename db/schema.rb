@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928094310) do
+ActiveRecord::Schema.define(version: 20161027120858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160928094310) do
     t.string "password"
     t.string "role"
     t.string "remark"
+    t.string "auth_token"
   end
 
   create_table "problems", force: :cascade do |t|
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160928094310) do
     t.string   "language"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "student_id"
   end
 
   create_table "user_details", force: :cascade do |t|

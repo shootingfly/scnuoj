@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [ :edit, :update]
 
   def show
+    @user = User.find_by_student_id(params[:student_id])
     @user_detail = @user.user_detail
     @page_title = @user.username
   end
@@ -25,6 +26,7 @@ class UsersController < ApplicationController
 
   def create_login_session
     @user = User.find_by_student_id(params[:student_id])
+    puts "haha1", verify_rucaptcha?(@user)
     if @user && @user.authenticate(params[:password])
       if params[:remember_me]
         cookies.permanent[:auth_token] = @user.auth_token
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find(params[:id])
+    @user =  User.find(params[:id])
   end
 
   def user_params

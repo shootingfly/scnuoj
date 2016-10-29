@@ -4,10 +4,12 @@ require 'open3'
 require 'timeout'
 
 class ProblemJudgeJob < ActiveJob::Base
+
     queue_as :judge
 
     # Like main function
-    def perform code, time = 1000
+    def perform code_id, time = 1
+        code = Code.find(code_id)
         read_db(code)
         result = execute_judge(time)
         write_db(result, code)
@@ -15,7 +17,7 @@ class ProblemJudgeJob < ActiveJob::Base
 
     def read_db code
         # generate source file
-        Dir.chdir("public/users/#{code.student_id}")
+        Dir.chdir("#{Rails.public_path}/users/#{code.student_id}")
         system "touch main.c"
         file = File.open("main.c", "w+")
         file.write(code.code)
@@ -34,37 +36,52 @@ class ProblemJudgeJob < ActiveJob::Base
         # Compile
         @error = ""
         begin
-                Timeout::timeout(time) {
+                Timeout::timeout(1) {
                         $stdin, $stdout, $stderr = Open3.popen3("gcc main.c -o main")
                         @error = $stderr.read || ""
                 }
         rescue Timeout::Error
+                logger.debug("hahaha1")
                 return CE
         end
         unless @error.empty?
+                 logger.debug("hahaha2")
                 return CE
         end
-        # Execute
-        # rescue Time Limit Exceeded
-        begin
-                # rescue Runtime Error
+        # begin
+        #         # rescue Runtime Error
+        #         before = Time.now
+        #         later = 0
+        #         Timeout::timeout(time) {
+        #                 begin
+        #                         $stdin, $stdout, $stderr = Open3.popen3("./main")
+        #                         $stdin.puts(@std_in)
+        #                 rescue RuntimeError
+        #                         return RE
+        #                 end
+        #                 later = Time.now
+        #         }
+        # rescue Timeout::Error
+        #         return TLE  
+        # end
+        # # Execute
+        # # rescue Time Limit Exceeded
+        #         # rescue Runtime Error
+                set_count
                 before = Time.now
                 later = 0
-                Timeout::timeout(time) {
-                        begin
-                                $stdin, $stdout, $stderr = Open3.popen3("./main")
-                                $stdin.puts(@std_in)
-                        rescue RuntimeError
-                                return RE
-                        end
-                        later = Time.now
-                }
+                begin
+                        $stdin, $stdout, $stderr, wait_thread = Open3.popen3("timeout  1 ./main ")
+                        $stdin.puts(@std_in)
+                        exit_status = wait_thread.value.exitstatus
+                        logger.debug "count: #{@@count} : #{exit_status}"
+                        return TLE if exit_status ==  124
+                 rescue RuntimeError
+                        return RE
+                 end
+                later = Time.now
                 time_cost = later - before
-                logger.debug("timecost: #{time_cost}")
-        rescue Timeout::Error
-                return TLE  
-        end
-        # compare with standard output
+        # # compare with standard output
         @error = $stderr.read
         @output = $stdout.read
         if @output == @std_out
@@ -78,12 +95,19 @@ class ProblemJudgeJob < ActiveJob::Base
 
     def write_db(result, code)
         # Update status
-        status = Status.find_by_run_id(code.id)
-        status.result = result
-        status.save
         # Update user
         user = User.find_by_student_id(code.student_id)
-        user_detail = UserDetail.find_by_user_id(user.id)
+        @status = Status.new
+        @status.run_id = code.id
+        @status.problem_id = code.problem_id
+        @status.result = result
+        @status.time_cost = 0
+        @status.space_cost = 0
+        @status.language = code.language
+        @status.student_id = code.student_id
+        @status.username = user.username
+        @status.save
+        user_detail = user.user_detail
         case result
         when AC
             user_detail.ac += 1
@@ -99,7 +123,6 @@ class ProblemJudgeJob < ActiveJob::Base
         user_detail.submit += 1
         user_detail.save
         system "rm main*"  
-
     end
 
     CE = "Compile Error"
@@ -109,4 +132,10 @@ class ProblemJudgeJob < ActiveJob::Base
     TLE = "Time Limited Error"
     INPUT_PATH = "#{Rails.public_path}/uploads/problem/input"
     OUTPUT_PATH = "#{Rails.public_path}/uploads/problem/output"
+
+    private
+    @@count = 1
+    def set_count
+        @@count += 1
+    end
 end

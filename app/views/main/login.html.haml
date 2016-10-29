@@ -1,0 +1,20 @@
+%h4= t('login')
+= form_tag(login_session_path, method: :post, class: "form-horizontal") do |f|
+	.form-group
+		%label.control-label.col-sm-4
+			%i.glyphicon.glyphicon-user
+		.col-sm-4
+			= text_field_tag 'student_id', nil, class: "form-control"
+	.form-group
+		%label.control-label.col-sm-4
+			%i.glyphicon.glyphicon-lock
+		.col-sm-4
+			= password_field_tag 'password', nil, class: "form-control"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= button_tag t('login'), class: "btn btn-primary btn-block"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= check_box_tag 'remember_me', nil
+			= label_tag :remember_me, t('remember_me')
+			= link_to t('forget_password'), '#', class: "pull-right"

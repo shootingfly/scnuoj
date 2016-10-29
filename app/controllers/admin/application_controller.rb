@@ -1,13 +1,27 @@
 class Admin::ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
 
-  layout "admin"
+    protect_from_forgery with: :exception
 
-  def current_theme
-    @theme = cookies[:theme] || "yeti"
-  end
-  
-  helper_method :current_theme
+    layout "admin"
+
+    # before_action :require_login
+
+    private
+
+    def require_login
+        unless cookies[:authenticate]
+            flash.notice = "Please login first"
+            redirect_to admin_root_path
+        end
+    end
+
+    def current_theme
+        @theme = cookies[:theme] || "yeti"
+    end
+
+    def current_user
+        @current_user ||= Manager.find_by_auth_token(cookies[:auth_token]) if cookies[:auth_token]
+    end
+
+    helper_method :current_theme, :current_user
 end
