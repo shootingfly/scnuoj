@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
 
 	def edit
 		@page_title = 'Profile'
-		@profile = Profile.find_by(user_id: current_user.user_id)
+		@profile = Profile.find_by(user_id: current_user.id)
 		render template: "users/profile"
 	end
 

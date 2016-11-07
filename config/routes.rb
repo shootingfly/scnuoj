@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     # Admin::Users
     get 'users' => 'users#index', as: :users
     post 'users' => 'users#create'
-    get 'users/new' => 'user#new', as: :new_user
+    get 'users/new' => 'users#new', as: :new_user
     get 'users/:student_id/edit' => 'users#edit', as: :edit_user
     get 'users/:student_id' => 'users#show', as: :user
     patch 'users/:student_id' => 'users#update'
@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get 'rank' => 'ranks#index', as: :ranks
   get 'status' => 'statuses#index', as: :statuses
   get 'users/:student_id' => 'users#show', as: :user
+  get 'info' => 'users#edit', as: :edit_user
   get 'profile' => 'profiles#edit', as: :edit_profile
   post 'profile' => 'profiles#update', as: :profile
   put 'set_theme' => 'profiles#update_theme'

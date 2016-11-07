@@ -1,141 +1,170 @@
-# I/O library
 require 'open3'
-# Calculate time in case timeout
-require 'timeout'
+require 'fileutils'
 
 class ProblemJudgeJob < ActiveJob::Base
 
     queue_as :judge
 
-    # Like main function
-    def perform code_id, time = 1
-        code = Code.find(code_id)
-        read_db(code)
-        result = execute_judge(time)
-        write_db(result, code)
+    def perform
+        before_judge
+        @result = execute_judge
+        after_judge
     end
 
-    def read_db code
-        # generate source file
-        Dir.chdir("#{Rails.public_path}/users/#{code.student_id}")
-        system "touch main.c"
-        file = File.open("main.c", "w+")
-        file.write(code.code)
-        file.close
-        # generate standard input and output
-        problem_id = code.problem_id
-        in_file = File.open("#{INPUT_PATH}/#{problem_id}.in")
-        out_file = File.open("#{OUTPUT_PATH}/#{problem_id}.out")
-        @std_in = in_file.read unless in_file.nil?
-        @std_out = out_file.read unless out_file.nil?
+    def initialize(code)
+      @lang = code.language
+      @time = 1
+      @space = 32768 
+      @code = code
+      @problem_id = code.problem_id
+      @student_id = code.student_id
+      @result = {}
+      @build_cmd = BUILD_CMD[code.language]
+      @run_cmd = EXE_CMD[code.language]
+      @input = ""
+      @output = ""
+      @user_output = ""
+    end
+
+    def execute_judge
+        compile_result = system (@build_cmd)
+        if compile_result == false
+             return CE
+        end
+        before_time = Time.now
+        Open3.popen3("#{@run_cmd}", :rlimit_cpu => @time, :rlimit_rss => @space * 1024) { |stdin,stdout,stderr,wait_thread|
+            # File.open("#{Rails.public_path}/memory.txt", "w+") do |f|
+            #     f.write (`cat /proc/#{wait_thread.pid}/status | grep VmPeak`)[/\d+/]
+            # end
+            cur_space_1 = (`cat /proc/#{wait_thread.pid}/status | grep VmPeak`)[/\d+/].to_i
+            stdin.puts(@input) rescue Errno::EPIPE
+            cur_space_2 = (`cat /proc/#{wait_thread.pid}/status | grep VmPeak`)[/\d+/].to_i
+            cur_space= 0 || ((cur_space_1 > cur_space_2) ? cur_space_1 : cur_space_2)
+            puts "#{Time.now} cur_space= #{cur_space_1}, #{cur_space_2}"
+            puts "wait_thread.value.stopsig : #{wait_thread.value.stopsig}"
+            if cur_space > @space
+                return ME
+            elsif wait_thread.value.signaled?
+                return TE
+            elsif stderr.read.size > 0
+                return RE
+            else
+                @space = cur_space
+                @user_output = stdout.read
+            end
+        }
+        @time = (Time.now - before_time) * 1000
+        File.open("#{Rails.public_path}/time.txt", "w+") do |f|
+            f.write(@time)
+        end
+        if @user_output == @output
+            return AC
+        elsif @user_output.strip == @output.strip
+            return PE
+        elsif @user_output.include?(@output)
+            return OE
+        else
+            return WA
+        end
+    end
+
+    def before_judge
+        FileUtils.cd("#{Rails.public_path}/users/#{@student_id}")
+        FileUtils.touch("#{CODE_FILE[@lang]}")
+        code_file = File.open("#{CODE_FILE[@lang]}", "w")
+        code_file.write(@code.code)
+        code_file.close
+        in_file = File.open("#{INPUT_PATH}/#{@problem_id}.in")
+        out_file = File.open("#{OUTPUT_PATH}/#{@problem_id}.out")
+        @input = in_file.read
+        @output = out_file.read
         in_file.close
         out_file.close
-    end
-
-    def execute_judge time
-        # Compile
-        @error = ""
-        begin
-                Timeout::timeout(1) {
-                        $stdin, $stdout, $stderr = Open3.popen3("gcc main.c -o main")
-                        @error = $stderr.read || ""
-                }
-        rescue Timeout::Error
-                logger.debug("hahaha1")
-                return CE
-        end
-        unless @error.empty?
-                 logger.debug("hahaha2")
-                return CE
-        end
-        # begin
-        #         # rescue Runtime Error
-        #         before = Time.now
-        #         later = 0
-        #         Timeout::timeout(time) {
-        #                 begin
-        #                         $stdin, $stdout, $stderr = Open3.popen3("./main")
-        #                         $stdin.puts(@std_in)
-        #                 rescue RuntimeError
-        #                         return RE
-        #                 end
-        #                 later = Time.now
-        #         }
-        # rescue Timeout::Error
-        #         return TLE  
-        # end
-        # # Execute
-        # # rescue Time Limit Exceeded
-        #         # rescue Runtime Error
-                set_count
-                before = Time.now
-                later = 0
-                begin
-                        $stdin, $stdout, $stderr, wait_thread = Open3.popen3("timeout  1 ./main ")
-                        $stdin.puts(@std_in)
-                        exit_status = wait_thread.value.exitstatus
-                        logger.debug "count: #{@@count} : #{exit_status}"
-                        return TLE if exit_status ==  124
-                 rescue RuntimeError
-                        return RE
-                 end
-                later = Time.now
-                time_cost = later - before
-        # # compare with standard output
-        @error = $stderr.read
-        @output = $stdout.read
-        if @output == @std_out
-                return AC
-        elsif @output.strip == @std_out.strip
-                return PE
-        else
-                return WA
+        if SLOW_LANGUAGES.include?(@lang)
+            @time *= 2
+            @memory *= 2
         end
     end
 
-    def write_db(result, code)
-        # Update status
-        # Update user
-        user = User.find_by_student_id(code.student_id)
-        @status = Status.new
-        @status.run_id = code.id
-        @status.problem_id = code.problem_id
-        @status.result = result
-        @status.time_cost = 0
-        @status.space_cost = 0
-        @status.language = code.language
-        @status.student_id = code.student_id
-        @status.username = user.username
-        @status.save
+    def after_judge
+        user = User.find_by(student_id: @student_id)
+        Status.create({
+            run_id: @code.id,
+            problem_id: @problem_id,
+            result: @result,
+            language: @lang,
+            time_cost: @time,
+            space_cost: @space,
+            student_id: @student_id,
+            username: user.username
+        })
         user_detail = user.user_detail
-        case result
+        user_detail.submit += 1
+        case @result
         when AC
             user_detail.ac += 1
+            unless user_detail.ac_record.include?("#{@problem_id}")
+                user_detail.ac_record << "  #{@problem_id}"
+            end
         when WA
             user_detail.wa += 1
         when PE
             user_detail.pe += 1
-        when TLE
+        when RE
+            user_detail.re += 1
+        when ME
+            user_detail.me += 1
+        when TE
             user_detail.te += 1
+        when OE
+            user_detail.oe += 1
         when CE
             user_detail.ce += 1
         end
-        user_detail.submit += 1
         user_detail.save
-        system "rm main*"  
+        FileUtils.rm Dir.glob('*ain*')
     end
+    
+    private
+
+    CODE_FILE = {
+        "C" => "main.c",
+        "C++" => "main.cpp",
+        "Ruby" => "main.rb",
+        "Java" => "Main.java",
+        "Perl" => "main.pl",
+        "Python" => "main.py"
+    }
+
+    SLOW_LANGUAGES = %w(Ruby Perl Java Python)
+
+    BUILD_CMD = {
+        "C" => "gcc main.c -o main",
+        "C++" => "g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main",
+        "Ruby"  => "ruby -c main.rb",
+        "Java" =>"javac Main.java",
+        "Perl" =>"perl -c main.pl",
+        "Python" => 'python2 -m py_compile main.py',
+    }
+
+    EXE_CMD = {
+        "C" => "./main",
+        "C++" => "./main",
+        "Ruby" => "ruby main.rb",
+        "Java" => "java Main",
+        "Perl" => "perl main.pl",
+        "Python"=> "python2 main.pyc"
+    }
 
     CE = "Compile Error"
+    RE = "Runtime Error"
+    TE = "Time Limit Exceeded"
+    ME = "Memory Limit Exceeded"
     AC = "Accepted"
-    PE = "PE"
+    PE = "Presentation Error"
+    OE = "Output Limit Exceeded"
     WA = "Wrong Answer"
-    TLE = "Time Limited Error"
+
     INPUT_PATH = "#{Rails.public_path}/uploads/problem/input"
     OUTPUT_PATH = "#{Rails.public_path}/uploads/problem/output"
-
-    private
-    @@count = 1
-    def set_count
-        @@count += 1
-    end
 end

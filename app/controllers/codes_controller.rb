@@ -6,7 +6,7 @@ class CodesController < ApplicationController
 	def create
 		@code = Code.new(code_params)
 		if @code.save
-			ProblemJudgeJob.perform_now(@code.id)
+			ProblemJudgeJob.perform_now(@code)
 			redirect_to statuses_path
 		else
 			render :new

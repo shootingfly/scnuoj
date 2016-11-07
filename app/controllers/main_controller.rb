@@ -17,10 +17,11 @@ class MainController < ApplicationController
             else
                 cookies[:auth_token] = @user.auth_token
             end
-            read_profile @user.user_id
+            read_profile @user.id
+            redirect_to :back
         else
             flash.notice = "Password"
-            render 'login'
+            render :login
         end
     end
 
@@ -32,7 +33,7 @@ class MainController < ApplicationController
     private
 
     def read_profile user_id
-        profile = Profile.find_by(user_id: user.id)
+        profile = Profile.find_by(user_id: user_id)
         cookies[:mode] = profile.mode
         cookies[:theme] = profile.theme
         cookies[:keymap] = profile.keymap

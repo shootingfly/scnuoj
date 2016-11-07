@@ -6,9 +6,12 @@ class User < ActiveRecord::Base
     has_secure_password
 
     before_create {
+        generate_token(:auth_token)
+    }
+    
+    after_create {
         UserDetail.create(user_id: self.id)
         Profile.create({user_id: self.id, theme: 'cosmo', mode: 'ruby', keymap: 'sublime'})
-        generate_token(:auth_token)
         system "mkdir public/users/#{self.student_id}"
     }
 

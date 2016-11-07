@@ -24,7 +24,6 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 	  is_ac = 
 	  	if ac_record && ac_record.include?(problem.problem_id)
 	  		image_tag("Check_mark.png", size: "16")
-	  		# "<i class='glyphicon glyphicon-ok text-success'></i>"
 	  	else
 	  		" "
 	  	end

@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [ :edit, :update]
-
   def show
     @user = User.find_by_student_id(params[:student_id])
     @user_detail = @user.user_detail
@@ -9,9 +7,11 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user =  current_user
   end
 
   def update
+    @user = current_user
     if @user.update(user_params)
       redirect_to user_path
     else
@@ -19,40 +19,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def login
-    @page_title = 'Login'
-    @user = User.new
-  end
-
-  def create_login_session
-    @user = User.find_by_student_id(params[:student_id])
-    puts "haha1", verify_rucaptcha?(@user)
-    if @user && @user.authenticate(params[:password])
-      if params[:remember_me]
-        cookies.permanent[:auth_token] = @user.auth_token
-      else
-        cookies[:auth_token] = @user.auth_token
-      end
-      @profile = Profile.find_by_user_id(@user.id)
-      cookies[:theme] = @profile.theme
-      cookies[:mode] = @profile.mode
-      cookies[:keymap] = @profile.keymap
-      redirect_to :back
-    else
-      render :login
-    end
-  end
-
-  def logout
-    cookies.delete(:auth_token)  
-    redirect_to :back
-  end
-
   private
-
-  def set_user
-    @user =  User.find(params[:id])
-  end
 
   def user_params
     params.require(:user).permit!
