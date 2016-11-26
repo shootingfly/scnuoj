@@ -1,7 +1,1 @@
-.col-sm-6
-  = render file: "/public/uploads/problem/description/#{@problem.problem_id}"
-.col-sm-6
-  - if current_user
-    = render template: "codes/new"
-  - else
-    = render template: "users/login"
+/ = render partial: 'show', layout: 'problem'

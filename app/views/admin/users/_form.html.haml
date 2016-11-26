@@ -1,20 +1,9 @@
-.col-sm-offset-3
-	= form_for([:admin, @user], class: "form-horiziontal") do |f|
-		.form-group
-			%label.col-sm-2.control-label student_id
-			.col-sm-10
-				= f.text_field :student_id, class: "form-control"
-		.form-group
-			= f.text_field :username
-		.form-group
-			=f.password_field :password
-		.form-group
-			=f.text_field :classgrade
-		.form-group
-			=f.text_field :dormitory
-		.form-group
-			=f.phone_field :phone
-		.form-group
-			=f.text_area :signature
-		.form-group
-			=f.submit
+.col-sm-5.col-sm-offset-3
+	= simple_form_for([:admin, @user], html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
+		= f.input :student_id, label: "学号"
+		= f.input :username, label: "用户昵称"
+		= f.input :classgrade, label: "班级"
+		= f.input :dormitory, label: "宿舍"
+		= f.input :phone, label: "电话"
+		= f.input :signature, label: "个性签名"
+		= f.button :submit, value: "提交", class: "col-sm-4 col-sm-offset-4 btn-primary"

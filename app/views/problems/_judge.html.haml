@@ -1,0 +1,36 @@
+%script{:src => "/assets/codemirror/lib/codemirror.js"}
+/ = javascript_include_tag "/assets/codemirror/mode/#{cookies[:mode]}/#{cookies[:mode]}.js"
+%script{:src => "/assets/codemirror/mode/#{current_mode}/#{current_mode}.js"}
+%script{:src => "/assets/codemirror/keymap/#{current_keymap}.js"}
+%script{:src => "/assets/codemirror/addon/display/fullscreen.js"}
+%script{:src => "/assets/codemirror/addon/edit/matchbrackets.js"}
+%script{:src => "/assets/codemirror/addon/selection/active-line.js"}
+%link{:href => "/assets/codemirror/lib/codemirror.css", :media => "all", :rel => "stylesheet"}
+%link{:href => "/assets/codemirror/addon/display/fullscreen.css", :media => "all", :rel => "stylesheet"}
+= form_for(@code, url: judge_problem_path) do |f|
+	= f.hidden_field :student_id, value: current_user.student_id
+	= f.hidden_field :problem_id, value:  @problem.problem_id
+	.form-group
+		= f.label :problem_id, "题目号：#{params[:problem_id]}"
+		= f.label :language, "语言"
+		= f.select :language, options_for_select(%w(C C++ Ruby Python PHP Java Go javascript)), onchange: "theme()"
+	.form-group
+		= f.text_area(:code, rows: 100, id:"code")
+	.form-group
+		= f.submit value:"提交", class:"btn btn-block btn-primary"
+:javascript
+	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+			lineNumbers: true,
+			styleActiveLine: true,
+			matchBrackets: true,
+		extraKeys:  {
+			"F11": function(cm) {
+				cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+			},
+			"Esc": function(cm) {
+				if(cm.getOption("fullScreen")) {
+					cm.setOption("fullScreen", false);
+				}
+			}
+		}
+		});

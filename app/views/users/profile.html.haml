@@ -1,19 +1,18 @@
 .col-sm-6.col-sm-offset-3
-  = form_tag(@profile, method: :post, class: "form-horizontal")  do
-    = hidden_field_tag 'user_id', @profile.user_id
+  = form_for(@profile, url: profile_path, method: :post, class: "form-horizontal")  do
+    = hidden_field_tag :user_id, @profile.user_id
     .form-group
-      = @profile.user_id
       %label.control-label.col-sm-3 Theme
       .col-sm-6
         = select_tag :theme, options_for_select(%w(default cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti), current_theme), class: "form-control"
     .form-group
       %label.control-label.col-sm-3 Mode
       .col-sm-6
-        = select_tag 'mode', options_for_select(%w(c ruby java python), @profile.mode), class: "form-control"
+        = select_tag :mode, options_for_select(%w(c ruby java python), @profile.mode), class: "form-control"
     .form-group
       %label.control-label.col-sm-3 Keymap
       .col-sm-6
-        = select_tag 'keymap', options_for_select(%w(sublime vim emac), @profile.keymap), class: "form-control"
+        = select_tag :keymap, options_for_select(%w(sublime vim emac), @profile.keymap), class: "form-control"
     .form-group
       .col-sm-6.col-sm-offset-3
         = submit_tag 'Submit', class: "btn btn-primary form-control"

@@ -1,0 +1,25 @@
+div#max {
+	min-heght: 470px;
+}
+.notice {
+	position: absolute;
+	background: teal;
+	bottom: 20px;
+	right: 20px;
+	padding: 20px;
+}
+h4 {
+	text-align: center;
+}
+/*.notice {
+	  position: absolute;
+	  z-index: 1000;
+	  bottom: 20px;
+	  right: 20px;
+	  background: teal;
+	  color: white;
+	  padding: 20px;
+	  -webkit-box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+	  -moz-box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+	  box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+}*/

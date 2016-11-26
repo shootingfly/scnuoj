@@ -1,0 +1,4 @@
+main.c:1:1: error: unknown type name ‘puts’
+ puts Hello
+ ^
+main.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input

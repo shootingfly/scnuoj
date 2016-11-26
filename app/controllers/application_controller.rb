@@ -9,12 +9,20 @@ class ApplicationController < ActionController::Base
   end
 	
   def current_theme
-    return cookies[:theme] || "yeti"
+    cookies[:theme] || "yeti"
   end
 
   def current_mode
-    return cookies[:mode] 
+    cookies[:mode] || "ruby"
   end
 
-  helper_method :current_user, :current_theme
+  def current_keymap
+    cookies[:keymap] || "vim" 
+  end
+
+  def current_locale
+    cookies[:locale] || 'en' 
+  end
+
+  helper_method :current_user, :current_theme, :current_locale, :current_mode, :current_keymap
 end

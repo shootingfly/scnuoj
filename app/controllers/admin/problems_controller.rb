@@ -9,6 +9,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     def show
+        @comments = @problem.comments
     end
 
     def new
@@ -23,9 +24,8 @@ class Admin::ProblemsController < Admin::ApplicationController
         @problem.ac = 0
         @problem.submit = 0
         if @problem.save
-            problem_title = @problem.title
-            flash.notice = "Problem #{problem_title} was created successfully."
-            redirect_to admin_new_problem_path
+            flash[:notice] = "Problem #{@problem.title} was created successfully."
+            redirect_to new_admin_problem_path
         else
             render :new
         end
@@ -33,7 +33,7 @@ class Admin::ProblemsController < Admin::ApplicationController
 
     def update
         if @problem.update(problem_params)
-            flash.notice = "problem #{@problem.problem_id} was successfully updated."
+            flash[:notice] = "problem #{@problem.problem_id} was successfully updated."
             redirect_to admin_problem_path(@problem)
         else
             render :edit
@@ -49,11 +49,13 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     private
+    
     def set_problem
-        @problem = Problem.find_by(problem_id: params[:problem_id])
+        @problem = Problem.find_by(problem_id: params[:id])
     end
 
     def problem_params
         params.require(:problem).permit(:problem_id, :title, :description, :input, :output)
     end
+
 end

@@ -17,7 +17,7 @@ class StatusDatatable < AjaxDatatablesRails::Base
         )
     end
 
-    def_delegators :@view, :current_user, :link_to, :user_path
+    def_delegators :@view, :current_user, :link_to, :user_path, :status_error_path
 
     def data
         records.map do |status|
@@ -25,7 +25,7 @@ class StatusDatatable < AjaxDatatablesRails::Base
             if status.result == "Accepted"
                 status.result ="<label class='text-success'>#{status.result }</label>"
             elsif status.result == "Compile Error"
-                status.result ="<label class='text-danger'>#{status.result }</label>"
+                status.result = "#{link_to status.result, status_error_path(status.run_id)}"
             elsif status.result != "Wrong Answer"
                 status.result ="<label class='text-warning'>#{status.result }</label>"
             end
@@ -34,6 +34,8 @@ class StatusDatatable < AjaxDatatablesRails::Base
                 link_to(status.username, user_path(status.student_id) ),
                 status.problem_id,
                 status.result,
+                status.time_cost,
+                status.space_cost,
                 status.language,
                 created_at
             ]

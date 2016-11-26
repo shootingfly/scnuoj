@@ -16,7 +16,7 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 
   private
 
-  def_delegators :@view, :link_to, :problem_path, :current_user, :image_tag
+def_delegators :@view, :link_to, :problem_path, :current_user, :image_tag
   
   def data
   	ac_record =  current_user.user_detail.ac_record if current_user
@@ -29,14 +29,15 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 	  	end
 	  difficulty = 
 		if problem.grade == "S"
-			"<i class='glyphicon glyphicon-fire text-danger'></i>"
+			%(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)*3
 		else
-		  	" "
+		  	# image_tag("star.png", size: "16")
+			%(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)
 		end
 	  [     
 	  	is_ac,
 		problem.problem_id,
-		link_to(problem.title, problem_path(problem.problem_id)),
+		link_to(problem.title, problem_path(problem)),
 		difficulty,
 		problem.source
 	  ]
@@ -44,7 +45,7 @@ class ProblemDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-	Problem.all
+	Problem.order(problem_id: 'asc')
   end
 
 end

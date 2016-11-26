@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161027120858) do
+ActiveRecord::Schema.define(version: 20161125092239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,14 @@ ActiveRecord::Schema.define(version: 20161027120858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "student_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "contests", force: :cascade do |t|
@@ -39,6 +47,17 @@ ActiveRecord::Schema.define(version: 20161027120858) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "crono_jobs", force: :cascade do |t|
+    t.string   "job_id",            null: false
+    t.text     "log"
+    t.datetime "last_performed_at"
+    t.boolean  "healthy"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "crono_jobs", ["job_id"], name: "index_crono_jobs_on_job_id", unique: true, using: :btree
 
   create_table "managers", force: :cascade do |t|
     t.string "username"
@@ -109,14 +128,18 @@ ActiveRecord::Schema.define(version: 20161027120858) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "student_id"
-    t.string "username"
-    t.string "password_digest"
-    t.string "classgrade"
-    t.string "dormitory"
-    t.string "phone"
-    t.string "signature"
-    t.string "auth_token"
+    t.string  "student_id"
+    t.string  "username"
+    t.string  "password_digest"
+    t.string  "classgrade"
+    t.string  "dormitory"
+    t.string  "phone"
+    t.string  "signature"
+    t.string  "auth_token"
+    t.integer "score"
+    t.integer "rank"
+    t.string  "avatar"
+    t.string  "qq"
   end
 
 end

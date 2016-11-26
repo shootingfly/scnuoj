@@ -1,4 +1,5 @@
 class StatusesController < ApplicationController
+	
   def index
   	@page_title = 'Statuses'
   	respond_to do |format|
@@ -7,4 +8,7 @@ class StatusesController < ApplicationController
   	end
   end
 
+  def error
+  end
+  
 end

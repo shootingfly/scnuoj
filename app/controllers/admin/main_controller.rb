@@ -3,7 +3,7 @@ class Admin::MainController < Admin::ApplicationController
     skip_before_action :require_login, only: [:login, :login_session, :logout]
 
     def login
-        @page = 'login'
+        @page_title = 'login'
         @manager = Manager.new
     end
 
@@ -22,7 +22,7 @@ class Admin::MainController < Admin::ApplicationController
     end
 
     def logout
-        cookies.delete[:auth_token]
+        cookies.delete(:auth_token)
         redirect_to admin_root_path
     end
 

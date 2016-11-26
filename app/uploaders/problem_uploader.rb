@@ -9,11 +9,11 @@ class ProblemUploader < CarrierWave::Uploader::Base
     end
 
     def extension_white_list
-        %w(html)
+        %w(md)
     end
 
     def filename
-        "#{model.problem_id}-#{model.title}.html"
+        "#{model.problem_id}.md"
     end
 
 end

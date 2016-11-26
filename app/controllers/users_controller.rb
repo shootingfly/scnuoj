@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @page_title = t('edit_user')
     @user =  current_user
   end
 
@@ -24,4 +25,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit!
   end
+
 end

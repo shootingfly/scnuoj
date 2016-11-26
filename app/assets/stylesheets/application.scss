@@ -12,8 +12,8 @@
  */
 @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 // Whatever application styles you have go last
-h3, h4, th, td{
-	text-align: center;
+th, td{
+    text-align: center;
 }
 .navbar{
 	border-radius: 0;
@@ -22,5 +22,20 @@ h3, h4, th, td{
 #container{
 	min-height: 400px;
 }
+.highlight{
+    margin-top: 15px;
+    background: #FFF;
+    pre {
+      margin-top: 9px;
+    }
+}
+.cards {  
+    position: fixed;
+    right: 80px;
+    margin-top: 60px;
+    overflow: visible;
+}
+
 //= require nprogress
 //= require nprogress-turbolinks
+//= require shared/common

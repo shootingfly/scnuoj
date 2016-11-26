@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/svenfuchs/rails-i18n.git
+  revision: dc6e3ec7e59e0a1ea2933bf6b4f107a9df419e26
+  branch: rails-4-x
+  specs:
+    rails-i18n (4.0.9)
+      i18n (~> 0.7)
+      railties (~> 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -66,6 +75,9 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    crono (1.0.3)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
@@ -173,6 +185,8 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
+    redcarpet (3.3.4)
+    rouge (1.11.1)
     rspec-core (3.5.3)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -190,6 +204,7 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    ruby-ole (1.2.12)
     ruby_parser (3.8.3)
       sexp_processor (~> 4.1)
     rucaptcha (1.0.0)
@@ -209,6 +224,8 @@ GEM
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
     slop (3.6.0)
+    spreadsheet (0.9.0)
+      ruby-ole (>= 1.0)
     spring (1.7.1)
     sprockets (3.6.2)
       concurrent-ruby (~> 1.0)
@@ -244,7 +261,8 @@ DEPENDENCIES
   bootswatch-rails
   byebug
   carrierwave
-  coffee-rails (~> 4.1.0)
+  coderay
+  crono
   database_cleaner
   factory_girl
   faker
@@ -261,12 +279,16 @@ DEPENDENCIES
   pry-stack_explorer
   puma
   rails (= 4.2.6)
+  rails-i18n!
   rails_12factor
+  redcarpet
+  rouge
   rspec-rails (~> 3.4)
   rucaptcha
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   simple_form
+  spreadsheet (= 0.9.0)
   spring
   sucker_punch
   turbolinks

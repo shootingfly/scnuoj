@@ -1,28 +1,28 @@
 class ProfilesController < ApplicationController
 
+	before_action :set_profile
+
 	def edit
-		@page_title = 'Profile'
-		@profile = Profile.find_by(user_id: current_user.id)
+		@page_title = 'profile'
+		@profile = current_user.profile
 		render template: "users/profile"
 	end
 
 	def update
-		@profile = Profile.find_by(user_id: current_user.user_id)
-		@profile.theme = cookies.permanent[:theme] = params[:theme]
-		@profile.mode = cookies.permanent[:mode] = params[:mode]
-		@profile.keymap = cookies.permanent[:keymap] =  params[:keymap]
-		@profile.save
+		@profile.update(profile_params)
+		cookies[:theme] = params[:theme]
+		cookies[:mode] = params[:mode]
+		cookies[:keymap] =  params[:keymap]
 		redirect_to :back
 	end
 
-	def update_theme
-		if current_user
-			@profile = Profile.find_by(user_id: current_user.user_id) 
-			@profile.theme = cookies[:theme] =  params[:theme]
-			@profile.save
-		else
-			cookies[:theme] = params[:theme]
-		end
-		redirect_to :back
+	private
+
+	def profile_params
+		params.require(:profile).permit(:user_id, :theme, :mode, :keymap)
+	end
+
+	def set_profile
+		@profile = current_user.profile
 	end
 end

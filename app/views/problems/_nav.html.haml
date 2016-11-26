@@ -1,0 +1,13 @@
+.cards
+	.btn-toolbar
+		.btn-group-vertical
+			= link_to problem_path(@problem), class: "btn btn-primary" do
+				%span.card-content Show
+			= link_to take_problems_path, method: :post, class: "btn btn-primary" do
+				%span.card-content Rand
+			= link_to judge_problem_path(@problem), class: "btn btn-primary" do
+				%span.card-content Go
+			= link_to comment_problem_path(@problem), class: "btn btn-primary" do
+				%span.card-content Say
+			= link_to 'Prev', prev_problem_path, class: "btn btn-info"
+			= link_to 'Next', next_problem_path, class: "btn btn-info"

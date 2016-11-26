@@ -1,0 +1,10 @@
+%li.media
+	.media-left 
+		= image_tag(User.last.avatar, size: "60", class: "img-circle")
+	.media-body
+		.text-muted
+			= link_to comment.user.username, user_path(comment.user)
+			= "\##{comment.comment_floor}" 
+			= time_ago_in_words(comment.created_at) + ' ago'
+		= markdown(comment.content)
+%hr

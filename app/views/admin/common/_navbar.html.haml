@@ -1,18 +1,8 @@
-%nav.navbar.navbar-inverse.navbar-
+%nav.navbar.navbar-inverse
 	.container
-		.col-sm-2.navbar-brand
-			= link_to t('scnuoj'), root_path, class: "navbar-link"
-		.col-sm-2
-			%ul.nav.navbar-nav
-				%li.dropdown
-					%a.dropdown-toggle{"data-toggle" => "dropdown"}
-						%i.glyphicon.glyphicon-plus
-		%ul.nav.navbar-nav.navbar-right
-			%li
-				= link_to "Home Page", root_path, target:"_blank"
-			%li.dropdown
-				%a.dropdown-toggle{"data-toggle" => "dropdown"}
-					Welcome ! = current_user.username
-					%span.caret
-				%ul.dropdown-menu
-					%li= link_to "exit", admin_logout_path
+		.navbar-brand
+			= link_to "SCNUOJ", admin_home_path, class: "navbar-link"
+		.navbar-text.navbar-right
+			%span = current_user.username
+			%span 
+				= link_to "exit", admin_logout_path, class: "navbar-link navbar-right"

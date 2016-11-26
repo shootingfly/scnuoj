@@ -1,0 +1,7 @@
+= form_for(Comment.new(:user_id => current_user.id, :problem_id => problem.id), method: :post, remote: true, class: "form-horizontal") do |f|
+	= f.hidden_field :user_id
+	= f.hidden_field :problem_id
+	.form-group
+		= f.text_area :content, class: "form-control", rows: 10
+	.form-group
+		= f.submit 'Go', class: "btn btn-primary btn-block"

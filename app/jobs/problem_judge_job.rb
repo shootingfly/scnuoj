@@ -106,6 +106,8 @@ class ProblemJudgeJob < ActiveJob::Base
             unless user_detail.ac_record.include?("#{@problem_id}")
                 user_detail.ac_record << "  #{@problem_id}"
             end
+            user.score += 5
+            user.save
         when WA
             user_detail.wa += 1
         when PE

@@ -1,7 +1,7 @@
 module Admin::ApplicationHelper
 
 	def render_admin_title
-		title = @page ? "#{@page} | SCNUOJ Admin " : "SCNUOJ Admin"
+		title = @page_title ? "#{@page_title} | SCNUOJ Admin " : "SCNUOJ Admin"
 		content_tag(:title, title)
 	end
 

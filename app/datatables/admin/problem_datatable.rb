@@ -20,7 +20,7 @@ class Admin::ProblemDatatable < AjaxDatatablesRails::Base
 
   private
 
-  def_delegators :@view, :link_to, :content_tag, :concat, :admin_problem_path, :admin_edit_problem_path
+  def_delegators :@view, :link_to, :content_tag, :concat, :admin_problem_path, :edit_admin_problem_path
   
   def data
     records.map do |problem|
@@ -40,7 +40,7 @@ class Admin::ProblemDatatable < AjaxDatatablesRails::Base
         content_tag(:div, "id": problem.problem_id) do
           concat(link_to('查看', admin_problem_path(problem.problem_id), class: "btn btn-xs btn-info"))
           concat(' ')
-          concat(link_to('编辑' , admin_edit_problem_path(problem.problem_id), class: "btn btn-xs btn-warning"))
+          concat(link_to('编辑' , edit_admin_problem_path(problem.problem_id), class: "btn btn-xs btn-warning"))
           concat(' ')
           concat(link_to('删除', admin_problem_path(problem.problem_id), method: :delete, remote: true, class: "btn btn-xs btn-danger"))
         end

@@ -1,0 +1,12 @@
+= stylesheet_link_tag 'shared/pygments'
+%ul.media-list
+	- if @comments.empty?
+		%h4 "Sorry , No one comment"
+	- else
+		= render partial: "comments/comment", collection: @comments
+		= paginate @comments, :window => 2
+- if current_user
+	= render partial: "comments/comment_box", locals: {problem: @problem, current_user: User.first}
+- else
+	- session[:return_to] = request.fullpath
+	= link_to 'Login Before Comment', login_path

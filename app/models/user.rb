@@ -1,17 +1,25 @@
 class User < ActiveRecord::Base
-
+    
+    has_many :comments, dependent: :destroy
     has_one :user_detail, dependent: :destroy
     has_one :profile, dependent: :destroy
 
+    mount_uploader :avatar, AvatarUploader
+
     has_secure_password
 
+    def to_param
+        student_id
+    end
+
     before_create {
-        generate_token(:auth_token)
+        generate_token
     }
-    
+
     after_create {
+        generate_avatar
         UserDetail.create(user_id: self.id)
-        Profile.create({user_id: self.id, theme: 'cosmo', mode: 'ruby', keymap: 'sublime'})
+        Profile.create({user_id: self.id, theme: THEME, mode: MODE, keymap: KEYMAP})
         system "mkdir public/users/#{self.student_id}"
     }
 
@@ -52,9 +60,38 @@ class User < ActiveRecord::Base
     #     presence: false
     # }
 
-    def generate_token(column)
+    private
+
+    THEME = 'cosmo'
+    MODE = 'ruby'
+    KEYMAP = 'sublime'
+
+    def generate_token
         begin
-            self[column] = SecureRandom.urlsafe_base64
-        end while User.exists?(column => self[column])
+            self.auth_token = SecureRandom.urlsafe_base64
+        end while User.find_by(auth_token: self.auth_token)
     end
+
+    def generate_avatar
+        require 'open-uri'
+        qq = self.qq
+        avatar_url = "http://q4.qlogo.cn/g?b=qq&nk=#{qq}&s=100"
+        begin
+            qq_avatar = open(avatar_url) do |f|
+                f.read
+            end
+            avatar_file = File.new("public/qq_avatar/#{qq}.jpg", "wb")
+            avatar_file.write(qq_avatar)
+        rescue => e
+            avatar_file = File.open("public/qq_avatar/default.jpg")
+        ensure
+            self.avatar = avatar_file
+            self.save
+            avatar_file.close
+        end
+    end
+
+    # def generate_password(password)
+    #     self.password = self.qq
+    # end
 end
