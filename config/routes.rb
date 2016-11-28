@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
+  root 'main#home'
   mount RuCaptcha::Engine => "/rucaptcha"
-  
   namespace :admin do
     root 'main#login'
     get 'login' => 'main#login', as: :login
@@ -55,6 +55,5 @@ Rails.application.routes.draw do
   post 'login' => 'main#login_session', as: :login_session
   delete 'logout' => 'main#logout', as: :logout
   get 'aboutus' => 'main#aboutus', as: :aboutus
-  root 'main#home'
 
 end

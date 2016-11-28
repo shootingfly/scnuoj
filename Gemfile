@@ -3,7 +3,7 @@ ruby '2.3.0'
 
 # gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'
 gem 'spreadsheet', '0.9.0'
-
+gem 'mina'
 # Markdown
 gem 'redcarpet'
 gem 'coderay'
