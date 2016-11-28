@@ -3,6 +3,5 @@ require 'open3'
 `git add -A`
 `git commit -m "#{Time.now}"`
 Open3.popen3("git push origin develop:develop") do |i, o, e, wt|
-	i.puts("shootingfly")
-	i.puts("asas123")
+	i.puts "shootingfly"
 end
