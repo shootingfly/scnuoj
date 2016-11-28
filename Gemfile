@@ -1,7 +1,7 @@
 source 'https://rubygems.org/'
-ruby '2.2.4'
+ruby '2.3.0'
 
-gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'
+# gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'
 gem 'spreadsheet', '0.9.0'
 
 # Markdown

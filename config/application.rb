@@ -17,7 +17,7 @@ Bundler.require(*Rails.groups)
 
 module Scnuoj
   class Application < Rails::Application
-    config.active_record.timestamped_migrations = false
+    # config.active_record.timestamped_migrations = false
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

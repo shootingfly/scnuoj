@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+`git checkout develop`
+`git add -A`
+`git commit -m "#{Time.now}"`
+`git push origin develop:develp`

@@ -11,6 +11,6 @@ class Problem < ActiveRecord::Base
     end
 
     def total_name
-    	"#{problem_id}: #{title}"
+            "#{problem_id}: #{title}"
     end
 end
