@@ -6,6 +6,7 @@ namespace :git do
 		system "git add -A"
 		system "git commit -m #{Time.now.strftime("%T")}"
 		Open3.popen2("git push origin develop:develop") do |i, o, wt|
+			sleep 3
 			i.print "shootingfly\n"
 		end
 	end
