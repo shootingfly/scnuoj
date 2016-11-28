@@ -4,11 +4,9 @@ namespace :git do
 		require 'open3'
 		puts "To develop branch"
 		system "git add -A"
-		system "git commit -m #{ENV["msg"]}"
-		i, o, e, wt = Open3.popen3("git push origin develop:develop")
-		i.puts("shootingfly")
-		i.close
-		o.close
-		e.close
+		system "git commit -m #{Time.now.strftime("%T")}"
+		Open3.popen2("git push origin develop:develop") do |i, o, wt|
+			i.print "shootingfly\n"
+		end
 	end
 end
