@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 require 'open3'
-`git add -A`
-`git commit -m "#{Time.now}"`
-$cmd = "git push origin develop:develop"
-Open3.popen3($cmd) { |i, o, e, wt|
-	i.puts "shootingfly"
+system "cd .."
+system "git add -A"
+system "git commit -m #{Time.now}"
+Open3.popen3("git push origin develop:develop") { |i, o, e, wt|
+	i.puts "shootingfly\nasas123\n"
 }
