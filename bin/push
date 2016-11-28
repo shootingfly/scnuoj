@@ -2,4 +2,6 @@
 `git checkout develop`
 `git add -A`
 `git commit -m "#{Time.now}"`
-`git push origin develop:develp`
+`git push origin develop:develop`
+$stdin.puts('shootingfly')
+$stdin.puts('asas123')
