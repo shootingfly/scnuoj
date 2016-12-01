@@ -1,6 +1,9 @@
 div#max{
 	min-height: 470px
 }
+.max{
+	min-height: 470px
+}
 .notice {
 	  position: absolute;
 	  z-index: 1000;

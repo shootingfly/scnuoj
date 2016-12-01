@@ -1,25 +1,37 @@
 class User < ActiveRecord::Base
-    
-    has_many :comments, dependent: :destroy
+
+    has_one :user_login, dependent: :destroy
     has_one :user_detail, dependent: :destroy
     has_one :profile, dependent: :destroy
+    has_many :comments, dependent: :destroy
 
     mount_uploader :avatar, AvatarUploader
-
-    has_secure_password
 
     def to_param
         student_id
     end
 
     before_create {
-        generate_token
+        # generate_token
+        generate_avatar
     }
 
     after_create {
-        generate_avatar
-        UserDetail.create(user_id: self.id)
-        Profile.create({user_id: self.id, theme: THEME, mode: MODE, keymap: KEYMAP})
+        UserLogin.create({
+            user_id: self.id,
+            student_id: self.student_id,
+            password: self.student_id
+        })
+        UserDetail.create({
+            user_id: self.id
+        })
+        Profile.create({
+            user_id: self.id,
+            theme: DEFAULT_THEME,
+            mode: DEFAULT_MODE,
+            keymap: DEFAULT_KEYMAP,
+            locale: DEFAULT_LOCALE
+        })
         system "mkdir public/users/#{self.student_id}"
     }
 
@@ -62,36 +74,21 @@ class User < ActiveRecord::Base
 
     private
 
-    THEME = 'cosmo'
-    MODE = 'ruby'
-    KEYMAP = 'sublime'
-
-    def generate_token
-        begin
-            self.auth_token = SecureRandom.urlsafe_base64
-        end while User.find_by(auth_token: self.auth_token)
-    end
-
     def generate_avatar
         require 'open-uri'
-        qq = self.qq
-        avatar_url = "http://q4.qlogo.cn/g?b=qq&nk=#{qq}&s=100"
+        avatar_url = "http://q4.qlogo.cn/g?b=qq&nk=#{self.qq}&s=100"
         begin
             qq_avatar = open(avatar_url) do |f|
                 f.read
             end
-            avatar_file = File.new("public/qq_avatar/#{qq}.jpg", "wb")
+            avatar_file = File.new("public/qq_avatar/#{self.qq}.jpg", "wb")
             avatar_file.write(qq_avatar)
         rescue => e
-            avatar_file = File.open("public/qq_avatar/default.jpg")
+            avatar_file = File.open("public/qq_avatar/qq_avatar.jpg")
         ensure
             self.avatar = avatar_file
-            self.save
             avatar_file.close
         end
     end
 
-    # def generate_password(password)
-    #     self.password = self.qq
-    # end
 end

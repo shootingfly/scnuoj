@@ -21,8 +21,6 @@ class Admin::ProblemsController < Admin::ApplicationController
 
     def create
         @problem = Problem.new(problem_params)
-        @problem.ac = 0
-        @problem.submit = 0
         if @problem.save
             flash[:notice] = "Problem #{@problem.title} was created successfully."
             redirect_to new_admin_problem_path
@@ -55,7 +53,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     def problem_params
-        params.require(:problem).permit(:problem_id, :title, :description, :input, :output)
+        params.require(:problem).permit(:problem_id, :title, :description, :testdata)
     end
 
 end

@@ -14,12 +14,12 @@ class MainController < ApplicationController
     end
 
     def login_session
-        @user = User.find_by(student_id: params[:student_id])
-        if @user && @user.authenticate(params[:password])
+        @user_login = UserLogin.find_by(student_id: params[:student_id])
+        if @user_login && @user_login.authenticate(params[:password])
             if params[:remember_me]
-                cookies.permanent[:auth_token] = @user.auth_token
+                cookies.permanent[:auth_token] = @user_login.auth_token
             else
-                cookies[:auth_token] = @user.auth_token
+                cookies[:auth_token] = @user_login.auth_token
             end
             read_profile
             redirect_to session[:return_to] || root_path
@@ -52,7 +52,7 @@ class MainController < ApplicationController
     private
 
     def read_profile
-        profile = @user.profile
+        profile = @user_login.user.profile
         cookies[:mode] = profile.mode
         cookies[:theme] = profile.theme
         cookies[:keymap] = profile.keymap

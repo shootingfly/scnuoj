@@ -9,18 +9,14 @@ class ProfilesController < ApplicationController
 	end
 
 	def update
-		@profile.update(profile_params)
-		cookies[:theme] = params[:theme]
-		cookies[:mode] = params[:mode]
-		cookies[:keymap] =  params[:keymap]
+		@profile.theme = cookies[:theme] = params[:theme]
+		@profile.mode = cookies[:mode] = params[:mode]
+		@profile.keymap = cookies[:keymap] =  params[:keymap]
+		@profile.save
 		redirect_to :back
 	end
 
 	private
-
-	def profile_params
-		params.require(:profile).permit(:user_id, :theme, :mode, :keymap)
-	end
 
 	def set_profile
 		@profile = current_user.profile

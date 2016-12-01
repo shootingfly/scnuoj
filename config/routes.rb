@@ -20,14 +20,12 @@ Rails.application.routes.draw do
 
   # OJ
   resources :problems, only: [:index, :show] do
-    collection do 
-       post 'take' => 'problems#take'
-    end
     member do
       get 'comment' => 'problems#comment'
       get 'judge' => 'problems#judge'
       post 'judge' => 'problems#judge_job'
       get 'prev' => 'problems#prev'
+      get 'rand' => 'problems#rand'
       get 'next' => 'problems#next'
     end
   end

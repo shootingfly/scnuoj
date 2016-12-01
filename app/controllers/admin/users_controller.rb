@@ -19,7 +19,6 @@ class Admin::UsersController < Admin::ApplicationController
 
     def create
         @user = User.new(user_params)
-        @user.password_digest = BCrypt::Password.create(@user.student_id).to_s
         if @user.save
             flash.notice = "User #{@user.username} was successfully created."
             redirect_to new_admin_user_path
@@ -66,9 +65,6 @@ class Admin::UsersController < Admin::ApplicationController
                 dormitory: row[3].to_s,
                 phone: row[4].to_i,
                 qq: row[5].to_i,
-                password_digest: row[0].to_i,
-                rank: 999,
-                score: 0
             )
         end
         # uploader.remove!
@@ -76,9 +72,6 @@ class Admin::UsersController < Admin::ApplicationController
     end
 
     private
-
-    DEFAULT_RANK = 9999
-    DEFAULT_SCORE = 0
 
     def set_user
         @user = User.find_by(student_id: params[:id])

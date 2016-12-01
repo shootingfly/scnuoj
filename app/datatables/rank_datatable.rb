@@ -19,19 +19,19 @@ class RankDatatable < AjaxDatatablesRails::Base
   def_delegators :view, :link_to, :user_path
 
   def data
-    records.map do |user|
+    records.map do |record|
       [
-        user.rank,
-        link_to(user.username, user_path(user)),
-        user.classgrade,
-        user.dormitory,
-        user.score
+        record.rank,
+        link_to(record.user.username, user_path(record.user)),
+        record.user.classgrade,
+        record.user.dormitory,
+        record.score
       ]
     end
   end
 
   def get_raw_records
-    User.order(:rank)
+    UserDetail.includes(:user).order(:rank)
   end
 
 end

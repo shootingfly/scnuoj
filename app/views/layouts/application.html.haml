@@ -7,8 +7,10 @@
 		= stylesheet_link_tag  current_theme, media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag 'shared/common'
+		= stylesheet_link_tag 'shared/rouge_theme'
 		= javascript_include_tag 'application', 'data-turbolinks-track' => true
 		= javascript_include_tag 'shared/common'
+		= yield :js
 		= csrf_meta_tags
 	%body
 		= render "common/navbar"

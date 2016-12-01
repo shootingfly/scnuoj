@@ -9,7 +9,7 @@ Rails.application.configure do
 	config.log_level = :info
 	config.time_zone = :local
 	config.i18n.default_locale = :en
-	config.active_record.logger = nil
+	# config.active_record.logger = nil
 	config.active_record.default_timezone = :local
 	config.timestamped_migrations = false
 end

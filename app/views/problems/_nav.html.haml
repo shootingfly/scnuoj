@@ -1,9 +1,11 @@
+%h3= @problem.total_name
+= @problem_details
 .cards
 	.btn-toolbar
 		.btn-group-vertical
 			= link_to problem_path(@problem), class: "btn btn-primary" do
 				%span.card-content Show
-			= link_to take_problems_path, method: :post, class: "btn btn-primary" do
+			= link_to rand_problem_path(@problem), class: "btn btn-primary" do
 				%span.card-content Rand
 			= link_to judge_problem_path(@problem), class: "btn btn-primary" do
 				%span.card-content Go

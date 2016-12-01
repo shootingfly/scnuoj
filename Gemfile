@@ -1,12 +1,9 @@
 source 'https://rubygems.org/'
 ruby '2.3.0'
 
-# gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'rails-4-x'
 gem 'spreadsheet', '0.9.0'
 gem 'mina'
 # Markdown
-gem 'redcarpet'
-gem 'coderay'
 gem 'rouge'
 
 gem 'crono'
@@ -26,7 +23,6 @@ gem 'pg'
 gem 'rails_12factor'
 gem 'jquery-turbolinks'
 gem 'nprogress-rails'
-gem 'simple_form'
 
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem 'ajax-datatables-rails'
@@ -47,8 +43,6 @@ gem 'rails', '4.2.6'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-# gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

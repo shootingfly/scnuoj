@@ -43,6 +43,7 @@ class JudgeJob < ActiveJob::Base
         @time_cost = @time_cost.max || @time
         @space_cost = @space_cost.max || @space
         user = User.find_by(student_id: @code.student_id)
+        problem = Problem.find_by(problem_id: @problem_id)
         Status.create({
             run_id: @code.id,
             problem_id: @problem_id,
@@ -53,34 +54,20 @@ class JudgeJob < ActiveJob::Base
             student_id: user.student_id,
             username: user.username
         })
-        user_detail = user.user_detail
-        user_detail.submit += 1
-        case @result
-        when AC
-            unless user_detail.ac_record.include?(@problem_id.to_s)
-                user_detail.ac_record << @problem_id
-                user_detail.ac += 1
-                user.score = 5
-            end
-        when WA
-            user_detail.wa += 1
-        when PE
-            user_detail.pe += 1
-        when RE
-            user_detail.re += 1
-        when ME
-            user_detail.me += 1
-        when TE
-            user_detail.te += 1
-        when OE
-            user_detail.oe += 1
-        when CE
-            user_detail.ce += 1
-        end
-        user.save
-        user_detail.save
+        options = {
+            uid: user.id,
+            pid: problem.id
+            result: @result,
+            problem_id: @problem_id,
+            username: user.username,
+            difficulty: problem.difficulty,
+            student_id: @student_id,
+            language: @lang
+        }
+        JudgeRebackJob.perform_later(options)
         FileUtils.rm Dir.glob('*ain*')
     end
+    private
 
     def run_many
         tests = []
@@ -88,6 +75,7 @@ class JudgeJob < ActiveJob::Base
             tests = JSON.parse(f.read)
         end
         exe_cmd = EXE_CMD[@lang]
+        tests.shuffle!
         tests.each do |test|
             result = run_one(test, exe_cmd)
             return result if result != AC
@@ -128,9 +116,12 @@ class JudgeJob < ActiveJob::Base
     def compile_successful?
         build_cmd = BUILD_CMD[@lang]
         out, status = Open3.capture2e(build_cmd)
-        File.open("#{ERROR_PATH}/#{@code.id}", "w") { |f| f.puts(out) }
-        return status.success?
-        # system(build_cmd)
+        if status.success?
+            return true
+        else
+            File.open("#{ERROR_PATH}/#{@code.id}", "w") { |f| f.puts(out) }
+            return false
+        end
     end
 
     def compare_output(user_out, standard_out)
@@ -144,46 +135,5 @@ class JudgeJob < ActiveJob::Base
             WA
         end
     end
-    
-    private
 
-    CODE_FILE = {
-        "C" => "main.c",
-        "C++" => "main.cpp",
-        "Ruby" => "main.rb",
-        "Java" => "Main.java",
-        "Perl" => "main.pl",
-        "Python" => "main.py"
-    }
-
-    SLOW_LANGUAGES = %w(Ruby Perl Java Python)
-
-    BUILD_CMD = {
-        "C" => "gcc main.c -o main",
-        "C++" => "g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main",
-        "Ruby"  => "ruby -c main.rb",
-        "Java" =>"javac Main.java",
-        "Perl" =>"perl -c main.pl",
-        "Python" => 'python2 -m py_compile main.py',
-    }
-
-    EXE_CMD = {
-        "C" => "./main",
-        "C++" => "./main",
-        "Ruby" => "ruby main.rb",
-        "Java" => "java Main",
-        "Perl" => "perl main.pl",
-        "Python"=> "python2 main.pyc"
-    }
-
-    CE = "Compile Error"
-    RE = "Runtime Error"
-    TE = "Time Limit Exceeded"
-    ME = "Memory Limit Exceeded"
-    AC = "Accepted"
-    PE = "Presentation Error"
-    OE = "Output Limit Exceeded"
-    WA = "Wrong Answer"
-    ERROR_PATH = "#{Rails.public_path}/errors"
-    TEST_PATH = "#{Rails.public_path}/uploads/problem/test"
 end

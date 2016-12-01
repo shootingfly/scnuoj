@@ -10,7 +10,7 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 	@searchable_columns ||= %w(
 	  Problem.problem_id 
 	  Problem.title
-	  Problem.grade
+	  Problem.diffulty
 	)
   end
 
@@ -22,23 +22,16 @@ def_delegators :@view, :link_to, :problem_path, :current_user, :image_tag
   	ac_record =  current_user.user_detail.ac_record if current_user
 	records.map do |problem|
 	  is_ac = 
-	  	if ac_record && ac_record.include?(problem.problem_id)
+	  	if ac_record && ac_record.include?(problem.problem_id.to_s)
 	  		image_tag("Check_mark.png", size: "16")
 	  	else
 	  		" "
 	  	end
-	  difficulty = 
-		if problem.grade == "S"
-			%(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)*3
-		else
-		  	# image_tag("star.png", size: "16")
-			%(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)
-		end
 	  [     
 	  	is_ac,
 		problem.problem_id,
 		link_to(problem.title, problem_path(problem)),
-		difficulty,
+		problem.difficulty,#* %(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)
 		problem.source
 	  ]
 	end
