@@ -6,7 +6,7 @@
 		= render partial: "comments/comment", collection: @comments
 		= paginate @comments, :window => 2
 - if current_user
-	= render partial: "comments/comment_box", locals: {problem: @problem, current_user: User.first}
+	= render partial: "comments/comment_box", locals: {problem: @problem}
 - else
 	- session[:return_to] = request.fullpath
 	= link_to 'Login Before Comment', login_path

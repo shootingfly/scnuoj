@@ -15,7 +15,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def filename
-    "mode.student_id"
+    "#{model.student_id}.jpg"
   end
 
 end

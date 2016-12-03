@@ -1,6 +1,6 @@
 %li.media
 	.media-left 
-		= image_tag(User.last.avatar, size: "60", class: "img-circle")
+		= image_tag(comment.user.avatar, size: "60", class: "img-circle")
 	.media-body
 		.text-muted
 			= link_to comment.user.username, user_path(comment.user)

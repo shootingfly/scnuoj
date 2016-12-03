@@ -1,5 +1,6 @@
 %h4= t('login')
 = form_tag(login_session_path, method: :post, class: "form-horizontal") do |f|
+	= error_messages
 	.form-group
 		%label.control-label.col-sm-4
 			%i.glyphicon.glyphicon-user

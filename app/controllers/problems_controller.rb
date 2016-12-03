@@ -55,7 +55,9 @@ class ProblemsController < ApplicationController
     def judge_job
         @code = Code.new(code_params)
         if @code.save
-            JudgeJob.perform_now(@code)
+            problem = Problem.find_by(problem_id: params[:id])
+            options = JudgeJob.perform_now(@code, problem.time, problem.space)
+            JudgeRebackJob.perform_now(options)
             redirect_to statuses_path
         else
             render :judge

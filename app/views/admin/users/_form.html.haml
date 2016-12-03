@@ -1,9 +1,32 @@
-.col-sm-5.col-sm-offset-3
-	= simple_form_for([:admin, @user], html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
-		= f.input :student_id, label: "学号"
-		= f.input :username, label: "用户昵称"
-		= f.input :classgrade, label: "班级"
-		= f.input :dormitory, label: "宿舍"
-		= f.input :phone, label: "电话"
-		= f.input :signature, label: "个性签名"
-		= f.button :submit, value: "提交", class: "col-sm-4 col-sm-offset-4 btn-primary"
+= form_for [:admin, @user], html: {class: "form-horizontal"} do |f|
+	.form-group
+		= f.label :student_id, "学号", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :student_id, class: "form-control"
+	.form-group
+		= f.label :username, "用户昵称", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :username, class: "form-control"
+	.form-group
+		= f.label :classgrade, "班级", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :classgrade, class: "form-control"
+	.form-group
+		= f.label :dormitory, "宿舍", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :dormitory, class: "form-control"
+	.form-group
+		= f.label :qq, "QQ", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :qq, class: "form-control"
+	.form-group
+		= f.label :phone, "电话", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :phone, class: "form-control"
+	.form-group
+		= f.label :signature, "个性签名", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :signature, class: "form-control"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= f.submit nil, class: "form-control btn btn-primary"

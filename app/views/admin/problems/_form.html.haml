@@ -1,9 +1,21 @@
-.col-sm-5.col-sm-offset-3
-  = simple_form_for([:admin, @problem], html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
-    = f.input :problem_id
-    = f.input :title
-    = f.input :description, as: :file 
-    = f.input :description_cache, as: :hidden
-    = f.input :testdata, as: :file 
-    = f.input :testdata_cache, as: :hidden
-    = f.button :submit , value: "提交", class: "col-sm-9 col-sm-offset-3 btn"
+= form_for([:admin, @problem], html: {class: "form-horizontal"}) do |f|
+	.form-group
+		= f.label :problem_id, '#', class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :problem_id, class: "form-control"
+	.form-group
+		= f.label :title, 'TITLE', class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :title, class: "form-control"
+	.form-group
+		= f.label :description, 'description', class: "control-label col-sm-4"
+		.col-sm-4
+			= f.file_field :description, accept: "text/md", class: "filestyle"
+	= f.hidden_field :description_cache
+	.form-group
+		= f.label :testdata, 'testdata', class: "control-label col-sm-4"
+		.col-sm-4
+			= f.file_field :testdata, accept: "text/json", class: "filestyle"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= f.submit nil, class: "form-control btn btn-primary"

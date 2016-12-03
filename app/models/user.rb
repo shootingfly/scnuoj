@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
     has_one :user_login, dependent: :destroy
     has_one :user_detail, dependent: :destroy
+    has_one :rank, dependent: :destroy
     has_one :profile, dependent: :destroy
     has_many :comments, dependent: :destroy
 
@@ -11,10 +12,7 @@ class User < ActiveRecord::Base
         student_id
     end
 
-    before_create {
-        # generate_token
-        generate_avatar
-    }
+    before_create :generate_avatar
 
     after_create {
         UserLogin.create({
@@ -32,11 +30,14 @@ class User < ActiveRecord::Base
             keymap: DEFAULT_KEYMAP,
             locale: DEFAULT_LOCALE
         })
-        system "mkdir public/users/#{self.student_id}"
+        Rank.create({
+            user_id: self.id
+        })
+        system "mkdir #{USER_PATH}/#{self.student_id}"
     }
 
     before_destroy {
-        system "rm -rf public/users/#{self.student_id}"
+        system "rm -rf #{USER_PATH}/#{self.student_id}"
     }
 
     # validates :student_id, {
@@ -76,18 +77,12 @@ class User < ActiveRecord::Base
 
     def generate_avatar
         require 'open-uri'
-        avatar_url = "http://q4.qlogo.cn/g?b=qq&nk=#{self.qq}&s=100"
-        begin
-            qq_avatar = open(avatar_url) do |f|
-                f.read
-            end
-            avatar_file = File.new("public/qq_avatar/#{self.qq}.jpg", "wb")
-            avatar_file.write(qq_avatar)
-        rescue => e
-            avatar_file = File.open("public/qq_avatar/qq_avatar.jpg")
-        ensure
-            self.avatar = avatar_file
-            avatar_file.close
+       File.open("#{TMP_PATH}/#{self.qq}.jpg", "wb+") do |f|
+            f.write(
+                open("http://q4.qlogo.cn/g?b=qq&nk=#{self.qq}&s=100").read
+            )
+            self.avatar = f
+            File.delete(f)
         end
     end
 

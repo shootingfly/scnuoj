@@ -1,9 +1,11 @@
 source 'https://rubygems.org/'
 ruby '2.3.0'
 
+gem 'bootstrap-filestyle-rails'
 gem 'spreadsheet', '0.9.0'
 gem 'mina'
 # Markdown
+gem 'redcarpet'
 gem 'rouge'
 
 gem 'crono'

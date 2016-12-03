@@ -2,8 +2,9 @@ var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
 	lineNumbers: true,
 	styleActiveLine: true,
 	matchBrackets: true,
-	mode: "text/x-java",
+	mode: "text/x-ruby",
 	theme: "monokai",
+	keyMap: "sublime",
 	lineWrapping: true,
 	extraKeys:  {
 		"F11": function(cm) {

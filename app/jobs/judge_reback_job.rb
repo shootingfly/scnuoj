@@ -1,25 +1,23 @@
 class JudgeRebackJob < ActiveJob::Base
     queue_as :default
+    # include SuckerPunch::Job
 
-    def perform
-        update_rank
-        update_detail
-    end
-
-    def initialize(*options)
+    def perform(options)
       @uid = options[:uid]
       @pid = options[:pid]
       @score = options[:difficulty] * 5
       @problem_id = options[:problem_id]
       @result = options[:result]
       @username = options[:username]
-      @studend_id = options[:student_id]
-      @lang= options[:lang]
+      @student_id = options[:student_id]
+      @language= options[:language]
       @code_id = options[:code_id]
+        update_rank
+        update_details
     end
 
     def update_rank
-        rank = Rank.find_by(user_id: @user_id)
+        rank = Rank.find_by(user_id: @uid)
         rank.week_score += @score
         rank.grade_score += @score
         rank.save
@@ -31,16 +29,18 @@ class JudgeRebackJob < ActiveJob::Base
         case @result
         when AC
             problem_detail.ac += 1
-            code_file = "public/users/#{@student_id}/#{problem_id}.md"
+            code_file = "#{USER_PATH}/#{@student_id}/#{@problem_id}.md"
+            code = Code.find(@code_id)
             File.open(code_file, "a+") do |f|
-            	f.write("\n``` #{@lang}\n")
-            	f.write(Code.find(@code_id).code)
-            	f.write("```")
+              f.write(">  **#{@language}**\n#{code.created_at.strftime("%Y-%m-%d %T")}")
+            	f.write("\n\n``` #{@language.downcase}\n\n")
+            	f.write(code.code)
+            	f.write("\n```\n")
             end
             unless @problem_id.in?(user_detail.ac_record)
                 user_detail.ac_record << @problem_id
                 user_detail.ac += 1
-                user.score += difficulty * FACT
+                user_detail.score += @score
             end
         when WA
             user_detail.wa += 1

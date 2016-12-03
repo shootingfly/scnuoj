@@ -3,6 +3,10 @@ class UserLogin < ActiveRecord::Base
     has_secure_password
     before_create :generate_token
 
+    validates :password, {
+        presence: true,
+        length: { in: 6..12}
+    }
     private
 
     def generate_token

@@ -1,7 +1,20 @@
-.col-sm-5.col-sm-offset-3
-  = simple_form_for([:admin,@manager],html:{class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
-    = f.input :username, label: "用户名"
-    = f.input :password, as: :password, label: "密码"
-    = f.input :role, collection: ["超级管理员", "学生管理员"], selected: "学生管理员", label: "角色"
-    = f.input :remark, as: :text, label: "备注"
-    = f.button :submit, value: "提交", class: "col-sm-9 col-sm-offset-3 btn-primary"
+= form_for([:admin,@manager], html: {class: "form-horizontal"}) do |f|
+	.form-group
+		= f.label :username, "Hello", class: "control-label col-sm-4 "
+		.col-sm-4
+			= f.text_field :username,  class: "form-control"
+	.form-group
+		= f.label :password, class: "control-label col-sm-4 "
+		.col-sm-4		
+			= f.password_field :password, class: "form-control"
+	.form-group
+		= f.label :role, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :role, class: "form-control"
+	.form-group
+		= f.label :remark, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :remark, class: "form-control"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= f.submit "提交", class: "btn btn-primary form-control"

@@ -9,7 +9,7 @@ class TestdataUploader < CarrierWave::Uploader::Base
     end
 
     def extension_white_list
-        "json"
+        %w(json)
     end
 
     def filename

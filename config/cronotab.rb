@@ -13,4 +13,6 @@
 #
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
-Crono.perform(UpdateRankJob).every 1.minute
+Crono.perform(UpdateRankJob).every 1.days, at: '24:00'
+Crono.perform(UpdateWeekRankJob).every 6.hours
+Crono.perform(UpdateGradeRankJob).every 3.days

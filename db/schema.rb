@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201081003) do
+ActiveRecord::Schema.define(version: 20161202162102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20161201081003) do
     t.string  "source"
     t.integer "difficulty",  default: 1
     t.string  "testdata"
+    t.integer "time"
+    t.integer "space"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -105,11 +107,11 @@ ActiveRecord::Schema.define(version: 20161201081003) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "student_id"
+    t.string   "title"
   end
 
   create_table "user_details", force: :cascade do |t|
     t.integer  "user_id"
-    t.text     "ac_record",  default: "",   null: false
     t.integer  "wa",         default: 0,    null: false
     t.integer  "pe",         default: 0,    null: false
     t.integer  "re",         default: 0,    null: false
@@ -123,6 +125,7 @@ ActiveRecord::Schema.define(version: 20161201081003) do
     t.integer  "submit",     default: 0,    null: false
     t.integer  "score",      default: 0,    null: false
     t.integer  "rank",       default: 9999, null: false
+    t.integer  "ac_record",  default: [],                array: true
   end
 
   create_table "user_logins", force: :cascade do |t|

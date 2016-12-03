@@ -9,7 +9,7 @@ class ProblemUploader < CarrierWave::Uploader::Base
     end
 
     def extension_white_list
-        "md"
+        %w(md html)
     end
 
     def filename

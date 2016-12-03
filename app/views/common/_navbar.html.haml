@@ -1,24 +1,28 @@
 %nav.navbar.navbar-default
-	.container
-		.col-sm-1.navbar-brand
+	.container-fluid
+		.col-sm-2.navbar-brand
 			= link_to t('scnuoj'), root_path, class: "navbar-link"
-		.col-sm-offset-3.col-sm-4
+		.col-sm-4.col-sm-offset-2
 			%ul.nav.navbar-nav
 				%li= link_to(t('home'), root_path)   
 				%li= link_to(t('problem'), problems_path)
 				%li= link_to(t('status'), statuses_path) 
 				%li= link_to(t('rank'), ranks_path) 
-		.col-sm-1
+				%li= link_to('week_rank', week_rank_path)
+		.col-sm-2
 			%ul.nav.navbar-nav
 				- if current_user
 					%li.dropdown
 						%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-							= current_user.username
+							= image_tag(current_user.avatar, size: "20", class: " img-circle")
 							%span.caret
 						%ul.dropdown-menu{:role => "menu"}
+							%li= link_to current_user.username, edit_profile_path
+							%li.divider
 							%li= link_to t('profile'), edit_profile_path
 							%li= link_to t('show'), user_path(current_user.student_id)
 							%li= link_to t('edit'), edit_user_path
+							%li= link_to t('password'), edit_password_path
 							%li.divider
 							%li= link_to t('logout'), logout_path, method: "delete"
 				- else
@@ -26,6 +30,6 @@
 		.col-sm-2
 			= form_tag set_theme_path, class: "navbar-right navbar-form" do
 				= select_tag :theme, options_for_select(%w(default cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti), current_theme), class: "form-control", onchange: "submit()"
-		.col-sm-1
-			= link_to set_locale_path, :method => :post, class: "navbar-right navbar-brand" do
-				%li.glyphicon.glyphicon-transfer
+		/ .col-sm-1
+		/ 	= link_to set_locale_path, :method => :post, class: "navbar-right navbar-brand" do
+		/ 		%li.glyphicon.glyphicon-transfer

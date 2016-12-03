@@ -1,11 +1,25 @@
-%h4= t('edit_user')
-%div
-  = simple_form_for(@user, html: {class:'form-horizontal'}, wrapper: :horizontal_form) do |f|
-    = f.input :student_id, label: t('student_id')
-    = f.input :username, label: t('username')
-    = f.input :password, label: t('password')
-    = f.input :classgrade, label: t('classgrade')
-    = f.input :dormitory, label: t('dormitory')
-    = f.input :phone, label: t('phone')
-    = f.input :signature, label: t('signature')
-    = f.button :submit, value: t('submit')
+%h4.text-center Edit User
+= form_for(@user, url: :update_user, html: {class: "form-horizontal"}) do |f|
+	.form-group
+		= f.label :username, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :username, class: "form-control"
+	.form-group
+		= f.label :dormitory, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :dormitory, class: "form-control"
+	.form-group
+		= f.label :phone, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :phone, class: "form-control"
+	.form-group
+		= f.label :qq, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :qq, class: "form-control"
+	.form-group
+		= f.label :signature, class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_area :signature, class: "form-control"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= f.submit nil, class: "form-control btn btn-primary"

@@ -2,3 +2,9 @@
 @import "bootswatch/superhero/variables";
 @import "bootstrap";
 @import "bootswatch/superhero/bootswatch";
+body {
+	font-size: 20px;
+}
+table, .table {
+    font-size: 14px;
+}

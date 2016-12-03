@@ -5,6 +5,7 @@ class Admin::MainController < Admin::ApplicationController
     def login
         @page_title = 'login'
         @manager = Manager.new
+        render :login, layout: false
     end
 
     def login_session

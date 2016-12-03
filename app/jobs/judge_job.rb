@@ -11,13 +11,13 @@ class JudgeJob < ActiveJob::Base
         after_judge
     end
 
-    def initialize(code)
+    def initialize(code, time, space)
         @result = ""
         @lang = code.language
         @time_cost = []
         @space_cost = []
-        @time = 1
-        @space = 32768 
+        @time = time
+        @space = space 
         @code = code
         @problem_id = code.problem_id
     end
@@ -40,32 +40,35 @@ class JudgeJob < ActiveJob::Base
     end
 
     def after_judge
+        FileUtils.rm Dir.glob('*ain*')
         @time_cost = @time_cost.max || @time
         @space_cost = @space_cost.max || @space
-        user = User.find_by(student_id: @code.student_id)
-        problem = Problem.find_by(problem_id: @problem_id)
-        Status.create({
-            run_id: @code.id,
-            problem_id: @problem_id,
-            result: @result,
-            language: @lang,
-            time_cost: @time_cost * 1000,
-            space_cost: @space_cost,
-            student_id: user.student_id,
-            username: user.username
-        })
-        options = {
-            uid: user.id,
-            pid: problem.id
-            result: @result,
-            problem_id: @problem_id,
-            username: user.username,
-            difficulty: problem.difficulty,
-            student_id: @student_id,
-            language: @lang
-        }
-        JudgeRebackJob.perform_later(options)
-        FileUtils.rm Dir.glob('*ain*')
+        ActiveRecord::Base.connection_pool.with_connection do
+            user = User.find_by(student_id: @code.student_id)
+            problem = Problem.find_by(problem_id: @problem_id)
+            Status.create({
+                run_id: @code.id,
+                problem_id: @problem_id,
+                title: problem.title,
+                result: @result,
+                language: @lang,
+                time_cost: (@time_cost * 1000).ceil,
+                space_cost: @space_cost / 1024,
+                student_id: user.student_id,
+                username: user.username
+            })
+            return options = {
+                uid: user.id,
+                pid: problem.id,
+                result: @result,
+                problem_id: @problem_id,
+                username: user.username,
+                difficulty: problem.difficulty,
+                student_id: user.student_id,
+                language: @lang,
+                code_id: @code.id
+            }
+        end
     end
     private
 

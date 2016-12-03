@@ -1,5 +1,26 @@
-%h3= @problem.total_name
-= @problem_details
+.panel.panel-default
+	.panel-heading.text-center 
+		= @problem.total_name
+	%table.table.table-striped
+		%tbody
+			%tr
+				%th Time
+				%td= @problem.time
+			%tr
+				%th Space
+				%td= @problem.space
+			%tr
+				%th AC
+				%td= @problem_detail.ac
+			%tr
+				%th Submit
+				%td= @problem_detail.submit
+			%tr
+				%th Difficulty
+				%td= @problem.difficulty
+			%tr
+				%th Last Person
+				%td= @problem_detail.last_person
 .cards
 	.btn-toolbar
 		.btn-group-vertical
