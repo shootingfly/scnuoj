@@ -1,7 +1,7 @@
 .jumbotron.row
 	.text-center
-		%h1.lead Welcome to SCNUOJ
-		%p Here, you can improve your programme
-		%p Here, you can meet a number of cute friend
-		%p Here, you can feel what it is amazing!
-		%p= link_to "Go!", rand_problem_path(1003), class: "btn btn-primary btn-lg"
+		%h1.lead= t('Welcome to SCNUOJ')
+		%p= t('Here, you can improve your programme')
+		%p= t('Here, you can meet a number of cute friend')
+		%p= t('Here, you can feel what it is amazing!')
+		%p= link_to t('Go'), rand_problem_path(1003), class: "btn btn-primary btn-lg"

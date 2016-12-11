@@ -16,7 +16,7 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 
   private
 
-def_delegators :@view, :link_to, :problem_path, :current_user, :image_tag
+def_delegators :@view, :t, :link_to, :problem_path, :current_user, :image_tag, :t
   
   def data
   	ac_record =  current_user.user_detail.ac_record if current_user
@@ -30,7 +30,7 @@ def_delegators :@view, :link_to, :problem_path, :current_user, :image_tag
 	  [     
 	  	is_ac,
 		problem.problem_id,
-		link_to(problem.title, problem_path(problem)),
+		link_to(t(problem.problem_id), problem_path(problem)),
 		problem.difficulty,#* %(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)
 		problem.source
 	  ]

@@ -18,6 +18,7 @@ CODE_FILE = {
     "Python" => "main.py"
 }
 
+ALLOW_LANGUAGES = %w(C C++ Java Python2 Python3 Ruby Go PHP Scala)
 SLOW_LANGUAGES = %w(Ruby Perl Java Python)
 
 BUILD_CMD = {

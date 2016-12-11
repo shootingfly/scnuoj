@@ -11,8 +11,8 @@ class UserLogin < ActiveRecord::Base
 
     def generate_token
         loop {
-            self.auth_token = SecureRandom.urlsafe_base64
-            break unless UserLogin.find_by(auth_token: self.auth_token)
+            self.token = SecureRandom.urlsafe_base64
+            break unless UserLogin.find_by(token: self.token)
         }
     end
 end

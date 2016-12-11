@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     layout "application"
 
     def current_user
-        @current_user ||= UserLogin.find_by(auth_token: cookies[:auth_token]).user if cookies[:auth_token]
+        @current_user ||= UserLogin.find_by(token: cookies[:token]).user if cookies[:token]
     end
 
     def current_theme
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_locale
-        cookies[:locale] || 'en'
+        cookies[:locale] || DEFAULT_LOCALE
     end
 
     helper_method :current_user, :current_theme, :current_locale, :current_mode, :current_keymap

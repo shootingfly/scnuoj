@@ -4,9 +4,9 @@ class Admin::ProblemDatatable < AjaxDatatablesRails::Base
     @sortable_columns ||= %w(
       Problem.problem_id 
       Problem.title 
-      Problem.grade
-      Problem.ac 
-      Problem.submit
+      Problem.difficulty
+      ProblemDetail.ac 
+      ProblemDetail.submit
     )
   end
 
@@ -14,24 +14,24 @@ class Admin::ProblemDatatable < AjaxDatatablesRails::Base
     @searchable_columns ||= %w(
       Problem.problem_id 
       Problem.title
-      Problem.grade
+      Problem.difficulty
     )
   end
 
   private
 
-  def_delegators :@view, :link_to, :content_tag, :concat, :admin_problem_path, :edit_admin_problem_path
+  def_delegators :@view, :t, :link_to, :content_tag, :concat, :chinesization_admin_problem_path, :problem_path, :admin_problem_path, :edit_admin_problem_path
   
   def data
     records.map do |problem|
       [
         problem.problem_id,
-        link_to(problem.title, admin_problem_path(problem.problem_id)),
+        link_to(t(problem.problem_id), problem_path(problem), target: "_blank"),
         problem.difficulty,
         problem.problem_detail.ac,
         problem.problem_detail.submit,
         content_tag(:div, "id": problem.problem_id) do
-          concat(link_to('查看', admin_problem_path(problem), class: "btn btn-xs btn-info"))
+          concat(link_to('汉化', chinesization_admin_problem_path(problem), class: "btn btn-xs btn-info"))
           concat(' ')
           concat(link_to('编辑' , edit_admin_problem_path(problem), class: "btn btn-xs btn-warning"))
           concat(' ')

@@ -3,10 +3,10 @@ class ProblemsController < ApplicationController
     before_action :set_problem, only: [:show, :comment, :judge]
 
     def index
-        @page_title = t('problem')
+        @page_title = 'Problem'
         respond_to do |format|
             format.html
-            format.json {render json: ProblemDatatable.new(view_context, @user) }
+            format.json { render json: ProblemDatatable.new(view_context) }
         end
     end
 
@@ -37,18 +37,19 @@ class ProblemsController < ApplicationController
     end
 
     def comment
-        @comments = @problem.comments.order(id: :desc).page(params[:page]).includes(:user)
+        @page_title = 'Comment'
+        @comments = @problem.comments.order("id DESC").page(params[:page]).includes(:user)
         render 'problem'
     end
 
     def judge
         if current_user
+            @page_title = 'Judge'
             @code = Code.new
             render 'problem'
         else
             session[:return_to] = request.fullpath
-            flash[:notice] = "Please Login Before Judge"
-            redirect_to login_path
+            redirect_to login_path, notice: "Please Login Before Judge"
         end
     end
 
@@ -58,7 +59,7 @@ class ProblemsController < ApplicationController
             problem = Problem.find_by(problem_id: params[:id])
             options = JudgeJob.perform_now(@code, problem.time, problem.space)
             JudgeRebackJob.perform_now(options)
-            redirect_to statuses_path
+            redirect_to statuses_path, notice: options['results']
         else
             render :judge
         end

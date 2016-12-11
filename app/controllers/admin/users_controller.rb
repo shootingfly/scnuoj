@@ -3,6 +3,7 @@ class Admin::UsersController < Admin::ApplicationController
     before_action :set_user, only: [:show, :edit, :update, :destroy]
 
     def index
+        @page_title = 'User List'
         respond_to do |format|
             format.html
             format.json {render json: Admin::UserDatatable.new(view_context)}
@@ -20,10 +21,9 @@ class Admin::UsersController < Admin::ApplicationController
     def create
         @user = User.new(user_params)
         if @user.save
-            flash.notice = "User #{@user.username} was successfully created."
-            redirect_to new_admin_user_path
+            redirect_to new_admin_user_path, notice: "User #{@user.username} was successfully created."
         else
-            render :new
+            render 'new'
         end
     end
 
@@ -33,10 +33,9 @@ class Admin::UsersController < Admin::ApplicationController
 
     def update
         if @user.update(user_params)
-            flash.notice = "User #{@user.username} was successfully updated"
-            redirect_to admin_users_path
+            redirect_to admin_users_path, notice: "User #{@user.username} was successfully updated"
         else
-            render :edit
+            render 'edit'
         end
     end
 
@@ -49,15 +48,16 @@ class Admin::UsersController < Admin::ApplicationController
     end
 
     def batch_new
+        @page_title = 'Bactch New User'
     end
 
     def batch_create
         uploader = UsersUploader.new
         uploader.store!(params[:file])
         require "spreadsheet"
-        user_xls = Spreadsheet.open("public/#{uploader.store_path}", "r")
-        sheet = user_xls.worksheet 0
-        sheet.each 1 do |row|
+        xls = Spreadsheet.open("#{Rails.public_path}/#{uploader.store_path}", "r")
+        sheet = xls.worksheet(0)
+        sheet.each(1) do |row|
             User.create(
                 student_id: row[0].to_i,
                 username: row[1].to_s,
@@ -67,7 +67,7 @@ class Admin::UsersController < Admin::ApplicationController
                 qq: row[5].to_i,
             )
         end
-        # uploader.remove!
+        uploader.remove!
         redirect_to admin_users_path
     end
 

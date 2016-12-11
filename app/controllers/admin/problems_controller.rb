@@ -1,5 +1,5 @@
 class Admin::ProblemsController < Admin::ApplicationController
-    before_action :set_problem, only: [:show, :edit, :update, :destroy]
+    before_action :set_problem, only: [:show, :edit, :update, :destroy, :chinesizations]
 
     def index
         respond_to do |format|
@@ -31,6 +31,9 @@ class Admin::ProblemsController < Admin::ApplicationController
 
     def update
         if @problem.update(problem_params)
+            if problem_params[:title] != @problem.title
+                @problem.map
+            end
             flash[:notice] = "problem #{@problem.problem_id} was successfully updated."
             redirect_to admin_problem_path(@problem)
         else
@@ -46,6 +49,20 @@ class Admin::ProblemsController < Admin::ApplicationController
         end
     end
 
+    def chinesization
+        @page_title = 'Chinesization'
+    end
+
+    def chinesizations
+         @problem.chinesization(params[:title])
+         if params[:description]
+            File.open("#{Rails.public_path}/uploads/problem/zh/#{@problem.problem_id}.md", "w+") do |f|
+                f.write(params[:description].read)
+            end
+        end
+         redirect_to chinesization_admin_problem_path, notice: "Successfully"
+    end
+
     private
     
     def set_problem
@@ -53,7 +70,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     def problem_params
-        params.require(:problem).permit(:problem_id, :title, :description, :testdata)
+        params.require(:problem).permit(:problem_id, :title, :difficulty, :description, :testdata)
     end
 
 end

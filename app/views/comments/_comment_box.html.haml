@@ -5,3 +5,13 @@
 		= f.text_area :content, class: "form-control", rows: 10
 	.form-group
 		= f.submit 'Go', class: "btn btn-primary btn-block"
+:javascript
+	var commenters = [];
+	$(function(){
+		$('.media-body .text-muted a').each(function() {
+			if($.inArray($(this).text(), commenters) < 0) {
+				commenters.push($(this).text());			
+			}
+		});
+		$('textarea').atwho({at:"@", 'data':commenters});
+	});

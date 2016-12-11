@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202162102) do
+ActiveRecord::Schema.define(version: 20161210074003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,46 @@ ActiveRecord::Schema.define(version: 20161202162102) do
     t.integer  "problem_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "contest_problems", force: :cascade do |t|
+    t.integer "contest_id"
+    t.string  "problem_id"
+    t.integer "time"
+    t.integer "space"
+    t.integer "ac"
+    t.integer "submit"
+    t.string  "description"
+    t.string  "testdata"
+  end
+
+  create_table "contest_ranks", force: :cascade do |t|
+    t.integer "contest_id"
+    t.integer "team_id"
+    t.integer "rank"
+    t.integer "ac"
+    t.integer "submit"
+    t.integer "details",    array: true
+  end
+
+  create_table "contest_statuses", force: :cascade do |t|
+    t.integer  "contest_id"
+    t.string   "problem_id"
+    t.string   "team_name"
+    t.string   "result"
+    t.integer  "time_cost"
+    t.integer  "space_cost"
+    t.integer  "code_length"
+    t.datetime "created_at",  null: false
+  end
+
+  create_table "contests", force: :cascade do |t|
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "status"
+    t.string   "address"
+    t.string   "remark"
+    t.string   "title"
   end
 
   create_table "crono_jobs", force: :cascade do |t|
@@ -110,6 +150,15 @@ ActiveRecord::Schema.define(version: 20161202162102) do
     t.string   "title"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string "team_id"
+    t.string "password_digest"
+    t.string "team_name"
+    t.string "school"
+    t.string "reward_records",  array: true
+    t.string "contest_records", array: true
+  end
+
   create_table "user_details", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "wa",         default: 0,    null: false
@@ -132,7 +181,7 @@ ActiveRecord::Schema.define(version: 20161202162102) do
     t.integer "user_id"
     t.string  "student_id"
     t.string  "password_digest"
-    t.string  "auth_token"
+    t.string  "token"
   end
 
   create_table "users", force: :cascade do |t|

@@ -4,32 +4,36 @@
 		= render_admin_title
 		= stylesheet_link_tag  'cosmo', media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag    'application', 'data-turbolinks-track' => true
+		= stylesheet_link_tag    'admin/login', 'data-turbolinks-track' => true
+		= stylesheet_link_tag    'admin/common', 'data-turbolinks-track' => true
+		= javascript_include_tag 'admin/common', 'data-turbolinks-track'=> true
 		= csrf_meta_tag
 	%body
-		%br
-		%br
-		%br
-		%br
-		%br
-		%div
-			= form_tag(admin_login_session_path, method: :post, class: "center-block form-horizontal") do |f|
-				.form-group
-					%label.control-label.col-sm-3
-						%i.glyphicon.glyphicon-user
-					.col-sm-4
-						= text_field_tag 'username', nil, class: "form-control"
-				.form-group
-					%label.control-label.col-sm-3
-						%i.glyphicon.glyphicon-lock
-					.col-sm-4
-						= password_field_tag 'password', nil, class: "form-control"
-				.form-group
-					%label.control-label.col-sm-3
-						Captcha
-					.col-sm-4
-						= rucaptcha_input_tag(class: 'form-control')
-					.col-sm-4
-						= rucaptcha_image_tag(alt: 'Captcha')
-				.form-group
-					.col-sm-4.col-sm-offset-3
-						= button_tag t('login'), class: "btn btn-primary btn-block"
+		.header
+		.col-sm-10.loginWraper
+			.col-sm-10.loginBox
+				= form_tag(admin_login_session_path, method: :post, class: "center-block form-horizontal") do |f|
+					.form-group
+						= label_tag 'username', class: "control-label col-sm-3" do
+							%i.glyphicon.glyphicon-user
+						.col-sm-6
+							= text_field_tag 'username', nil, class: "form-control"
+					.form-group
+						= label_tag 'password', class: "control-label col-sm-3" do
+							%i.glyphicon.glyphicon-lock
+						.col-sm-6
+							= password_field_tag 'password', nil, class: "form-control"
+					.form-group
+						= label_tag '_rucaptcha', class: "control-label col-sm-3" do
+							%i.glyphicon.glyphicon-chevron-right
+						.col-sm-6
+							= rucaptcha_input_tag(id: "_rucaptcha", class: 'form-control')
+						.col-sm-2
+							= rucaptcha_image_tag(alt: 'Captcha')
+					.form-group
+						.col-sm-6.col-sm-offset-3
+							= submit_tag nil, class: "form-control btn btn-primary"
+		.footer
+			- if flash.notice
+				.notice= flash.notice 
+			Copyright © 2016 South China Normal University. All Rights Reserved

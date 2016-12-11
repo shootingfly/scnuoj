@@ -1,9 +1,33 @@
 zh:
-  hello: "Hello world"
-  scnuoj: "SCNUOJ"
-  home: "a"
-  problem: "..."
-  status: "Status"
-  rank: "Rank"
-  login: "Login"
-  logout: "Logout"
+  SCNUOJ: 'SCNUOJ'
+  Home: 'Home'
+  Problem: 'lll'
+  Status: 'Status'
+  Rank: 'Rank'
+  Contest: 'Contest'
+  Login: 'Login'
+  User: 'User'
+  Title: 'Title'
+  # Login
+  Login: 'Login'
+  Remember Me: 'Remember me'
+  Forget Password: 'Forget Password'
+  # Status
+  Result: 'Result'
+  Time: 'Time'
+  Space: 'Space'
+  Language: 'Language'
+  The Time: 'Submit Time'
+  # Problem
+  Title: 'Title'
+  Difficulty: 'Difficulty'
+  Source: 'Source'
+  # Rank
+  Rank: 'Rank'
+  User: 'User'
+  Class: 'Class'
+  Dormitory: 'Dormitory'
+  Score: 'Score'
+  # Home
+  Welcome to SCNUOJ: 'Welcome to SCNUOJ'
+

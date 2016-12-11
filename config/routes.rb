@@ -10,15 +10,27 @@ Rails.application.routes.draw do
         get 'aboutus' => 'main#aboutus', as: :aboutus
         get 'home' => 'main#home', as: :home
         resources :managers, except: :show
-        resources :users
-        get 'batch_new' => 'users#batch_new', as: :batch_new_user
-        post 'batch_new' => 'users#batch_create', as: :batch_create_user
-        resources :problems
+        resources :users do
+            collection do 
+                get 'batch_new' => 'users#batch_new'
+                post 'batch_new' => 'users#batch_create'
+            end
+        end
+        resources :problems do
+            member do 
+                get 'chinesization' => 'problems#chinesization'
+                post 'chinesization' => 'problems#chinesizations'
+            end
+        end
         resources :ranks, only: :index
         resources :statuses, only: :index
+        resources :contests do
+            resources :contest_problems, as: :problems, path: 'problems'
+        end
     end
 
     # OJ
+    
     resources :problems, only: [:index, :show] do
         member do
             get 'comment' => 'problems#comment'
@@ -37,8 +49,8 @@ Rails.application.routes.draw do
     get 'status/:run_id/errors' => 'statuses#error', as: :status_error
     resources :contests, only: :index do
         member do
-            get 'problems' => 'contests#problems'
-            get 'problems/:problem_id' => 'contests#problem'
+            get 'problem' => 'contests#problem'
+            get 'problem/:id' => 'contest_problem#show'
             get 'status' => 'contests#status'
             get 'rank' => 'contests#rank'
         end
@@ -51,19 +63,19 @@ Rails.application.routes.draw do
     # post 'problems/:problem_id/judge' => 'codes#create', as: :codes
     # get 'rank' => 'ranks#index', as: :ranks
     # get 'status' => 'statuses#index', as: :statuses
-    get 'users/:student_id' => 'users#show', as: :user
-    get 'users/:student_id/solutions/:problem_id' => 'users#solution', as: :user_solution
-    get 'password' => 'users#edit_password', as: :edit_password
-    patch 'password' => 'users#update_password', as: :update_password
-    get 'info' => 'users#edit', as: :edit_user
-    patch 'info' => 'users#update', as: :update_user
-    get 'profile' => 'profiles#edit', as: :edit_profile
-    post 'profile' => 'profiles#update', as: :profile
+    resources :users, only: :show do
+        get 'solutions/:problem_id' => 'users#solution', as: :solution, on: :member
+    end
+    get 'password' => 'users#edit_password'
+    patch 'password' => 'users#update_password'
+    get 'info' => 'users#edit'
+    patch 'info' => 'users#update'
+    get 'profile' => 'profiles#edit'
+    post 'profile' => 'profiles#update'
     post 'set_theme' => 'main#set_theme', as: :set_theme
     post 'set_locale' => 'main#set_locale', as: :set_locale
     get 'login' => 'main#login', as: :login
     post 'login' => 'main#login_session', as: :login_session
     delete 'logout' => 'main#logout', as: :logout
-    get 'aboutus' => 'main#aboutus', as: :aboutus
-
+    get 'about-us' => 'main#about', as: :about
 end

@@ -77,13 +77,20 @@ class User < ActiveRecord::Base
 
     def generate_avatar
         require 'open-uri'
-       File.open("#{TMP_PATH}/#{self.qq}.jpg", "wb+") do |f|
-            f.write(
-                open("http://q4.qlogo.cn/g?b=qq&nk=#{self.qq}&s=100").read
-            )
-            self.avatar = f
-            File.delete(f)
+        url = "http://q4.qlogo.cn/g?b=qq&nk=#{self.qq}&s=100"
+        open(url) do |io|
+            open("#{TMP_PATH}/#{self.qq}.jpg","wb+") do |f|
+                f.write(io.read)
+                self.avatar = f
+            end
         end
+       # File.open("#{TMP_PATH}/#{self.qq}.jpg", "wb+") do |f|
+       #      f.write(
+       #          open("http://q4.qlogo.cn/g?b=qq&nk=#{self.qq}&s=100").read
+       #      )
+       #      self.avatar = f
+       #      File.delete(f)
+       #  end
     end
 
 end

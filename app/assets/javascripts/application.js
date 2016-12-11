@@ -11,6 +11,7 @@
 // about supported directives.
 //= require jquery
 //= require jquery_ujs
+//= require jquery.atwho
 //= require bootstrap
 //= require bootstrap-filestyle
 //= require dataTables/jquery.dataTables

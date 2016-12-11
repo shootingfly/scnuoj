@@ -4,33 +4,33 @@
 	%table.table.table-striped
 		%tbody
 			%tr
-				%th Time
+				%th= t('Time')
 				%td= @problem.time
 			%tr
-				%th Space
+				%th= t('Space')
 				%td= @problem.space
 			%tr
-				%th AC
+				%th= t('AC')
 				%td= @problem_detail.ac
 			%tr
-				%th Submit
+				%th= t('Submit')
 				%td= @problem_detail.submit
 			%tr
-				%th Difficulty
+				%th= t('Difficulty')
 				%td= @problem.difficulty
 			%tr
-				%th Last Person
+				%th= t('Last Person')
 				%td= @problem_detail.last_person
 .cards
 	.btn-toolbar
 		.btn-group-vertical
 			= link_to problem_path(@problem), class: "btn btn-primary" do
-				%span.card-content Show
+				%span.card-content= t('Show')
 			= link_to rand_problem_path(@problem), class: "btn btn-primary" do
-				%span.card-content Rand
+				%span.card-content= t('Rand')
 			= link_to judge_problem_path(@problem), class: "btn btn-primary" do
-				%span.card-content Go
+				%span.card-content= t('Go')
 			= link_to comment_problem_path(@problem), class: "btn btn-primary" do
-				%span.card-content Say
-			= link_to 'Prev', prev_problem_path, class: "btn btn-info"
-			= link_to 'Next', next_problem_path, class: "btn btn-info"
+				%span.card-content= t('Say')
+			= link_to t('Prev'), prev_problem_path, class: "btn btn-info"
+			= link_to t('Next'), next_problem_path, class: "btn btn-info"

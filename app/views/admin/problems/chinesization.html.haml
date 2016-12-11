@@ -1,0 +1,12 @@
+= form_tag(chinesization_admin_problem_path, multipart: true, class: "form-horizontal") do
+	.form-group
+		= label_tag 'title', 'Title', class: "control-label col-sm-4"
+		.col-sm-4
+			= text_field_tag 'title', nil, class: "form-control"
+	.form-group
+		= label_tag 'description', 'Description', class: "control-label col-sm-4"
+		.col-sm-4
+			= file_field_tag 'description', class: "filestyle"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= submit_tag 'Submit', class: "form-control btn btn-primary"

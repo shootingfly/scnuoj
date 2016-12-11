@@ -1,6 +1,8 @@
 .list-group
-	= link_to "管理员管理", admin_managers_path, class: 'list-group-item'
+	- if current_user.super_admin?
+		= link_to "Managers",  admin_managers_path, class: 'list-group-item'
 	= link_to "题目管理", admin_problems_path,  class: 'list-group-item'
 	= link_to "用户管理", admin_users_path, class: 'list-group-item'
 	= link_to "状态监测", admin_statuses_path,  class: 'list-group-item'
 	= link_to "排名查看", admin_ranks_path, class: 'list-group-item'
+	= link_to t('Contest'), admin_contests_path, class: 'list-group-item'

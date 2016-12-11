@@ -3,8 +3,8 @@
 		= image_tag(comment.user.avatar, size: "60", class: "img-circle")
 	.media-body
 		.text-muted
-			= link_to comment.user.username, user_path(comment.user)
-			= "\##{comment.comment_floor}" 
+			= link_to user_path(comment.user) do
+				= " #" + comment.comment_floor.to_s + " " + comment.user.username
 			= time_ago_in_words(comment.created_at) + ' ago'
 		= markdown(comment.content)
 %hr

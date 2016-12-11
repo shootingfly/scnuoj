@@ -1,0 +1,24 @@
+= form_for(@contest_problem, html: {class: "form-horizontal"}) do |f|
+	.form-group
+		= f.label :problem_id, t('Problem ID'), class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :problem_id, class: "form-control"
+	.form-group
+		= f.label :time, t('Time'), class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :time, class: "form-control"
+	.form-group
+		= f.label :space, t('Space'), class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :space, class: "form-control"
+	.form-group
+		= f.label :description, t('Description'), class: "control-label col-sm-4"
+		.col-sm-4
+			= f.file_field :description, accept: "text/md", class: "filestyle"
+	.form-group
+		= f.label :testdata, t('Testdata'), class: "control-label col-sm-4"
+		.col-sm-4
+			= f.file_field :testdata, accept: "text/json", class: "filestyle"
+	.form-group
+		.col-sm-4.col-sm-offset-4
+			= f.submit nil, class: "form-control btn btn-primary"

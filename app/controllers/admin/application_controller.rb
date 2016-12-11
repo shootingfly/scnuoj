@@ -6,17 +6,12 @@ class Admin::ApplicationController < ActionController::Base
 
     # before_action :require_login
 
-    private
-
     def require_login
-        unless cookies[:authenticate]
-            flash.notice = "Please login first"
-            redirect_to admin_root_path
-        end
+        redirect_to(admin_root_path, notice: "Please login first") unless cookies[:auth_token]
     end
 
     def current_theme
-        @theme = cookies[:theme] || "yeti"
+        cookies[:theme] || DEFAULT_THEME
     end
 
     def current_user

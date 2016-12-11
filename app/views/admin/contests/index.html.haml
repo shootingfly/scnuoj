@@ -1,0 +1,13 @@
+= link_to 'New', new_admin_contest_path, class: "btn btn-xs pull-right"
+%table.table.table-hover.datatable{'data-source' => admin_contests_path(format: :json)}
+	%thead
+		%tr
+			%th #
+			%th= t('Title')
+			%th= t('Start Time')
+			%th= t('End Time')
+			%th= t('Status')
+			%th= t('Address')
+			%th= t('Remark')
+			%th= t('Action')
+	%tbody

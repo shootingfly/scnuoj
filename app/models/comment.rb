@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :problem
 
-	paginates_per 10
+	paginates_per 5
 
 	def comment_floor
 		comment_ids = Comment.where(problem_id: self.problem_id).ids

@@ -1,1 +1,4 @@
-= markdown(render file: "/public/uploads/problem/description/1000.md")
+- if current_locale == :en
+	= markdown(render file: "/public/uploads/problem/description/1000.md")
+- else
+	= markdown(render file: "/public/uploads/problem/zh_description/1000.md")

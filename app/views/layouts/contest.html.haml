@@ -1,0 +1,21 @@
+!!!
+%html
+	%head
+		= render_title
+		= stylesheet_link_tag 'application', 'data-turbolinks-track' => true
+		= stylesheet_link_tag 'cosmo', 'shared/common', 'shared/rouge_theme', 'data-turbolinks-track' => true
+		= javascript_include_tag 'application', 'shared/common', 'data-turbolinks-track' => true
+	%body
+		.container
+			%h3.text-center.text-primary= @contest.title
+			%p.text-center.text-danger= "#{@contest.start_time}" + "#{@contest.end_time}"
+			%nav.navbar.navbar-default
+				.container
+					%ul.nav.navbar-nav
+						%li= link_to('Problem', problem_contest_path)
+						%li= link_to('Status', status_contest_path)
+						%li= link_to('Rank', rank_contest_path)
+			.row
+				= yield
+			%footer.text-center
+				Help

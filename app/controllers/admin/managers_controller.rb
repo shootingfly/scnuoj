@@ -18,8 +18,7 @@ class Admin::ManagersController < Admin::ApplicationController
     def create
         @manager = Manager.new(manager_params)
         if @manager.save
-            flash[:notice] = "添加#{@manager.username}成功!"
-            redirect_to admin_managers_path
+            redirect_to admin_managers_path, notice: "添加#{@manager.username}成功!"
         else
             render :new
         end
@@ -38,9 +37,11 @@ class Admin::ManagersController < Admin::ApplicationController
     end
 
     def destroy
-        flash[:notice] = "Delete #{@manager.username}成功!"
-        @manager.destroy
-        redirect_to admin_managers_path
+        if @manager.destroy
+            redirect_to admin_managers_path, notice: "Delete #{@manager.username}成功!"
+        else
+            redirect_to admin_managers_path, notice: "Delete Failed"
+        end
     end
 
     private

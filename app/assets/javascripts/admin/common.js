@@ -1,7 +1,7 @@
 var hideNotice = function(){
 	$(".notice").fadeOut("slow");
 }
-setTimeout(hideNotice, 4000);
-// $(":file").filestyle({
-// 	input: false;
-// })
+setTimeout(hideNotice, 2000);
+$(":file").filestyle({
+	input: false
+});

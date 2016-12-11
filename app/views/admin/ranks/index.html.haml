@@ -1,5 +1,5 @@
 %h4 个人排名
-%table.table.table-stripped.table-bordered.table-hover.datatable{"data-source" => "#{ranks_path(format: :json)}"}
+%table.table.table-stripped.table-bordered.table-hover.datatable{"data-source" => "#{admin_ranks_path(format: :json)}"}
     %thead
         %tr
             %th 排名
@@ -8,5 +8,6 @@
             %th 宿舍
             %th AC数
             %th 提交数
+            %th Score
     %tbody
 

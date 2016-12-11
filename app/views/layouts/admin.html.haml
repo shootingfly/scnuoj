@@ -13,10 +13,11 @@
 		= csrf_meta_tags
 	%body
 		= render "admin/common/navbar"
-		.container-fluid
+		.container-fluid.max
 			.col-sm-2
 				= render "admin/common/sidebar"
-			#max.col-sm-10.container
+			.col-sm-10.container
+				/ = render_breadcrumb if controller_name.in?(["problems", "managers", "users", "contests"])
 				= yield
 				- if flash.notice
 					.notice= flash.notice 

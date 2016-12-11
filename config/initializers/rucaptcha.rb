@@ -8,5 +8,5 @@ RuCaptcha.configure do
   # 设置 0 关闭缓存, 默认 100
   self.cache_limit = 100
   # 文字扭曲度，调整这个可以提高阅读难度，默认 0.4 范围 [0.0 - 1.0]
-  self.implode = 0.4
+  self.implode = 0.1
 end

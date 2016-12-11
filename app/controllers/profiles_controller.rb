@@ -3,8 +3,7 @@ class ProfilesController < ApplicationController
 	before_action :set_profile
 
 	def edit
-		@page_title = 'profile'
-		@profile = current_user.profile
+		@page_title = 'Profile'
 		render template: "users/profile"
 	end
 
@@ -12,6 +11,7 @@ class ProfilesController < ApplicationController
 		@profile.theme = cookies[:theme] = params[:theme]
 		@profile.mode = cookies[:mode] = params[:mode]
 		@profile.keymap = cookies[:keymap] =  params[:keymap]
+		@profile.locale = cookies[:locale] = params[:locale]
 		@profile.save
 		redirect_to :back
 	end
