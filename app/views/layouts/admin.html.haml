@@ -5,9 +5,8 @@
 		= render_admin_title
 		- @theme = current_theme
 		= stylesheet_link_tag  'cosmo', media: 'all', 'data-turbolinks-track' => true
-		= stylesheet_link_tag    'application', 'data-turbolinks-track' => true
-		= stylesheet_link_tag 'admin/common', media: 'all', 'data-turbolinks-track' => true
-		= javascript_include_tag 'application', 'data-turbolinks-track' => true
+		= stylesheet_link_tag 'admin/admin', media: 'all', 'data-turbolinks-track' => true
+		= javascript_include_tag 'admin/admin', 'data-turbolinks-track' => true
 		= javascript_include_tag 'admin/datatables', 'data-turbolinks-track' => true
 		= javascript_include_tag 'admin/common', 'data-turbolinks-track'=> true
 		= csrf_meta_tags

@@ -11,7 +11,7 @@ $(function() {
 						search: '<span class="label label-success">搜索：</span>',
 						//右上角的搜索文本，可以写html标签
 						paginate: { //分页的样式内容。
-								previous: "xia",
+								previous: "Prev",
 								next: "Next",
 						},
 						zeroRecords: "没有内容",

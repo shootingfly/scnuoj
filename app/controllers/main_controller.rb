@@ -44,6 +44,13 @@ class MainController < ApplicationController
         redirect_to :back
     end
 
+    def set_mode
+        cookies[:mode] = params[:language]
+        cookies[:code_theme] = params[:code_theme]
+        cookies[:keymap] = params[:keymap]
+        redirect_to :back
+    end
+
     def set_locale
         if cookies[:locale] == 'en'
             cookies[:locale] = 'zh'

@@ -67,7 +67,7 @@ class Admin::UsersController < Admin::ApplicationController
                 qq: row[5].to_i,
             )
         end
-        uploader.remove!
+        # uploader.remove!
         redirect_to admin_users_path
     end
 

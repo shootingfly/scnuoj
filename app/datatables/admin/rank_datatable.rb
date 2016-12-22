@@ -30,7 +30,7 @@ class Admin::RankDatatable < AjaxDatatablesRails::Base
         records.map do |record|
             [
                 record.rank,
-                link_to(record.user.username, user_path(record.user)),
+                link_to(record.user.username, user_path(record.user), target: "_blank"),
                 record.user.classgrade,
                 record.user.dormitory,
                 record.ac,

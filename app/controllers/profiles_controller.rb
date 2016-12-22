@@ -12,6 +12,7 @@ class ProfilesController < ApplicationController
 		@profile.mode = cookies[:mode] = params[:mode]
 		@profile.keymap = cookies[:keymap] =  params[:keymap]
 		@profile.locale = cookies[:locale] = params[:locale]
+		@profile.code_theme = cookies[:code_theme] = params[:code_theme]
 		@profile.save
 		redirect_to :back
 	end

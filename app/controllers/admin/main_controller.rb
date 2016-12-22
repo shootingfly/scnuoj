@@ -28,6 +28,8 @@ class Admin::MainController < Admin::ApplicationController
     end
 
     def home
+        @user_count = User.count
+        @problem_count = Problem.count
     end
 
 end

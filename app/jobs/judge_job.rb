@@ -23,7 +23,7 @@ class JudgeJob < ActiveJob::Base
     end
 
     def before_judge
-        FileUtils.cd("#{Rails.public_path}/users/#{@code.student_id}")
+        FileUtils.cd(JUDGE_PATH)
         File.open(CODE_FILE[@lang], "w") {|f| f.write(@code.code) }
         if SLOW_LANGUAGES.include?(@lang)
             @time *= 2
@@ -35,14 +35,23 @@ class JudgeJob < ActiveJob::Base
         if compile_successful?
             return run_many
         else
+            @time_cost << 0
             return CE
         end
     end
 
     def after_judge
         FileUtils.rm Dir.glob('*ain*')
-        @time_cost = @time_cost.max || @time
-        @space_cost = @space_cost.max || @space
+        @time_cost = @time_cost.max
+        @space_cost = @space_cost.max
+        case @result
+        when TE
+            @time_cost = @time
+        when ME
+            @space_cost = @space
+        when CE
+            @time_cost = @space_cost = 0 
+        end
         ActiveRecord::Base.connection_pool.with_connection do
             user = User.find_by(student_id: @code.student_id)
             problem = Problem.find_by(problem_id: @problem_id)
@@ -60,13 +69,11 @@ class JudgeJob < ActiveJob::Base
             return options = {
                 uid: user.id,
                 pid: problem.id,
-                result: @result,
-                problem_id: @problem_id,
-                username: user.username,
+                cid: @code.id,
                 difficulty: problem.difficulty,
-                student_id: user.student_id,
-                language: @lang,
-                code_id: @code.id
+                result: @result,
+                username: user.username,
+                problem_id: @problem_id
             }
         end
     end
@@ -87,17 +94,12 @@ class JudgeJob < ActiveJob::Base
     end
 
     def run_one(test, exe_cmd)
-        standard_in = test[0]
-        standard_out = test[1]
-        result = nil
-        user_out = nil
+        standard_in, standard_out = test[0], test[1]
+        result, user_out  = nil
         time_caculator = Time.now
         Open3.popen3(exe_cmd, :rlimit_cpu => @time, :rlimit_rss => @space) { |stdin, stdout, stderr, wait_thread|
-            # space_cost = `ps -o rss= #{wait_thread.pid}`.to_f
             space_cost = (`cat /proc/#{wait_thread.pid}/status | grep VmPeak`)[/\d+/].to_i
             stdin.puts(standard_in)
-            # space_cost = `ps -o rss= #{wait_thread.pid}`.to_f
-            # space_cost = (`cat /proc/#{wait_thread.pid}/status | grep VmPeak`)[/\d+/].to_i
             result =
                 if space_cost > @space
                     ME
@@ -105,8 +107,6 @@ class JudgeJob < ActiveJob::Base
                     TE
                 elsif stderr.read.present?
                     RE
-                else
-                    nil
                 end
             @space_cost << space_cost
             break if result

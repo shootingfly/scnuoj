@@ -42,7 +42,7 @@ class StatusDatatable < AjaxDatatablesRails::Base
     end
 
     def get_raw_records
-        Status.order(created_at: :desc)
+        Status.order(id: :desc)
     end
 
 end

@@ -73,6 +73,7 @@ Rails.application.routes.draw do
     get 'profile' => 'profiles#edit'
     post 'profile' => 'profiles#update'
     post 'set_theme' => 'main#set_theme', as: :set_theme
+    post 'set_mode' => 'main#set_mode', as: :set_mode
     post 'set_locale' => 'main#set_locale', as: :set_locale
     get 'login' => 'main#login', as: :login
     post 'login' => 'main#login_session', as: :login_session

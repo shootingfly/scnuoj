@@ -1,16 +1,62 @@
+- mode = (current_mode == "C++" ? "cpp" : current_mode.downcase)
+- code_theme = current_code_theme
+- keymap = current_keymap
 - content_for :js do
-	= stylesheet_link_tag 'codemirror/codemirror', 'codemirror/monokai', 'codemirror/fullscreen', media: 'all', 'data-turbolinks-track' => true
-	= javascript_include_tag 'codemirror/codemirror', 'codemirror/fullscreen', 'codemirror/matchbrackets', 'codemirror/active-line'
-	= javascript_include_tag "codemirror/#{current_mode}"
-	= javascript_include_tag "codemirror/#{current_keymap}"
+	= stylesheet_link_tag 'codemirror/codemirror', 'codemirror/fullscreen', media: 'all', 'data-turbolinks-track' => true
+	= stylesheet_link_tag "codemirror/#{code_theme}", 'data-turbolinks-track' => true
+	= javascript_include_tag 'codemirror/codemirror', 'codemirror/fullscreen', 'codemirror/matchbrackets', 'codemirror/active-line', 'data-turbolinks-track' => true
+	= javascript_include_tag "codemirror/#{mode}", 'data-turbolinks-track' => true
+	= javascript_include_tag "codemirror/#{current_keymap}", 'data-turbolinks-track' => true
 = form_for(@code, url: judge_problem_path, class: "form-horizontal") do |f|
 	= f.hidden_field :student_id, value: current_user.student_id
 	= f.hidden_field :problem_id, value:  @problem.problem_id
+	= f.hidden_field :language, value: current_mode
 	.form-group
-		= f.label :language, "语言"
-		= f.select(:language, options_for_select(%w(C C++ Ruby Python PHP Java Go Javascript), current_mode.capitalize), class: "form-control")
+		= f.text_area(:code, id:"code", class: "form-control" , autofocus: true)
 	.form-group
-		= f.text_area(:code, id:"code", class: "form-control")
+		= f.submit value:"提交", class:"btn btn-block btn-primary", data: { disable_with: "Submitting..." }
+= form_tag(set_mode_path) do
 	.form-group
-		= f.submit value:"提交", class:"btn btn-block btn-primary"
-= javascript_include_tag 'editor', 'data-turbolinks-track' => true
+		.col-sm-4
+			= select_tag(:language, options_for_select(%w(C C++ Ruby Python PHP Java Go Javascript), current_mode.capitalize), onchange: "submit()", class: "form-control")
+	.form-group
+		.col-sm-4
+			= select_tag(:code_theme, options_for_select(%w(3024-day 3024-night monokai base16-dark), current_code_theme), onchange: "submit()",class: "form-control")
+	.form-group
+		.col-sm-4
+			= select_tag(:keymap, options_for_select(%w(vim sublime emacs), current_keymap), onchange: "submit()",class: "form-control")
+%p.text-center.text-muted
+	F8 : Scroll &nbsp;&nbsp; F9: Save &nbsp;&nbsp; F10: Recover &nbsp;&nbsp; F11: FullScreen
+:javascript
+	var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+		lineNumbers: true,
+		styleActiveLine: true,
+		matchBrackets: true,
+		mode: "text/x-#{mode}",
+		theme: "#{code_theme}",
+		keyMap: "#{keymap}",
+		lineWrapping: true,
+		extraKeys:  {
+			"F8": function(cm) {
+				if(cm.getOption('size')) {
+					editor.setSize('auto', 'auto');
+					cm.setOption("size", false);
+				} else {
+					editor.setSize('auto', 400);;
+					cm.setOption("size", true);
+				}
+			},
+			"F9": function(cm) {
+				var code = cm.getValue();
+				window.localStorage.setItem("code",code);  
+			},
+			"F10": function(cm) {
+				var code = window.localStorage.getItem("code"); 
+				cm.setValue(code);
+			},
+			"F11": function(cm) {
+				cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+			}
+		},
+	});
+	editor.setSize('auto', 'auto');

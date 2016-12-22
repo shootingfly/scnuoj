@@ -32,13 +32,14 @@ def_delegators :@view, :t, :link_to, :problem_path, :current_user, :image_tag, :
 		problem.problem_id,
 		link_to(t(problem.problem_id), problem_path(problem)),
 		problem.difficulty,#* %(<i class="glyphicon glyphicon-star-empty" style="color: \#FF0000"></i>)
+		problem.problem_detail.ac,
 		problem.source
 	  ]
 	end
   end
 
   def get_raw_records
-	Problem.order(problem_id: 'asc')
+	Problem.includes(:problem_detail).order(problem_id: 'asc')
   end
 
 end

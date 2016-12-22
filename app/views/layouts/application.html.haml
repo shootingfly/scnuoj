@@ -1,7 +1,7 @@
-/  I18n.locale = cookies[:locale] || 'en'
 !!!
 %html
 	%head
+		- I18n.locale = cookies[:locale] || 'en'
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 		%title= "#{t @page_title} | SCNUOJ"
 		= stylesheet_link_tag  current_theme, media: 'all', 'data-turbolinks-track' => true

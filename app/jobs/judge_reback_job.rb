@@ -3,71 +3,77 @@ class JudgeRebackJob < ActiveJob::Base
     # include SuckerPunch::Job
 
     def perform(options)
-      @uid = options[:uid]
-      @pid = options[:pid]
-      @score = options[:difficulty] * 5
-      @problem_id = options[:problem_id]
-      @result = options[:result]
-      @username = options[:username]
-      @student_id = options[:student_id]
-      @language= options[:language]
-      @code_id = options[:code_id]
-        update_rank
-        update_details
+      uid = options[:uid]
+      pid = options[:pid]
+      cid = options[:cid]
+      problem_id = options[:problem_id]
+      score = options[:difficulty] * 5
+      result = options[:result]
+      username = options[:username]
+      ActiveRecord::Base.connection_pool.with_connection do
+          @rank = Rank.find_by(user_id: uid)
+          @user = UserDetail.find_by(user_id: uid)
+          @problem = ProblemDetail.find_by(problem_id: pid)
+          update_rank(score)
+          update_user(result, score, problem_id)
+          update_problem(result, username)
+          write_code(cid) if result == AC
+      end
     end
 
-    def update_rank
-        rank = Rank.find_by(user_id: @uid)
-        rank.week_score += @score
-        rank.grade_score += @score
-        rank.save
+    def update_rank(score)
+        @rank.week_score += score
+        @rank.grade_score += score
+        @rank.save
     end
 
-    def update_details
-        user_detail = UserDetail.find_by(user_id: @uid)
-        problem_detail = ProblemDetail.find_by(problem_id: @pid)
-        case @result
-        when AC
-            problem_detail.ac += 1
-            code_file = "#{USER_PATH}/#{@student_id}/#{@problem_id}.md"
-            code = Code.find(@code_id)
-            File.open(code_file, "a+") do |f|
-              f.write(">  **#{@language}**\n#{code.created_at.strftime("%Y-%m-%d %T")}")
-            	f.write("\n\n``` #{@language.downcase}\n\n")
-            	f.write(code.code)
-            	f.write("\n```\n")
-            end
-            unless @problem_id.in?(user_detail.ac_record)
-                user_detail.ac_record << @problem_id
-                user_detail.ac += 1
-                user_detail.score += @score
-            end
-        when WA
-            user_detail.wa += 1
-            problem_detail.wa += 1
-        when PE
-            user_detail.pe += 1
-            problem_detail.pe += 1
-        when RE
-            user_detail.re += 1
-            problem_detail.re += 1
-        when ME
-            user_detail.me += 1
-            problem_detail.me += 1
-        when TE
-            user_detail.te += 1
-            problem_detail.te += 1
-        when OE
-            user_detail.oe += 1
-            problem_detail.oe += 1
-        when CE
-            user_detail.ce += 1
-            problem_detail.ce += 1
+    def update_user(result, score, problem_id)
+        @user.submit += 1
+        eval("@user.#{parse(result)} += 1")
+        if result == AC && @user.ac_record.exclude?(problem_id)
+            @user.ac_record << problem_id
+            @user.score += score
         end
-        problem_detail.last_person = @username
-        problem_detail.submit += 1
-        user_detail.submit += 1
-        problem_detail.save
-        user_detail.save
+        @user.save
+    end
+
+    def update_problem(result, username)
+        @problem.submit += 1
+        eval("@problem.#{parse(result)} += 1")
+        @problem.last_person = username
+        @problem.save
+    end
+
+    def write_code(cid)
+        code = Code.find(cid)
+        lang = code.language
+        problem_id = code.problem_id
+        student_id = code.student_id
+        File.open("#{USER_PATH}/#{student_id}/#{problem_id}.md", "a+") do |f|
+            f.write(%Q|
+             > **#{lang}** #{code.created_at.strftime("%Y-%m-%d %T")}
+
+             ```#{lang.downcase}
+
+             #{code.code}
+             ```
+             |)
+        end
+    end
+
+    private
+
+    def parse(result) 
+        hash = {
+            AC => "ac",
+            CE => "ce",
+            RE => "re",
+            TE => "te",
+            ME => "me",
+            PE => "pe",
+            OE => "oe",
+            WA => "wa"
+         }
+         hash[result]
     end
 end

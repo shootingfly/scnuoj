@@ -24,5 +24,9 @@ class ApplicationController < ActionController::Base
         cookies[:locale] || DEFAULT_LOCALE
     end
 
-    helper_method :current_user, :current_theme, :current_locale, :current_mode, :current_keymap
+    def current_code_theme
+        cookies[:code_theme] || DEFAULT_CODE_THEME
+    end
+
+    helper_method :current_user, :current_theme, :current_locale, :current_mode, :current_keymap, :current_code_theme
 end

@@ -4,7 +4,7 @@ class Admin::ApplicationController < ActionController::Base
 
     layout "admin"
 
-    # before_action :require_login
+    before_action :require_login
 
     def require_login
         redirect_to(admin_root_path, notice: "Please login first") unless cookies[:auth_token]
