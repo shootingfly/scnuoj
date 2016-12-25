@@ -1,18 +1,18 @@
 = form_for([:admin,@manager], html: {class: "form-horizontal"}) do |f|
 	.form-group
-		= f.label :username, "Hello", class: "control-label col-sm-4 "
+		= f.label :username, "用户名", class: "control-label col-sm-4 "
 		.col-sm-4
 			= f.text_field :username,  class: "form-control"
 	.form-group
-		= f.label :password, class: "control-label col-sm-4 "
+		= f.label :password, "密码", class: "control-label col-sm-4 "
 		.col-sm-4		
 			= f.password_field :password, class: "form-control"
 	.form-group
 		= f.label :role, class: "control-label col-sm-4"
 		.col-sm-4
-			= f.select :role, options_for_select(["Super Admin", "Admin"], "Admin"), {}, class: "form-control"
+			= f.select :role, options_for_select(["超级管理员", "管理员"], "管理员"), {}, class: "form-control"
 	.form-group
-		= f.label :remark, class: "control-label col-sm-4"
+		= f.label :remark, "备注", class: "control-label col-sm-4"
 		.col-sm-4
 			= f.text_field :remark, class: "form-control"
 	.form-group

@@ -8,16 +8,16 @@ $(function() {
 						language: {
 						lengthMenu: '<select><option value="10">10</option>' + '<option value="25">25</option>' + '<option value="50">50</option>' + '<option value="100">100</option>' + '</select>条记录',
 						//左上角的分页大小显示。
-						search: '<span class="label label-success">搜索：</span>',
+						search: '<span class="label label-success">Search：</span>',
 						//右上角的搜索文本，可以写html标签
 						paginate: { //分页的样式内容。
 								previous: "Prev",
 								next: "Next",
 						},
-						zeroRecords: "没有内容",
+						zeroRecords: "No Content",
 						//table tbody内容为空时，tbody的内容。
 						//下面三者构成了总体的左下角的内容。
-						info: "显示_START_ 至 _END_ 条，共 _TOTAL_ 条",
+						info: "Show ：_START_ -- _END_ ，Total ： _TOTAL_ ",
 						//左下角的信息显示，大写的词为关键字。
 						infoEmpty: "0条记录",
 						emptyTable: "表为空",

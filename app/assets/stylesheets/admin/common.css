@@ -1,6 +1,9 @@
 .max {
 	min-height: 470px;
 }
+.navbar{
+	border-radius: 0;
+}
 .notice {
 	  position: absolute;
 	  z-index: 1000;
@@ -12,6 +15,9 @@
 	  -webkit-box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
 	  -moz-box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
 	  box-shadow: 6px 7px 9px -1px rgba(0,0,0,0.68);
+}
+th, td{
+    text-align: center;
 }
 h4 {
 	text-align: center;

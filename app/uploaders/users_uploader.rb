@@ -14,7 +14,7 @@ class UsersUploader < CarrierWave::Uploader::Base
 
 
   def filename
-    original_filename
+    "#{Time.now.to_i} #{original_filename}"
   end
 
 end

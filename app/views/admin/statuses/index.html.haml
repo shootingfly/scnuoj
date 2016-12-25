@@ -1,13 +1,13 @@
 %h4 状态监测
-%table.table.table-stripped.table-bordered.table-hover.datatable{"data-source" => "#{statuses_path(format: :json)}"}
+%table.table.table-stripped.table-bordered.table-hover.datatable{"data-source" => "#{admin_statuses_path(format: :json)}"}
   %thead
     %tr
-      %th 运行号
+      %th #
       %th 用户昵称
       %th 标题
-      %th result
-      %th 时间复杂度
-      %th 空间复杂度
+      %th 运行结果
+      %th 时间开销
+      %th 空间开销
       %th 编程语言
       %th 提交时间
   %tbody

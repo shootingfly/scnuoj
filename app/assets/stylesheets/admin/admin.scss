@@ -1,27 +1,4 @@
 @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
-th, td{
-    text-align: center;
-}
-.navbar{
-	border-radius: 0;
-}
-
-#container{
-	min-height: 400px;
-}
-.highlight{
-    margin-top: 15px;
-    background: #FFF;
-    pre {
-      margin-top: 9px;
-    }
-}
-.cards {  
-    position: fixed;
-    right: 80px;
-    margin-bottom: 40px;
-    overflow: visible;
-}
 //= require jquery.atwho
 //= require nprogress
 //= require nprogress-turbolinks

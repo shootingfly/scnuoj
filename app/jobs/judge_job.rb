@@ -8,7 +8,7 @@ class JudgeJob < ActiveJob::Base
     def perform
         before_judge
         @result = execute_judge
-        after_judge
+        return after_judge
     end
 
     def initialize(code, time, space)

@@ -7,7 +7,7 @@ class Admin::ApplicationController < ActionController::Base
     before_action :require_login
 
     def require_login
-        redirect_to(admin_root_path, notice: "Please login first") unless cookies[:auth_token]
+        redirect_to(admin_root_path, notice: "请先登录") unless cookies[:auth_token]
     end
 
     def current_theme

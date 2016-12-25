@@ -26,7 +26,7 @@ class Admin::ProblemDatatable < AjaxDatatablesRails::Base
     records.map do |problem|
       [
         problem.problem_id,
-        link_to(t(problem.problem_id), problem_path(problem), target: "_blank"),
+        link_to(problem.title, problem_path(problem), target: "_blank"),
         problem.difficulty,
         problem.problem_detail.ac,
         problem.problem_detail.submit,

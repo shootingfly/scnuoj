@@ -1,12 +1,13 @@
+= link_to "题目列表", admin_problems_path, class: "btn btn-xs btn-info pull-right"
 = form_tag(chinesization_admin_problem_path, multipart: true, class: "form-horizontal") do
 	.form-group
-		= label_tag 'title', 'Title', class: "control-label col-sm-4"
+		= label_tag 'title', "中文标题", class: "control-label col-sm-4"
 		.col-sm-4
 			= text_field_tag 'title', nil, class: "form-control"
 	.form-group
-		= label_tag 'description', 'Description', class: "control-label col-sm-4"
+		= label_tag 'description', "中文描述", class: "control-label col-sm-4"
 		.col-sm-4
 			= file_field_tag 'description', class: "filestyle"
 	.form-group
 		.col-sm-4.col-sm-offset-4
-			= submit_tag 'Submit', class: "form-control btn btn-primary"
+			= submit_tag "提交", class: "form-control btn btn-primary"

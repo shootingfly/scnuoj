@@ -25,11 +25,11 @@ class Admin::ManagerDatatable < AjaxDatatablesRails::Base
         manager.role,
         manager.remark,
         (content_tag(:div) do
-          concat(link_to("show", admin_manager_path(manager.id), class: "btn btn-xs btn-info"))
+          concat(link_to("查看", admin_manager_path(manager), class: "btn btn-xs btn-info"))
           concat(' ')
-          concat(link_to('edit', edit_admin_manager_path(manager), class: "btn btn-xs btn-warning"))
+          concat(link_to('编辑', edit_admin_manager_path(manager), class: "btn btn-xs btn-warning"))
           concat(' ')
-          concat(link_to('delete', admin_manager_path(manager), method: :delete, data: {confirm: "Are you Sure? #{manager.username}"}, class: "btn btn-xs btn-danger"))
+          concat(link_to('删除', admin_manager_path(manager), method: :delete, data: {confirm: "您确定删除管理员#{manager.username}？"}, class: "btn btn-xs btn-danger"))
         end unless manager.super_admin?) || " "
       ]
     end

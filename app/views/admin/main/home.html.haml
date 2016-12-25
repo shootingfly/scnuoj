@@ -1,15 +1,12 @@
-%h3 System
+%h3 系统信息
 %h1
 	%i.glyphicon.glyphicon-user
 .col-sm-5.col-sm-offset-4
 	%table.table.table-bordered
 		%thead
 			%tr
-				%th User
+				%th 用户数量
 				%td= @user_count
 			%tr
-				%th Problems
-				%td 100
-			%tr
-				%th Status
-				%th 100
+				%th 题目数量
+				%td= @problem_count

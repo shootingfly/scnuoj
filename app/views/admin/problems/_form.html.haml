@@ -1,21 +1,25 @@
 = form_for([:admin, @problem], html: {class: "form-horizontal"}) do |f|
 	.form-group
-		= f.label :problem_id, '#', class: "control-label col-sm-4"
+		= f.label :problem_id, "题号", class: "control-label col-sm-4"
 		.col-sm-4
 			= f.text_field :problem_id, class: "form-control"
 	.form-group
-		= f.label :title, 'Title', class: "control-label col-sm-4"
+		= f.label :title, "标题", class: "control-label col-sm-4"
 		.col-sm-4
 			= f.text_field :title, class: "form-control"
 	.form-group
-		= f.label :description, 'description', class: "control-label col-sm-4"
+		= f.label :difficulty, "难度系数", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :difficulty, class: "form-control"
+	.form-group
+		= f.label :description, "题目描述", class: "control-label col-sm-4"
 		.col-sm-4
 			= f.file_field :description, accept: "text/md", class: "filestyle"
 	= f.hidden_field :description_cache
 	.form-group
-		= f.label :testdata, 'testdata', class: "control-label col-sm-4"
+		= f.label :testdata, "测试数据", class: "control-label col-sm-4"
 		.col-sm-4
 			= f.file_field :testdata, accept: "text/json", class: "filestyle"
 	.form-group
 		.col-sm-4.col-sm-offset-4
-			= f.submit nil, class: "form-control btn btn-primary"
+			= f.submit "提交", class: "form-control btn btn-primary"

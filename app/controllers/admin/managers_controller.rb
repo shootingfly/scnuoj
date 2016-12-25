@@ -3,7 +3,7 @@ class Admin::ManagersController < Admin::ApplicationController
     before_action :set_manager, only: [:show, :edit, :update, :destroy]
 
     def index
-        @page_title = 'Managers'
+        @page_title = '管理员列表'
         respond_to do |format|
             format.html
             format.json {render json: Admin::ManagerDatatable.new(view_context)}
@@ -11,26 +11,26 @@ class Admin::ManagersController < Admin::ApplicationController
     end
 
     def new
-        @page_title = 'New Managers'
+        @page_title = '添加管理员'
         @manager = Manager.new
     end
 
     def create
         @manager = Manager.new(manager_params)
         if @manager.save
-            redirect_to admin_managers_path, notice: "添加#{@manager.username}成功!"
+            redirect_to admin_managers_path, notice: "新增管理员#{@manager.username}!"
         else
             render :new
         end
     end
 
     def edit
-        @page_title = 'Update Managers'
+        @page_title = '修改管理员'
     end
 
     def update
         if @manager.update(manager_params)
-            redirect_to admin_managers_path, notice: "update successful!"
+            redirect_to admin_managers_path, notice: "更新管理员#{@manager.username}!"
         else
             render :edit
         end
@@ -38,9 +38,9 @@ class Admin::ManagersController < Admin::ApplicationController
 
     def destroy
         if @manager.destroy
-            redirect_to admin_managers_path, notice: "Delete #{@manager.username}成功!"
+            redirect_to admin_managers_path, notice: "删除 #{@manager.username} 成功!"
         else
-            redirect_to admin_managers_path, notice: "Delete Failed"
+            redirect_to admin_managers_path, notice: "删除失败"
         end
     end
 

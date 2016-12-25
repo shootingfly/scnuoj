@@ -5,11 +5,11 @@ class ProblemUploader < CarrierWave::Uploader::Base
     storage :file
 
     def store_dir
-        "uploads/problem/description"
+        "uploads/problem/description/en"
     end
 
     def extension_white_list
-        %w(md html)
+        %w(md)
     end
 
     def filename

@@ -1,10 +1,10 @@
-= link_to "New", new_admin_manager_path, class: "btn btn-xs btn-info pull-right"
+= link_to "添加管理员", new_admin_manager_path, class: "btn btn-xs btn-info pull-right"
 %h4 管理员列表
 %table.table.table-stripped.table-bordered.table-hover.datatable{"data-source" => "#{admin_managers_path(format: :json)}"}
   %thead
     %tr
-      %th{:width => "25%"} 帐号
-      %th{:width => "25%"} 角色
+      %th{:width => "25%"} 用户名
+      %th{:width => "25%"} 角色权限
       %th{:width => "25%"} 备注
       %th{:width => "20%"} 操作
   %tbody

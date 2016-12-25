@@ -37,7 +37,7 @@ class Admin::UserDatatable < AjaxDatatablesRails::Base
         user.phone,
         user.signature,
         content_tag(:div, "id": user.id) do
-          concat(link_to('查看', admin_user_path(user), class: "btn btn-xs btn-info"))
+          concat(link_to('查看', user_path(user), class: "btn btn-xs btn-info", target: "_blank"))
           concat(' ')
           concat(link_to('编辑' , edit_admin_user_path(user), class: "btn btn-xs btn-warning")) 
           concat(" ")

@@ -1,4 +1,4 @@
-- if current_locale == :en
-	= markdown(render file: "/public/uploads/problem/description/1000.md")
+- if current_locale != :en && File.exists?("#{PROBLEM_PATH}/zh/#{params[:id]}.md")
+	= markdown(render file: "#{PROBLEM_PATH}/zh/#{params[:id]}.md")
 - else
-	= markdown(render file: "/public/uploads/problem/zh_description/1000.md")
+	= markdown(render file: "#{PROBLEM_PATH}/en/1000.md")
