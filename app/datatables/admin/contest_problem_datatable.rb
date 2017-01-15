@@ -2,15 +2,21 @@ class Admin::ContestProblemDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     # Declare strings in this format: ModelName.column_name
-    @sortable_columns ||= [ContestProblem.problem_id]
+    @sortable_columns ||= %w(
+      ContestProblem.problem_id
+      )
   end
 
   def searchable_columns
     # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= [ContestProblem.problem_id]
+    @searchable_columns ||= %w(
+      ContestProblem.problem_id
+      )
   end
 
   private
+
+  def_delegators :@view, :link_to, :problem_contest_path, :admin_contest_problem_path, :edit_admin_contest_problem_path, :content_tag, :concat
 
   def data
     records.map do |record|
@@ -22,20 +28,19 @@ class Admin::ContestProblemDatatable < AjaxDatatablesRails::Base
         record.ac,
         record.submit,
         content_tag(:div) do
-          concat(link_to 'show', admin_contest_problem_path(record), class: "btn btn-primary btn-xs")
+          # binding.pry
+          concat(link_to 'show', problem_contest_path(record.contest_id, record.problem_id), class: "btn btn-primary btn-xs", target: "_blank")
           concat(' ')
-          concat(link_to 'Edit', edit_admin_contest_problem_path(record), class: "btn btn-info btn-xs")
+          concat(link_to 'Edit', edit_admin_contest_problem_path(contest_id: record.contest_id, id: record.problem_id), class: "btn btn-info btn-xs")
           concat(' ')
-          concat(link_to 'Delete', admin_contest_problem_path(record), class: "btn btn-danger btn-xs")
+          concat(link_to 'Delete', admin_contest_problem_path(record.contest_id, record.problem_id), method: :delete,class: "btn btn-danger btn-xs")
         end
-        # comma separated list of the values for each cell of a table row
-        # example: record.attribute,
       ]
     end
   end
 
   def get_raw_records
-    options[:contest].contest_problems
+    ContestProblem.where(contest_id: params[:contest_id])
   end
 
   # ==== Insert 'presenter'-like methods below if necessary

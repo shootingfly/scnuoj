@@ -6,7 +6,7 @@ class Admin::ContestProblemsController < Admin::ApplicationController
 		@page_title = 'Problem'
 		respond_to do |format|
 			format.html
-			format.json {render json: Admin::ContestProblemDatatble.new(view_context)}
+			format.json {render json: Admin::ContestProblemDatatable.new(view_context)}
 		end
 	end
 
@@ -55,6 +55,7 @@ class Admin::ContestProblemsController < Admin::ApplicationController
 	end
 
 	def set_contest_problem
+		@contest = Contest.find(params[:contest_id])
 		@contest_problem = ContestProblem.find_by(problem_id: params[:id], contest_id: params[:contest_id])
 	end
 

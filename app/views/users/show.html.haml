@@ -60,9 +60,23 @@
 				%tr
 					%th Output Limit Exceeded
 					%td= @user_detail.oe
+.col-md-10.col-md-offset-1
+	.panel.panel-info
+		.panel-heading.text-center AC Records
+		%table.table.table-striped
+			%tbody
 				%tr
-					%th{:rowspan => "4"} Accepted
 					%td 
 						- @user_detail.ac_record.each do|pid|
-							= link_to(pid, solution_user_path(problem_id: pid))  
-							&nbsp;
+							= link_to(pid, solution_user_path(problem_id: pid))
+						%br
+.col-md-10.col-md-offset-1
+	.panel.panel-info
+		.panel-heading.text-center Contest Records
+		%table.table.table-striped
+			%tbody
+				%tr
+					%td 
+						- @user_detail.contest_records.each do|pid|
+							= link_to(pid, problem_contest_path(pid[0..-2], pid[-1]), target: "_blank") 
+						%br

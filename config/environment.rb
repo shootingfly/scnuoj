@@ -4,11 +4,11 @@ require File.expand_path('../application', __FILE__)
 # Initialize the Rails application.
 Rails.application.initialize!
 SITE_NAME =  "SCNUOJ"
-DEFAULT_THEME = "united"
+DEFAULT_THEME = "readable"
 DEFAULT_MODE = "C"
 DEFAULT_KEYMAP = "sublime"
 DEFAULT_LOCALE = "en"
-DEFAULT_CODE_THEME = "monokai"
+DEFAULT_CODE_THEME = "3024-day"
 
 ALLOW_LANGUAGES = %w(C C++ Java Python2 Python3 Ruby Go PHP Scala)
 SLOW_LANGUAGES = %w(Ruby Perl Java Python)
@@ -22,7 +22,6 @@ CODE_FILE = {
     "Python2" => "main.py",
     "Python3" => "main.py"
 }
-
 BUILD_CMD = {
     "C" => "gcc main.c -o main",
     "C++" => "g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main",
@@ -32,7 +31,6 @@ BUILD_CMD = {
     "Python2" => 'python2 -m py_compile main.py', 
     "Python3" => "python3 -m py_compile main.py"       
 }
-
 EXE_CMD = {
     "C" => "./main",
     "C++" => "./main",
@@ -42,7 +40,6 @@ EXE_CMD = {
     "Python2"=> "python2 main.pyc",
     "Python3" => "python3 main.pyc"
 }
-
 # Result
 AC = "Accepted"
 CE = "Compile Error"
@@ -52,11 +49,12 @@ ME = "Memory Limit Exceeded"
 PE = "Presentation Error"
 OE = "Output Limit Exceeded"
 WA = "Wrong Answer"
-
 # Path
 USER_PATH = "#{Rails.public_path}/users"
 TMP_PATH= "#{Rails.public_path}/tmpfile"
-JUDGE_PATH = "#{Rails.public_path}/judge"
-ERROR_PATH = "#{Rails.public_path}/errors"
-TEST_PATH = "#{Rails.public_path}/uploads/problem/testdata"
-PROBLEM_PATH = "#{Rails.public_path}/uploads/problem/description"
+# Contest
+JUDGE_PATH_C = "#{Rails.public_path}/judges/contests"
+ERROR_PATH_C = "#{Rails.public_path}/errors/contests"
+# Problem
+JUDGE_PATH_P = "#{Rails.public_path}/judges/problems"
+ERROR_PATH_P = "#{Rails.public_path}/errors/problems"

@@ -1,12 +1,2 @@
-%table.table.table-hover.datatable{"data-source" => "#{statuses_path(format: :json)}"}
-  %thead
-    %tr
-      %th #
-      %th= t('User')
-      %th{:width => "30%"}= t('Title')
-      %th= t('Result')
-      %th= t('Time')
-      %th= t('Space')
-      %th= t('Language')
-      %th= t('The Time')
-  %tbody
+= table(statuses_path(format: :json), %w[User Title Result Time Space Language Submit_Time])
+= searchable(%w[User Title Language])

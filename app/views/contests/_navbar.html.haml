@@ -1,0 +1,15 @@
+%nav.navbar.navbar-default
+	.container-fluid
+		.navbar-header
+			%button.navbar-toggle{"data-toggle" => "collapse", "data-target" => "#example"}
+				%span.sr-only change
+				%span.icon-bar
+				%span.icon-bar
+				%span.icon-bar
+			= link_to 'SCNUOJ', root_path, class: "navbar-brand"
+		#exmaple.collapse.navbar-collapse
+			%ul.nav.navbar-nav.col-sm-offset-2
+				%li{class: ("active" if action_name == "detail")}= link_to('Detail', detail_contest_path(@contest))
+				%li{class: ("active" if action_name == "problems")}= link_to('Problems', problems_contest_path(@contest))
+				%li{class: ("active" if action_name == "status")}= link_to('Status', status_contest_path(@contest))
+				%li{class: ("active" if action_name == "ranks")}= link_to('Ranks', ranks_contest_path(@contest))

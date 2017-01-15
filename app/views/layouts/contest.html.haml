@@ -1,21 +1,19 @@
 !!!
 %html
 	%head
-		= render_title
-		= stylesheet_link_tag 'application', 'data-turbolinks-track' => true
-		= stylesheet_link_tag 'cosmo', 'shared/common', 'shared/rouge_theme', 'data-turbolinks-track' => true
-		= javascript_include_tag 'application', 'shared/common', 'data-turbolinks-track' => true
+		%title= "#{@page_title} | #{@contest.title} of SCNUOJ"
+		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+		= stylesheet_link_tag  current_theme, media: 'all', 'data-turbolinks-track' => true
+		= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+		= stylesheet_link_tag 'shared/common'
+		= stylesheet_link_tag 'shared/rouge_theme'
+		= javascript_include_tag 'application', 'data-turbolinks-track' => true
+		= javascript_include_tag 'shared/common'
+		= javascript_include_tag "shared/datatable.none", "data-trubolinks-track" => true
+		= yield :js
+		= csrf_meta_tags
 	%body
-		.container
-			%h3.text-center.text-primary= @contest.title
-			%p.text-center.text-danger= "#{@contest.start_time}" + "#{@contest.end_time}"
-			%nav.navbar.navbar-default
-				.container
-					%ul.nav.navbar-nav
-						%li= link_to('Problem', problem_contest_path)
-						%li= link_to('Status', status_contest_path)
-						%li= link_to('Rank', rank_contest_path)
-			.row
-				= yield
-			%footer.text-center
-				Help
+		= render "contests/navbar"
+		#max.container
+			= yield
+		= render "contests/footer"

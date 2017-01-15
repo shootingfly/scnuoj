@@ -1,10 +1,2 @@
-%table.table.table-stripped.table-hover.datatable{"data-source" => "#{problems_path(format: :json)}"}
-	%thead
-		%tr
-			%th{:width => "10%"}
-			%th #
-			%th{:width => "50%"}= t('Title')
-			%th= t('Difficulty')
-			%th= t('AC')
-			%th= t('Source')
-	%tbody
+= table(problems_path(format: :json), %W[\t # Title Difficulty AC Source])
+= searchable(%w[ProblemID Title])

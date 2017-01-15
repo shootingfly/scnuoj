@@ -1,8 +1,14 @@
+.block-success {
+  border-top: 5px solid #9BDD8F;
+}
 div#max{
 	min-height: 470px
 }
 .max{
 	min-height: 470px
+}
+table.dataTable thead > tr > th {
+   padding-right: 0px; 
 }
 .notice {
 	  position: absolute;

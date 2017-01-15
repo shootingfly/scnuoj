@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220163418) do
+ActiveRecord::Schema.define(version: 20161229131020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,35 +33,51 @@ ActiveRecord::Schema.define(version: 20161220163418) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contest_codes", force: :cascade do |t|
+    t.integer "contest_id"
+    t.text    "code"
+    t.string  "language"
+    t.string  "problem_id"
+    t.string  "student_id"
+  end
+
   create_table "contest_problems", force: :cascade do |t|
     t.integer "contest_id"
     t.string  "problem_id"
-    t.integer "time"
-    t.integer "space"
-    t.integer "ac"
-    t.integer "submit"
+    t.integer "time",        default: 1000, null: false
+    t.integer "space",       default: 1000, null: false
+    t.integer "ac",          default: 0,    null: false
+    t.integer "submit",      default: 0,    null: false
     t.string  "description"
     t.string  "testdata"
+    t.string  "title"
   end
 
   create_table "contest_ranks", force: :cascade do |t|
     t.integer "contest_id"
     t.integer "team_id"
     t.integer "rank"
-    t.integer "ac"
-    t.integer "submit"
-    t.integer "details",    array: true
+    t.integer "ac",         default: 0
+    t.integer "submit",     default: 0
+    t.integer "details",    default: [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], array: true
+    t.string  "student_id"
+    t.string  "username"
+    t.integer "penalty",    default: 0
   end
 
   create_table "contest_statuses", force: :cascade do |t|
     t.integer  "contest_id"
     t.string   "problem_id"
-    t.string   "team_name"
+    t.string   "student_id"
     t.string   "result"
     t.integer  "time_cost"
     t.integer  "space_cost"
     t.integer  "code_length"
     t.datetime "created_at",  null: false
+    t.string   "username"
+    t.string   "title"
+    t.integer  "run_id"
+    t.string   "language"
   end
 
   create_table "contests", force: :cascade do |t|
@@ -112,10 +128,12 @@ ActiveRecord::Schema.define(version: 20161220163418) do
     t.string  "title"
     t.string  "description"
     t.string  "source"
-    t.integer "difficulty",  default: 1
+    t.integer "difficulty",     default: 1
     t.string  "testdata"
     t.integer "time"
     t.integer "space"
+    t.string  "zh_title"
+    t.string  "zh_description"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -162,20 +180,21 @@ ActiveRecord::Schema.define(version: 20161220163418) do
 
   create_table "user_details", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "wa",         default: 0,    null: false
-    t.integer  "pe",         default: 0,    null: false
-    t.integer  "re",         default: 0,    null: false
-    t.integer  "ce",         default: 0,    null: false
-    t.integer  "te",         default: 0,    null: false
-    t.integer  "me",         default: 0,    null: false
-    t.integer  "oe",         default: 0,    null: false
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "ac",         default: 0,    null: false
-    t.integer  "submit",     default: 0,    null: false
-    t.integer  "score",      default: 0,    null: false
-    t.integer  "rank",       default: 9999, null: false
-    t.integer  "ac_record",  default: [],                array: true
+    t.integer  "wa",              default: 0,    null: false
+    t.integer  "pe",              default: 0,    null: false
+    t.integer  "re",              default: 0,    null: false
+    t.integer  "ce",              default: 0,    null: false
+    t.integer  "te",              default: 0,    null: false
+    t.integer  "me",              default: 0,    null: false
+    t.integer  "oe",              default: 0,    null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "ac",              default: 0,    null: false
+    t.integer  "submit",          default: 0,    null: false
+    t.integer  "score",           default: 0,    null: false
+    t.integer  "rank",            default: 9999, null: false
+    t.integer  "ac_record",       default: [],                array: true
+    t.string   "contest_records", default: [],                array: true
   end
 
   create_table "user_logins", force: :cascade do |t|

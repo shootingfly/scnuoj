@@ -1,0 +1,6 @@
+.btn-toolbar
+	.btn-group
+	- @items.each_with_index do |items,index|
+		= link_to "#{items[0]}: #{items[1]}", contest_problem_path(@problem.contest_id, items[0]), class: "btn btn-default"
+= markdown(render file: Problem.first.description.file.file)
+/public/problems/descriptions/1136.md

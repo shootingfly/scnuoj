@@ -2,7 +2,6 @@ source 'https://rubygems.org/'
 ruby '2.3.0'
 
 gem 'jquery-atwho-rails'
-gem 'bootstrap-filestyle-rails'
 gem 'spreadsheet', '0.9.0'
 gem 'mina'
 # Markdown

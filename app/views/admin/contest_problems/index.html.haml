@@ -1,4 +1,5 @@
-%table.table.table-hover.datatable{'data-source' => admin_problem_contest_path(format: :json)}
+= link_to 'New', new_admin_contest_problem_path(params[:contest_id]), class: "btn btn-xs pull-right"
+%table.table.table-hover.datatable{'data-source' => admin_contest_problems_path(format: :json)}
 	%thead
 		%tr
 			%th #

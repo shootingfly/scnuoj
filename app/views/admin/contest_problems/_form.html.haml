@@ -1,4 +1,6 @@
-= form_for(@contest_problem, html: {class: "form-horizontal"}) do |f|
+= form_for(@contest_problem, url: (action_name == 'new' ? admin_contest_problems_path : admin_contest_problem_path), html: {class: "form-horizontal"}) do |f|
+	= @contest_problem.errors.full_messages
+	= f.hidden_field :contest_id, value: "#{params[:contest_id]}"
 	.form-group
 		= f.label :problem_id, t('Problem ID'), class: "control-label col-sm-4"
 		.col-sm-4
@@ -18,7 +20,8 @@
 	.form-group
 		= f.label :testdata, t('Testdata'), class: "control-label col-sm-4"
 		.col-sm-4
-			= f.file_field :testdata, accept: "text/json", class: "filestyle"
+			.file
+				= f.file_field :testdata, accept: "text/json", class: "filestyle"
 	.form-group
 		.col-sm-4.col-sm-offset-4
 			= f.submit nil, class: "form-control btn btn-primary"

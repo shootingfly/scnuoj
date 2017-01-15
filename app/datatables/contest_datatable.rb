@@ -16,15 +16,15 @@ class ContestDatatable < AjaxDatatablesRails::Base
 
   private
 
-  def_delegators :@view, :link_to, :problem_contest_path
+  def_delegators :@view, :link_to, :problems_contest_path
 
   def data
     records.map do |record|
       [
         record.id,
-        link_to(record.title, problem_contest_path(record), target: "_blank"),
-        record.start_time,
-        record.end_time,
+        link_to(record.title, problems_contest_path(record), target: "_blank"),
+        record.start_time.strftime("%Y-%m-%d %T"),
+        record.end_time.strftime("%Y-%m-%d %T"),
         record.address,
         record.status,
         record.remark

@@ -12,7 +12,7 @@
 		.header
 		.col-sm-10.loginWraper
 			.col-sm-10.loginBox
-				= form_tag(admin_login_session_path, method: :post, class: "center-block form-horizontal") do |f|
+				= form_tag(admin_login_path, method: :post, class: "center-block form-horizontal") do |f|
 					.form-group
 						= label_tag 'username', class: "control-label col-sm-3" do
 							%i.glyphicon.glyphicon-user

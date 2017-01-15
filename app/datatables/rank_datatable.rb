@@ -2,15 +2,15 @@ class RankDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
     @sortable_columns ||= %w(
-      rank
+      UserDetail.rank
     )
   end
 
   def searchable_columns
     @searchable_columns ||= %w(
-      username,
-      classgrade,
-      dormitory
+      User.username
+      User.classgrade
+      User.dormitory
     )
   end
 
@@ -31,7 +31,7 @@ class RankDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    UserDetail.includes(:user).order(:rank)
+    UserDetail.includes(:user).references(:user).order(:rank)
   end
 
 end

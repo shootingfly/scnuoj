@@ -18,7 +18,7 @@ module ApplicationHelper
     end
 
     def markdown(text)
-        renderer = HTML.new(hard_wrap: true, filter_html: true)
+        renderer = HTML.new(hard_wrap: true, filter_html: false)
         options = {
             autolink: true,
             no_intra_emphasis: true,
@@ -30,6 +30,31 @@ module ApplicationHelper
         Redcarpet::Markdown.new(renderer, options).render(text).html_safe
     end
 
+    def searchable(array)
+        s = array.map{|i| I18n.t(i)}.join(" / ")
+        html = "<div id='searchable' value='#{s}'></div>".html_safe
+    end
+
+    def table(path, array, width: nil, options: "table table-hover datatable")
+        html = ""
+        html = <<~END.html_safe
+        <table class='#{options}' data-source='#{path}'>
+        <thead>
+        <tr>
+        #{
+        if width.nil? then
+            array.map{|item|"<th>#{item}</th>"}.join 
+        else
+            array.map.with_index{|item, i|"<th width='#{width[i]}%'>#{item}</th>"}.join
+        end
+        }
+        </tr>
+        </thead>
+        <tbody></tbody>
+        </table>
+        END
+    end
+
     def render_breadcrumb
         html = ""
         html = <<~EOF.html_safe
@@ -38,7 +63,7 @@ module ApplicationHelper
         <li>#{t controller_name}</li>
         <li class="active">#{t action_name}</li>
         #{ if action_name == "index" then
-            link_to('new', {controller: controller_name, action: "new"}, class: "btn btn-xs btn-success pull-right")
+        link_to('new', {controller: controller_name, action: "new"}, class: "btn btn-xs btn-success pull-right")
         else
             link_to(controller_name, {controller: controller_name, action: "index"} , class: "btn btn-xs btn-success pull-right")
         end

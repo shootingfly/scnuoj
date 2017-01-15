@@ -23,11 +23,11 @@ class UsersController < ApplicationController
         end
     end
 
-    def edit_password
+    def password
         @page_title = 'Edit Password'
     end
 
-    def update_password
+    def password_post
         @user_login = current_user.user_login
         flash[:notice] =
             if @user_login.authenticate(params[:old_password]) == false
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
                      "Error:  Wrong New Password"
                 end
             end
-        redirect_to edit_password_user_path
+        redirect_to password_path
     end
 
     private

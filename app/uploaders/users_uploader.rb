@@ -5,7 +5,7 @@ class UsersUploader < CarrierWave::Uploader::Base
   storage :file
 
   def store_dir
-    "uploads/excel"
+    "uploads/excels"
   end
 
   def extension_white_list

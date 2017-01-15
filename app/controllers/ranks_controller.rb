@@ -8,7 +8,7 @@ class RanksController < ApplicationController
   	end
   end
 
-  def week_rank
+  def week
   	@page_title = 'WeekRank'
   	respond_to do |format|
   		format.html

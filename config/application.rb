@@ -17,6 +17,7 @@ Bundler.require(*Rails.groups)
 
 module Scnuoj
   class Application < Rails::Application
+    config.log_level = :error
     config.active_record.default_timezone = :local
     config.time_zone = 'Beijing'
     config.i18n.default_locale = :en

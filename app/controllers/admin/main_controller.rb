@@ -24,7 +24,7 @@ class Admin::MainController < Admin::ApplicationController
         redirect_to admin_root_path
     end
 
-    def aboutus
+    def about
     end
 
     def home

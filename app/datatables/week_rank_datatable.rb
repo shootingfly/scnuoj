@@ -17,9 +17,7 @@ class WeekRankDatatable < AjaxDatatablesRails::Base
       [
         record.user.username,
         record.week_rank,
-        record.week_score,
-        record.grade_rank,
-        record.grade_score
+        record.week_score
         # comma separated list of the values for each cell of a table row
         # example: record.attribute,
       ]

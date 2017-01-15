@@ -25,7 +25,7 @@ class Admin::UserDatatable < AjaxDatatablesRails::Base
 
   private
 
-  def_delegators :@view, :link_to, :admin_user_path, :edit_admin_user_path, :content_tag, :concat
+  def_delegators :@view, :link_to, :admin_user_path, :user_path, :edit_admin_user_path, :content_tag, :concat
 
   def data
     records.map do |user|

@@ -1,5 +1,5 @@
 %h4.text-center= t('Login')
-= form_tag(login_session_path, method: :post, class: "form-horizontal") do |f|
+= form_tag(login_path, method: :post, class: "form-horizontal") do |f|
 	.form-group
 		= label_tag 'student_id', class: "control-label col-sm-4" do
 			%i.glyphicon.glyphicon-user

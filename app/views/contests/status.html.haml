@@ -1,12 +1,30 @@
-%table.table.table-hover.datatable{'data-source' => status_contest_path(format: :json)}
+%table.table.table-hover.table-bordered.datatable{'data-source' => status_contest_path(format: :json)}
 	%thead
 		%tr
-			%th #
-			%th Team  Name
-			%th Problem ID
+			%th RunId
+			%th Nick Name
+			%th Problem
 			%th Result
 			%th Time
-			%th Space
-			%th Length
+			%th Memory
+			%th Language
+			%th Code Len
 			%th Submit Time
 	%tbody
+= searchable(%w[Problem])
+:javascript
+$(function() {
+	var table = $(".datatable").DataTable({
+		serverSide: true,
+		ordering: false,
+		processing: true,
+		ajax: $('.datatable').data('source'),
+		searchDelay: 1000,
+		retrieve: true,
+		destroy: true,
+		paging: true,
+		pagingType: "simple_numbers",
+		stateSave: true
+			//ajax: "/problem"
+	});
+});

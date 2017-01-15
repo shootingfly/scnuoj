@@ -17,18 +17,20 @@ class StatusDatatable < AjaxDatatablesRails::Base
         )
     end
 
-    def_delegators :@view, :current_user, :link_to, :user_path, :status_error_path, :problem_path
+    def_delegators :@view, :current_user, :link_to, :user_path, :error_status_path, :problem_path, :image_tag
 
     def data
+        @current = current_user.try(:username)
         records.map do |status|
             if status.result == "Accepted"
                 status.result ="<label class='text-success'>#{status.result }</label>"
             elsif status.result == "Compile Error"
-                status.result = "#{link_to status.result, status_error_path(status.run_id)}"
+                status.result = "#{link_to status.result, error_status_path(status.run_id)}"
             elsif status.result != "Wrong Answer"
                 status.result ="<label class='text-warning'>#{status.result }</label>"
             end
             [
+                current?(status.username),
                 status.run_id,
                 link_to(status.username, user_path(status.student_id)),
                 link_to(status.full_name, problem_path(status.problem_id)),
@@ -38,6 +40,14 @@ class StatusDatatable < AjaxDatatablesRails::Base
                 status.language,
                 status.created_at.strftime("%m-%d %H:%M:%S")
             ]
+        end
+    end
+
+    def current?(name)
+        if @current == name
+            image_tag("Check_mark.png", size: "16")
+        else
+            ""
         end
     end
 

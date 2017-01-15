@@ -1,9 +1,2 @@
-%table.table.table-hover.datatable{"data-source" => "#{ranks_path(format: :json)}"}
-	%thead
-		%tr
-			%th= t('Rank')
-			%th= t('User')
-			%th= t('Class')
-			%th= t('Dormitory')
-			%th= t('Score')
-	%tbody
+= table(ranks_path(format: :json), %w[Rank User Class Dormitory Score])
+= searchable(%w[User Class Dormitory])

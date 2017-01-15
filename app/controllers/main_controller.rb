@@ -4,19 +4,23 @@ class MainController < ApplicationController
         @page_title = 'Home'
     end
 
-    def aboutus
+    def about
         @page_title = 'About'
+    end
+
+    def faq
+        @page_title = 'FAQ'
+    end
+    
+    def joinus
+        @page_title = 'Joinus'
     end
 
     def login
         @page_title = 'Login'
     end
 
-    def faq
-        @page_title = 'FAQ'
-    end
-
-    def login_session
+    def login_post
         @user_login = UserLogin.find_by(student_id: params[:student_id])
         if @user_login.nil?
             redirect_to login_path, notice: "Username Error"
@@ -59,6 +63,13 @@ class MainController < ApplicationController
         end
         I18n.locale = cookies[:locale]
         redirect_to :back
+    end
+
+    def register
+    end
+
+    def register_post
+        redirect_to :register
     end
 
     private

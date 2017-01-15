@@ -5,7 +5,7 @@ class TestdataUploader < CarrierWave::Uploader::Base
     storage :file
 
     def store_dir
-        "uploads/problem/testdata"
+        "problems/testdatas"
     end
 
     def extension_white_list

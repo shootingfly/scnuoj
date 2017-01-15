@@ -1,8 +1,9 @@
 class ContestsController < ApplicationController
 	
-	before_action :set_contest, except: :index
-
 	layout 'contest', except: :index
+
+	before_action :set_contest, except: :index
+	before_action :require_login, except: :index
 
 	def index
 		@page_title = 'Contest'
@@ -12,16 +13,15 @@ class ContestsController < ApplicationController
 		end
 	end
 
-	def show
-		@page_title = @contest.title
-	end
-
-	def problem
+	def problems
 		@page_title = 'Problem'
 		respond_to do |format|
 			format.html
 			format.json {render json: ContestProblemDatatable.new(view_context, @contest)}
 		end
+	end
+
+	def detail
 	end
 
 	def status
@@ -32,7 +32,7 @@ class ContestsController < ApplicationController
 		end
 	end
 
-	def rank
+	def ranks
 		@page_title = 'Rank'
 		respond_to do |format|
 			format.html
@@ -45,5 +45,12 @@ class ContestsController < ApplicationController
 	def set_contest
 		@contest = Contest.find(params[:id])
 	end
+
+	def require_login
+		unless cookies[:token]
+			session[:return_to] = request.fullpath
+	        	redirect_to(login_path, notice: "请先登录")
+	        end
+   	end
 	
 end

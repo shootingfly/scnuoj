@@ -7,14 +7,14 @@
 	= javascript_include_tag 'codemirror/codemirror', 'codemirror/fullscreen', 'codemirror/matchbrackets', 'codemirror/active-line', 'data-turbolinks-track' => true
 	= javascript_include_tag "codemirror/#{mode}", 'data-turbolinks-track' => true
 	= javascript_include_tag "codemirror/#{current_keymap}", 'data-turbolinks-track' => true
-= form_for(@code, url: judge_problem_path, class: "form-horizontal") do |f|
+= form_for(@code, url: judge_problem_path, html: {class: "form-horizontal", target: "_blank"}) do |f|
 	= f.hidden_field :student_id, value: current_user.student_id
 	= f.hidden_field :problem_id, value:  @problem.problem_id
 	= f.hidden_field :language, value: current_mode
 	.form-group
 		= f.text_area(:code, id:"code", class: "form-control" , autofocus: true)
 	.form-group
-		= f.submit value:"提交", class:"btn btn-block btn-primary", data: { disable_with: "Submitting..." }
+		= f.submit value:"提交", class:"btn btn-block btn-primary"
 = form_tag(set_mode_path) do
 	.form-group
 		.col-sm-4
@@ -42,7 +42,7 @@
 					editor.setSize('auto', 'auto');
 					cm.setOption("size", false);
 				} else {
-					editor.setSize('auto', 400);;
+					editor.setSize('auto', 400);
 					cm.setOption("size", true);
 				}
 			},

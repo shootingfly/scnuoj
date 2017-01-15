@@ -1,0 +1,27 @@
+.panel.panel-default
+	.panel-heading.text-center 
+		= @problem.total_title
+	%table.table.table-striped
+		%tbody
+			%tr
+				%th= t('Time')
+				%td= @problem.time
+			%tr
+				%th= t('Space')
+				%td= @problem.space
+			%tr
+				%th= t('AC')
+				%td= @problem.ac
+			%tr
+				%th= t('Submit')
+				%td= @problem.submit
+/ .cards{:style => "margin-top: -120px" }
+.cards
+	.btn-toolbar
+		.btn-group-vertical
+			= link_to contest_problem_path(@problem.contest_id, @problem.problem_id), class: "btn btn-primary" do
+				%span.card-content= t('Show')
+			= link_to judge_contest_problem_path(@problem.contest_id, @problem.problem_id), class: "btn btn-primary", target: "_blank" do
+				%span.card-content= t('Go')
+			= link_to t('Prev'), "#", class: "btn btn-info"
+			= link_to t('Next'), "#", class: "btn btn-info"

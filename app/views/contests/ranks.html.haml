@@ -1,0 +1,5 @@
+- count = ContestProblem.where(contest_id: params[:id]).count + 2
+- id = (count + 64).chr
+= id
+= table(ranks_contest_path(format: :json), ['Rank', 'NickName', 'AC', 'Penalty', ('A'.."#{id}").to_a].flatten, width: [5,10,5,10,Array.new(count,70/(count))].flatten, options: "table table-hover table-bordered datatable")
+= searchable(%w[NickName])

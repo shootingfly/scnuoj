@@ -13,7 +13,6 @@
 //= require jquery_ujs
 //= require jquery.atwho
 //= require bootstrap
-//= require bootstrap-filestyle
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require turbolinks
