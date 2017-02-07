@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-    root 'main#home'
     mount RuCaptcha::Engine => "/rucaptcha"
     namespace :admin do
         root 'main#login'
@@ -85,4 +84,5 @@ Rails.application.routes.draw do
     get 'about' => 'main#about'
     get 'faq' => 'main#faq'
     get 'joinus' => 'main#joinus'
+    root 'main#home'
 end

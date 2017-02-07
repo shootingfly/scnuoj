@@ -19,9 +19,10 @@ class RankDatatable < AjaxDatatablesRails::Base
   def_delegators :view, :link_to, :user_path
 
   def data
+    rank = params[:start].to_i
     records.map do |record|
       [
-        record.rank,
+        rank += 1,
         link_to(record.user.username, user_path(record.user)),
         record.user.classgrade,
         record.user.dormitory,
@@ -31,7 +32,7 @@ class RankDatatable < AjaxDatatablesRails::Base
   end
 
   def get_raw_records
-    UserDetail.includes(:user).references(:user).order(:rank)
+    UserDetail.includes(:user).references(:user).order(score: :desc)
   end
 
 end
