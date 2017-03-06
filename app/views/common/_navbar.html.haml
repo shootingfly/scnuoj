@@ -15,7 +15,7 @@
 				%li{class: ("active" if controller_name == "ranks" && action_name == "index")}= link_to(t('Rank'), ranks_path) 
 				%li{class: ("active" if action_name == "week")}= link_to(t('WeekRank'), week_ranks_path)
 				%li{class: ("active" if controller_name == "contests")}= link_to(t('Contest'), contests_path)
-				%li{class: ("active" if action_name == "faq")}= link_to(t('faq'), faq_path)
+				%li{class: ("active" if action_name == "faq")}= link_to(t('FAQ'), faq_path)
 			= link_to set_locale_path, :method => :post, class: "navbar-right navbar-brand" do
 				%li.glyphicon.glyphicon-transfer	
 			= form_tag set_theme_path, class: "navbar-right navbar-form" do
@@ -32,7 +32,7 @@
 							%li= link_to t('Profile'), profile_path
 							%li= link_to t('Show'), user_path(current_user)
 							%li= link_to t('Edit'), info_path
-							%li= link_to t('Change Password'), password_path
+							%li= link_to t('ChangePassword'), password_path
 							%li.divider
 							%li= link_to t('Logout'), logout_path, method: "delete"
 				- else

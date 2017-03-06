@@ -43,9 +43,9 @@ module ApplicationHelper
         <tr>
         #{
         if width.nil? then
-            array.map{|item|"<th>#{item}</th>"}.join 
+            array.map{|item|"<th>#{t item}</th>"}.join 
         else
-            array.map.with_index{|item, i|"<th width='#{width[i]}%'>#{item}</th>"}.join
+            array.map.with_index{|item, i|"<th width='#{width[i]}%'>#{t item}</th>"}.join
         end
         }
         </tr>

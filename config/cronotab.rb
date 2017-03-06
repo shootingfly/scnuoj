@@ -13,6 +13,9 @@
 #
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
+# 每天晚上12:00更新总排名
+# 每天2:00 10:00 18:00 更新周排名
+# 每三天 2:00 10:00 18:00 更新年级排名
 Crono.perform(UpdateRankJob).every 1.days, at: '24:00'
-Crono.perform(UpdateWeekRankJob).every 6.hours
+Crono.perform(UpdateWeekRankJob).every 8.hours
 Crono.perform(UpdateGradeRankJob).every 3.days

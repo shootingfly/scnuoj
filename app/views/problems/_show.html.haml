@@ -1,7 +1,10 @@
-- if current_locale != 'en'
-	- begin
-		= markdown(render file: Problem.first.zh_description.file.file)
-	- rescue
-		= markdown(render file: Problem.first.description.file.file)
-- else
-	= markdown(render file: Problem.first.description.file.file)
+- begin
+	- if current_locale != 'en'
+		- if File.exists? @problem.zh_description.file.file
+			= markdown(render file: @problem.zh_description.file.file)
+		- else
+			= markdown(render file: @problem.description.file.file)
+	- else
+		= markdown(render file: @problem.description.file.file)
+- rescue
+	"对不起, 题目已下架, 我们管理正在处理"

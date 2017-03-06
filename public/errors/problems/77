@@ -1,0 +1,4 @@
+main.c: In function ‘main’:
+main.c:7:5: error: expected ‘;’ before ‘return’
+     return 0;
+     ^

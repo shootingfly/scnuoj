@@ -1,24 +1,24 @@
 = form_tag(@profile, url: profile_path, method: :post, class: "form-horizontal")  do
     .form-group
-        %label.control-label.col-sm-4 Theme
+        %label.control-label.col-sm-4= t('Theme')
         .col-sm-4
             = select_tag :theme, options_for_select(%w(default cerulean cosmo cyborg darkly flatly journal lumen paper readable sandstone simplex slate spacelab superhero united yeti), current_theme), class: "form-control"
     .form-group
-        %label.control-label.col-sm-4 Mode
+        %label.control-label.col-sm-4= t('Mode')
         .col-sm-4
             = select_tag :mode, options_for_select(ALLOW_LANGUAGES, @profile.mode), class: "form-control"
     .form-group
-        %label.control-label.col-sm-4 Keymap
+        %label.control-label.col-sm-4= t('Keymap')
         .col-sm-4
             = select_tag :keymap, options_for_select(%w(sublime vim emac), @profile.keymap), class: "form-control"
     .form-group
-        %label.control-label.col-sm-4 Locale
+        %label.control-label.col-sm-4= t('Locale')
         .col-sm-4
             = select_tag :locale, options_for_select(%w(en zh), @profile.keymap), class: "form-control"
     .form-group
-        %label.control-label.col-sm-4 Code Theme
+        %label.control-label.col-sm-4= t('CodeTheme')
         .col-sm-4
             = select_tag :code_theme, options_for_select(%w(monokai 3024-day 3024-night base16-dark base16-light), @profile.code_theme), class: "form-control" 
     .form-group
         .col-sm-4.col-sm-offset-4
-            = submit_tag 'Submit', class: "btn btn-primary form-control"
+            = submit_tag t('Submit'), class: "btn btn-primary form-control"

@@ -35,9 +35,9 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 
   def ac?(problem_id)
   	if @ac_record && @ac_record.include?(problem_id)
-  		""#image_tag("Check_mark.png", size: "16")
-  	else
   		image_tag("Check_mark.png", size: "16")
+  	else
+  		""
   	end
   end
 

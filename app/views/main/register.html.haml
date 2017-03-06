@@ -1,39 +1,37 @@
-%h4.text-center Register
+%h4.text-center= t('Register')
 = form_tag(register_path, class: "form-horizontal") do 
 	.form-group
-		= label_tag 'student_id', class: "control-label col-sm-4" do
-			%i.glyphicon.glyphicon-user
+		= label_tag :student_id, t('StudentID'), class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag 'student_id', nil, class: "form-control"
+			= text_field_tag 'student_id', nil, class: "form-control", required: true, autofocus: true
 	.form-group
-		= label_tag 'password', class: "control-label col-sm-4" do
-			%i.glyphicon.glyphicon-lock
+		= label_tag :password, t('Password'), class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag 'password', nil, class: "form-control"
+			= text_field_tag 'password', nil, class: "form-control", required: true
 	.form-group
-		= label_tag :username, "用户昵称", class: "control-label col-sm-4"
+		= label_tag :username, t("User"), class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag :username, nil, class: "form-control"
+			= text_field_tag :username, nil, class: "form-control", required: true
 	.form-group
-		= label_tag :classgrade, "班级", class: "control-label col-sm-4"
+		= label_tag :classgrade, t("Class"), class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag :classgrade, nil, class: "form-control"
+			= text_field_tag :classgrade, nil, class: "form-control", required: true
 	.form-group
-		= label_tag :dormitory, "宿舍", class: "control-label col-sm-4"
+		= label_tag :dormitory, t("Dormitory"), class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag :dormitory, nil, class: "form-control"
+			= text_field_tag :dormitory, nil, class: "form-control", required: true
 	.form-group
 		= label_tag :qq, "QQ", class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag :qq, nil, class: "form-control"
+			= text_field_tag :qq, nil, class: "form-control", required: true
 	.form-group
-		= label_tag :phone, "电话", class: "control-label col-sm-4"
+		= label_tag :phone, t("Phone"), class: "control-label col-sm-4"
 		.col-sm-4
-			= text_field_tag :phone, nil, class: "form-control"
+			= text_field_tag :phone, nil, class: "form-control", required: true
 	.form-group
-		= label_tag :signature, "个性签名", class: "control-label col-sm-4"
+		= label_tag :signature, t("Signature"), class: "control-label col-sm-4"
 		.col-sm-4
 			= text_field_tag :signature, nil, class: "form-control"
 	.form-group
 		.col-sm-4.col-sm-offset-4
-			= submit_tag nil, class: "form-control btn btn-primary"
+			= submit_tag t('Register'), class: "form-control btn btn-primary"

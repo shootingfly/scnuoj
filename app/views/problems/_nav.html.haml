@@ -4,25 +4,25 @@
 	%table.table.table-striped
 		%tbody
 			%tr
-				%th= t('Time')
+				%th= t('TimeLimit')
 				%td= @problem.time
 			%tr
-				%th= t('Space')
+				%th= t('SpaceLimit')
 				%td= @problem.space
 			%tr
-				%th= t('AC')
+				%th= t('ACNum')
 				%td= @problem_detail.ac
 			%tr
-				%th= t('Submit')
+				%th= t('SubmitNum')
 				%td= @problem_detail.submit
 			%tr
-				%th= t('Pass Ratio')
+				%th= t('PassRatio')
 				%td= @problem_detail.pass_ratio
 			%tr
 				%th= t('Difficulty')
 				%td= @problem.difficulty
 			%tr
-				%th= t('Last Person')
+				%th= t('LastPerson')
 				%td= @problem_detail.last_person
 .cards
 	.btn-toolbar

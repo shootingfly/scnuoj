@@ -1,14 +1,12 @@
 class ContestDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
-    # Declare strings in this format: ModelName.column_name
     @sortable_columns ||= %w(
       Contest.id
     )
   end
 
   def searchable_columns
-    # Declare strings in this format: ModelName.column_name
     @searchable_columns ||= %w(
       Contest.id
     )
@@ -28,8 +26,6 @@ class ContestDatatable < AjaxDatatablesRails::Base
         record.address,
         record.status,
         record.remark
-        # comma separated list of the values for each cell of a table row
-        # example: record.attribute,
       ]
     end
   end

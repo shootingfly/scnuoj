@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
     layout "application"
 
+    I18n.locale = I18n.locale
+
     def current_user
         @current_user ||= UserLogin.find_by(token: cookies[:token]).user if cookies[:token]
     end

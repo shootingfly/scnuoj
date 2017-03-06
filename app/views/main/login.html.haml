@@ -4,17 +4,17 @@
 		= label_tag 'student_id', class: "control-label col-sm-4" do
 			%i.glyphicon.glyphicon-user
 		.col-sm-4
-			= text_field_tag 'student_id', nil, class: "form-control"
+			= text_field_tag 'student_id', nil, class: "form-control", required: true, autofocus: true
 	.form-group
 		= label_tag 'password', class: "control-label col-sm-4" do
 			%i.glyphicon.glyphicon-lock
 		.col-sm-4
-			= password_field_tag 'password', nil, class: "form-control"
+			= password_field_tag 'password', nil, class: "form-control", required: true
 	.form-group
 		.col-sm-4.col-sm-offset-4
-			= button_tag t('Login'), class: "btn btn-primary btn-block"
+			= button_tag t('Login'), class: "btn btn-primary form-control"
 	.form-group
 		.col-sm-4.col-sm-offset-4
 			= check_box_tag 'remember_me', nil
-			= label_tag :remember_me, t('Remember Me')
-			= link_to t('Forget Password'), '#', class: "pull-right"
+			= label_tag :remember_me, t('RememberMe')
+			= link_to t('ForgetPassword'), '#', class: "pull-right"

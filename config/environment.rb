@@ -11,7 +11,7 @@ DEFAULT_LOCALE = "en"
 DEFAULT_CODE_THEME = "3024-day"
 
 ALLOW_LANGUAGES = %w(C C++ Java Python2 Python3 Ruby Go PHP Scala)
-SLOW_LANGUAGES = %w(Ruby Perl Java Python)
+SLOWS = %w(Ruby Perl Java Python)
 
 CODE_FILE = {
     "C" => "main.c",
@@ -56,5 +56,6 @@ TMP_PATH= "#{Rails.public_path}/tmpfile"
 JUDGE_PATH_C = "#{Rails.public_path}/judges/contests"
 ERROR_PATH_C = "#{Rails.public_path}/errors/contests"
 # Problem
-JUDGE_PATH_P = "#{Rails.public_path}/judges/problems"
-ERROR_PATH_P = "#{Rails.public_path}/errors/problems"
+JUDGE_PATH = "#{Rails.public_path}/judges/problems"
+ERROR_PATH = "#{Rails.public_path}/errors/problems"
+TEST_PATH = "#{Rails.public_path}/problems/testdatas"
