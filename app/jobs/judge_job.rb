@@ -116,6 +116,16 @@ class JudgeJob < ActiveJob::Base
         WA => "wa"
     }
 
+    # Result
+    AC = "Accepted"
+    CE = "Compile Error"
+    RE = "Runtime Error"
+    TE = "Time Limit Exceeded"
+    ME = "Memory Limit Exceeded"
+    PE = "Presentation Error"
+    OE = "Output Limit Exceeded"
+    WA = "Wrong Answer"
+
     def parse(result) 
         HASH[result]
     end

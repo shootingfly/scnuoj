@@ -9,7 +9,7 @@ class Admin::MainController < Admin::ApplicationController
 
     def login_session
         @manager = Manager.find_by(username: params[:username])
-        if verify_rucaptcha?(@manager) == false
+        if verify_rucaptcha?(@manager)
             redirect_to admin_root_path, notice: "验证码错误"
         elsif @manager && @manager.authenticate(params[:password])
             cookies[:auth_token] = @manager.auth_token

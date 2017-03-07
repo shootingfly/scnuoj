@@ -1,2 +1,14 @@
-= table(statuses_path(format: :json), %W[\t # User Title Result Time Space Language SubmitTime])
+= table(statuses_path(format: :json), %W[\t # User Title Result Time Space Language Submit_Time])
+/ %table.table.table-bordered.table-hover.datatable{"data-source" => "#{statuses_path(format: :json)}"}
+/   %thead
+/     %tr
+/       %th{:width => "10%"} #
+/       %th{:width => "30%"}= t('User')
+/       %th{:width => "10%"}= t('Title')
+/       %th{:width => "10%"}= t('Result')
+/       %th{:width => "10%"}= t('Time')
+/       %th{:width => "10%"}= t('Space')
+/       %th{:width => "10%"}= t('Language')
+/       %th{:width => "10%"}= t('SubmitTime')
+/   %tbody
 = searchable(%w[User Title Language])

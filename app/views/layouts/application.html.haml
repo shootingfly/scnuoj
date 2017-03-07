@@ -1,16 +1,15 @@
 !!!
 %html
 	%head
-		- I18n.locale = current_locale
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 		%title= "#{t @page_title} | SCNUOJ"
 		= stylesheet_link_tag  current_theme, media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-		= stylesheet_link_tag 'shared/common'
-		= stylesheet_link_tag 'shared/rouge_theme'
+		= stylesheet_link_tag 'shared/common', 'data-turbolinks-track' => true
+		= stylesheet_link_tag 'shared/rouge_theme', 'data-turbolinks-track' => true
 		= javascript_include_tag 'application', 'data-turbolinks-track' => true
-		= javascript_include_tag 'shared/common'
-		= javascript_include_tag "shared/datatable.#{I18n.locale}"
+		= javascript_include_tag 'shared/common', 'data-turbolinks-track' => true
+		= javascript_include_tag "shared/datatable.#{I18n.locale}", 'data-turbolinks-track' => true
 		= yield :js
 		= csrf_meta_tags
 	%body

@@ -1,0 +1,1 @@
+$(function(){var a=($(".datatable").DataTable({serverSide:!0,ordering:!1,processing:!0,ajax:$(".datatable").data("source"),searchDelay:1e3,retrieve:!0,destroy:!0,paging:!0,pagingType:"simple_numbers",stateSave:!0}),$("#searchable").attr("value"));$(".input-sm").attr("placeholder",a)});

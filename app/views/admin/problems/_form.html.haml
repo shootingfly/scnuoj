@@ -2,15 +2,15 @@
 	.form-group
 		= f.label :problem_id, "题号", class: "control-label col-sm-4"
 		.col-sm-4
-			= f.text_field :problem_id, class: "form-control"
+			= f.text_field :problem_id, class: "form-control", required: "true", autofocus: "true"
 	.form-group
 		= f.label :title, "标题", class: "control-label col-sm-4"
 		.col-sm-4
-			= f.text_field :title, class: "form-control"
+			= f.text_field :title, class: "form-control", required: "true"
 	.form-group
 		= f.label :difficulty, "难度系数", class: "control-label col-sm-4"
 		.col-sm-4
-			= f.text_field :difficulty, class: "form-control"
+			= f.text_field :difficulty, class: "form-control", required: "true"
 	.form-group
 		= f.label :description, "题目描述", class: "control-label col-sm-4"
 		.col-sm-4
@@ -20,6 +20,15 @@
 		= f.label :testdata, "测试数据", class: "control-label col-sm-4"
 		.col-sm-4
 			= f.file_field :testdata, accept: "text/json", class: "filestyle"
+	.form-group
+		= f.label :zh_title, "中文标题", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.text_field :zh_title, class: "form-control"
+	= f.hidden_field :description_cache
+	.form-group
+		= f.label :zh_description, "中文描述", class: "control-label col-sm-4"
+		.col-sm-4
+			= f.file_field :zh_description, accept: "text/md", class: "filestyle"
 	.form-group
 		.col-sm-4.col-sm-offset-4
 			= f.submit "提交", class: "form-control btn btn-primary"

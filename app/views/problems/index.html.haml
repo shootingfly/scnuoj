@@ -1,2 +1,12 @@
 = table(problems_path(format: :json), %W[\t # Title Difficulty AC Source])
+/ %table.table.table-bordered.table-hover.datatable{"data-source" => "#{problems_path(format: :json)}"}
+/   %thead
+/     %tr
+/       %th{:width => "5%"} 
+/       %th{:width => "10%"} #
+/       %th{:width => "40%"}= t('Title')
+/       %th{:width => "10%"}= t('Difficulty')
+/       %th{:width => "15%"}= t('AC')
+/       %th{:width => "15%"}= t('Source')
+/   %tbody
 = searchable(%w[ProblemID Title])

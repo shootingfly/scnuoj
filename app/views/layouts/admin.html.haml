@@ -3,7 +3,7 @@
 	%head
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
 		= render_admin_title
-		= stylesheet_link_tag  "#{current_theme}", media: 'all', 'data-turbolinks-track' => true
+		= stylesheet_link_tag  'readable', media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag 'admin/admin', media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag 'admin/common', media: 'all', 'data-turbolinks-track' => true
 		= javascript_include_tag 'admin/admin', 'data-turbolinks-track' => true
@@ -17,7 +17,6 @@
 			.col-sm-2
 				= render "admin/common/sidebar"
 			.col-sm-10.container
-				/ = render_breadcrumb if controller_name.in?(["problems", "managers", "users", "contests"])
 				= yield
 				- if flash.notice
 					.notice= flash.notice 

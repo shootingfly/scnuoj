@@ -143,3 +143,4 @@ class JudgeJob < ActiveJob::Base
          }
          hash[result]
     end
+end

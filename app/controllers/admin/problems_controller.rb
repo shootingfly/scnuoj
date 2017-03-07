@@ -34,7 +34,7 @@ class Admin::ProblemsController < Admin::ApplicationController
                 @problem.map
             end
             flash[:notice] = "更新题目#{@problem.problem_id}"
-            redirect_to admin_problem_path(@problem)
+            redirect_to :back
         else
             render :edit
         end
@@ -74,7 +74,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     def problem_params
-        params.require(:problem).permit(:problem_id, :title, :difficulty, :description, :testdata)
+        params.require(:problem).permit(:problem_id, :title, :difficulty, :description, :testdata, :zh_title, :zh_description)
     end
 
 end

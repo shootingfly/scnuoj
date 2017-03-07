@@ -61,8 +61,8 @@ class MainController < ApplicationController
         else
             cookies[:locale] = 'en'
         end
-        I18n.locale = cookies[:locale]
-        redirect_to :back
+        # I18n.locale = cookies[:locale]
+        redirect_to :back, flush: true
     end
 
     def register

@@ -13,9 +13,9 @@ class Admin::RankDatatable < AjaxDatatablesRails::Base
 
     def searchable_columns
         @searchable_columns ||= %w(
-            User.username
             User.classgrade
             User.dormitory
+            User.username
             UserDetail.ac
             UserDetail.submit
             UserDetail.score
@@ -41,6 +41,6 @@ class Admin::RankDatatable < AjaxDatatablesRails::Base
     end
 
     def get_raw_records
-        UserDetail.includes(:user).order(:rank)
+        UserDetail.includes(:user).references(:user).order(score: :desc)
     end
 end

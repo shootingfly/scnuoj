@@ -1,2 +1,9 @@
-= table(week_ranks_path(format: :json), %w[User WeekRank WeekScore])
+/ %table.table.table-bordered.table-hover.datatable{"data-source" => "#{week_ranks_path(format: :json)}"}
+/   %thead
+/     %tr
+/       %th{:width => "30%"}= t('User')
+/       %th{:width => "10%"}= t('WeekRank')
+/       %th{:width => "10%"}= t('WeekScore')
+/   %tbody
+= table(week_ranks_path(format: :json), %w[Username WeekRank WeekScore])
 = searchable(%w[ProblemID Title])
