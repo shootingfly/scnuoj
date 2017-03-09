@@ -10,7 +10,7 @@ require 'mina/git'
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :domain, 'root@42.51.15.102'
-set :deploy_to, '/var/www/scnuoj'
+set :deploy_to, '/root/scnuoj'
 set :repository, 'https://github.com/shootingfly/scnuoj.git'
 set :branch, 'develop'
 

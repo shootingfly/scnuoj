@@ -1,5 +1,5 @@
 source 'https://rubygems.org/'
-ruby '2.3.0'
+ruby (`ruby -v`).to_s[5..9]
 
 gem 'jquery-atwho-rails'
 gem 'spreadsheet', '0.9.0'
