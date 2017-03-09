@@ -9,15 +9,15 @@ require 'mina/git'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, '42.51.15.102'
-set :deploy_to, '/home/rocky/scnuoj'
+set :domain, 'root@42.51.15.102'
+set :deploy_to, '/var/www/scnuoj'
 set :repository, 'https://github.com/shootingfly/scnuoj.git'
 set :branch, 'develop'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
 #   set :port, '30000'           # SSH port number.
-#   set :forward_agent, true     # SSH forward_agent.
+  # set :forward_agent, true     # SSH forward_agent.
 
 # shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
 # set :shared_dirs, fetch(:shared_dirs, []).push('somedir')

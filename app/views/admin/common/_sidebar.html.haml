@@ -1,9 +1,10 @@
 .list-group
-	= link_to "系统详情", admin_home_path, class: "list-group-item"
+	= link_to "系统详情", admin_home_path, class: "list-group-item #{"active" if controller_name == "main"}"
 	- if current_user.super_admin?
-		= link_to "管理员管理",  admin_managers_path, class: 'list-group-item'
-	= link_to "题目管理", admin_problems_path,  class: 'list-group-item'
-	= link_to "用户管理", admin_users_path, class: 'list-group-item'
-	= link_to "状态监测", statuses_path,  class: 'list-group-item', target: "_blank"
-	= link_to "排名查看", admin_ranks_path, class: 'list-group-item'
-	= link_to "比赛管理", admin_contests_path, class: 'list-group-item'
+		= link_to "管理员管理",  admin_managers_path, class: 'list-group-item #{"active" if controller_name == "main"}'
+	= link_to "题目管理", admin_problems_path,  class: "list-group-item #{"active" if controller_name == "problems"}"
+	= link_to "用户管理", admin_users_path, class: "list-group-item #{"active" if controller_name == "users"}"
+	= link_to "排名查看", admin_ranks_path, class: "list-group-item #{"active" if controller_name == "ranks"}"
+	= link_to "比赛管理", admin_contests_path, class: "list-group-item #{"active" if controller_name == "contests"}"
+	= link_to "状态监测", statuses_path,  class: "list-group-item", target: "_blank"
+	= link_to "网站首页", root_path,  class: "list-group-item", target: "_blank"

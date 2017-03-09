@@ -1,9 +1,23 @@
-.text-center 
-	%h3 系统信息
-	%h4 用户数量 
-	= @user_count
-	%h4 题目数量 
-	= @problem_count
-	= Rails.version
-	= Rails.public_path
-	= Rails.env
+.col-md-6.col-md-offset-3
+	.panel.panel-info
+		.panel-heading.text-center 系统信息
+		%table.table.table-striped
+			%tbody
+				%tr
+					%th 用户数量
+					%td= User.count
+				%tr
+					%th 题目数量
+					%td= Problem.count
+				%tr
+					%th Rails 版本
+					%td= Rails.version
+				%tr
+					%th 当前环境
+					%td= Rails.env
+				%tr
+					%th 公共目录
+					%td= Rails.public_path
+				%tr
+					%th 判题目录
+					%td= JUDGE_PATH

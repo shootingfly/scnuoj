@@ -13,8 +13,8 @@
 				%li{class: ("active" if controller_name == "problems")}= link_to(t('Problem'), problems_path)
 				%li{class: ("active" if controller_name == "statuses")}= link_to(t('Status'), statuses_path) 
 				%li{class: ("active" if controller_name == "ranks" && action_name == "index")}= link_to(t('Rank'), ranks_path) 
-				%li{class: ("active" if action_name == "week")}= link_to(t('WeekRank'), week_ranks_path)
 				%li{class: ("active" if controller_name == "contests")}= link_to(t('Contest'), contests_path)
+				%li{class: ("active" if action_name == "week")}= link_to(t('WeekRank'), week_ranks_path)
 				%li{class: ("active" if action_name == "faq")}= link_to(t('FAQ'), faq_path)
 			= link_to set_locale_path, method: :post, class: "navbar-right navbar-brand" do
 				%li.glyphicon.glyphicon-transfer	

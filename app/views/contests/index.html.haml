@@ -1,4 +1,4 @@
-= table(contests_path(format: :json), %w[Title Start_Time End_Time Address Status Remark])
+= table(contests_path(format: :json), %w[ContestID Title StartTime EndTime Address ContestStatus Remark])
 / %table.table.table-bordered.table-hover.datatable{"data-source" => "#{contests_path(format: :json)}"}
 /   %thead
 /     %tr
@@ -9,4 +9,4 @@
 /       %th{:width => "10%"}= t('Status')
 /       %th{:width => "10%"}= t('Remark')
 /   %tbody
-= searchable(%w[ProblemID Title])
+= searchable(%w[ContestID])

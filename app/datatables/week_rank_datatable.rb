@@ -1,25 +1,23 @@
 class WeekRankDatatable < AjaxDatatablesRails::Base
 
   def sortable_columns
-    # Declare strings in this format: ModelName.column_name
     @sortable_columns ||= %w(Rank.week_rank)
   end
 
   def searchable_columns
-    # Declare strings in this format: ModelName.column_name
-    @searchable_columns ||= %w(User.username Rank.week_score)
+    @searchable_columns ||= %w(User.username)
   end
 
   private
 
+  def_delegators :view, :link_to, :user_path
+
   def data
     records.map do |record|
       [
-        record.user.username,
+        link_to(record.user.username, user_path(record.user.student_id)),
         record.week_rank,
         record.week_score
-        # comma separated list of the values for each cell of a table row
-        # example: record.attribute,
       ]
     end
   end
@@ -28,5 +26,4 @@ class WeekRankDatatable < AjaxDatatablesRails::Base
     Rank.includes(:user).all
   end
 
-  # ==== Insert 'presenter'-like methods below if necessary
 end

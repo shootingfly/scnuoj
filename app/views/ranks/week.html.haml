@@ -5,5 +5,5 @@
 /       %th{:width => "10%"}= t('WeekRank')
 /       %th{:width => "10%"}= t('WeekScore')
 /   %tbody
-= table(week_ranks_path(format: :json), %w[Username WeekRank WeekScore])
-= searchable(%w[ProblemID Title])
+= table(week_ranks_path(format: :json), %w[User WeekRank WeekScore])
+= searchable(%w[User])

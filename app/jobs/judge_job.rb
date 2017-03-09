@@ -3,6 +3,16 @@ require 'fileutils'
 
 class JudgeJob < ActiveJob::Base
 
+    # Result
+    AC = "Accepted"
+    CE = "Compile Error"
+    RE = "Runtime Error"
+    TE = "Time Limit Exceeded"
+    ME = "Memory Limit Exceeded"
+    PE = "Presentation Error"
+    OE = "Output Limit Exceeded"
+    WA = "Wrong Answer"
+    
     def perform(code, time, space)
         time = 1000
         space = 1000
@@ -115,16 +125,6 @@ class JudgeJob < ActiveJob::Base
         OE => "oe",
         WA => "wa"
     }
-
-    # Result
-    AC = "Accepted"
-    CE = "Compile Error"
-    RE = "Runtime Error"
-    TE = "Time Limit Exceeded"
-    ME = "Memory Limit Exceeded"
-    PE = "Presentation Error"
-    OE = "Output Limit Exceeded"
-    WA = "Wrong Answer"
 
     def parse(result) 
         HASH[result]

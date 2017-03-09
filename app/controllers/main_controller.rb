@@ -61,15 +61,22 @@ class MainController < ApplicationController
         else
             cookies[:locale] = 'en'
         end
-        # I18n.locale = cookies[:locale]
         redirect_to :back, flush: true
     end
 
     def register
+        @user = User.new
     end
 
     def register_post
-        redirect_to :register
+        @user = User.new(user_params)
+        if @user.save
+            cookies[:token] = @user.user_login.token
+            redirect_to :root
+        else
+            flash = "该用户名已经存在"
+            render :register
+        end
     end
 
     private
@@ -80,6 +87,10 @@ class MainController < ApplicationController
         cookies[:theme] = profile.theme
         cookies[:keymap] = profile.keymap
         cookies[:locale] = profile.locale
+    end
+
+    def user_params
+        params.require(:user).permit(:student_id, :username, :classgrade, :qq, :dormitory, :phone, :signature)
     end
 
 end
