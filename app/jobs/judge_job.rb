@@ -86,11 +86,11 @@ class JudgeJob < ActiveJob::Base
             out = ""
             time_before = Time.now
             puts "s",Process.getrlimit(:NPROC)
-            Open3.popen3("timeout 1 #{exe_cmd}", :pgroup => true, :rlimit_nproc => 416,  :rlimit_cpu => 1) do |i,o,e,wt|
+            Open3.popen3("timeout 1 #{exe_cmd}", :pgroup => true, :rlimit_nproc => [450,450],  :rlimit_cpu => 1) do |i,o,e,wt|
                      i.puts(standard_in) rescue nil
                      result =
-                        if e.read.present?
-                            File.write("#{ERROR_PATH}/#{code_id}", e.read)
+                        if (err = e.read).present?
+                            File.write("#{ERROR_PATH}/#{code_id}", err)
                             RE
                         elsif wt.value.signaled?
                             TE
