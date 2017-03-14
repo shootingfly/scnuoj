@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
 	before_action :set_profile
 
 	def edit
-		@page_title = 'Profile'
+		@page_title = t 'Profile'
 		render template: "users/profile"
 	end
 

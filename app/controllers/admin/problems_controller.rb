@@ -74,7 +74,7 @@ class Admin::ProblemsController < Admin::ApplicationController
     end
 
     def problem_params
-        params.require(:problem).permit(:problem_id, :title, :difficulty, :description, :testdata, :zh_title, :zh_description)
+        params.require(:problem).permit(:problem_id, :title, :difficulty, :time, :space, :description, :testdata, :zh_title, :zh_description)
     end
 
 end

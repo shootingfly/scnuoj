@@ -1,6 +1,6 @@
 source 'https://rubygems.org/'
 ruby (`ruby -v`).to_s[5..9]
-
+gem 'secure'
 gem 'jquery-atwho-rails'
 gem 'spreadsheet', '0.9.0'
 gem 'mina'

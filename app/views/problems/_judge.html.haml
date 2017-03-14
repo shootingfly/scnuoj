@@ -1,13 +1,15 @@
-- mode = (current_mode == "C++" ? "cpp" : current_mode.downcase)
+- mode = case current_mode  when "C++" then "cpp" when "Python2", "Python3" then "python" else current_mode.downcase end
 - code_theme = current_code_theme
 - keymap = current_keymap
 - content_for :js do
 	= stylesheet_link_tag 'codemirror/codemirror', 'codemirror/fullscreen', media: 'all', 'data-turbolinks-track' => true
 	= stylesheet_link_tag "codemirror/#{code_theme}", 'data-turbolinks-track' => true
-	= javascript_include_tag 'codemirror/codemirror', 'codemirror/fullscreen', 'codemirror/matchbrackets', 'codemirror/active-line', 'data-turbolinks-track' => true
+	= javascript_include_tag 'codemirror/codemirror', 'codemirror/fullscreen', 'codemirror/matchbrackets', 'data-turbolinks-track' => true
 	= javascript_include_tag "codemirror/#{mode}", 'data-turbolinks-track' => true
 	= javascript_include_tag "codemirror/#{current_keymap}", 'data-turbolinks-track' => true
 = form_for(@code, url: judge_problem_path, html: {class: "form-horizontal", target: "_blank"}) do |f|
+	= f.hidden_field :time, name: "time",value: @problem.time
+	= f.hidden_field :space, name: "space", value:  @problem.space
 	= f.hidden_field :student_id, value: current_user.student_id
 	= f.hidden_field :problem_id, value:  @problem.problem_id
 	= f.hidden_field :language, value: current_mode
@@ -18,7 +20,7 @@
 = form_tag(set_mode_path) do
 	.form-group
 		.col-sm-4
-			= select_tag(:language, options_for_select(%w(C C++ Ruby Python PHP Java Go Javascript), current_mode.capitalize), onchange: "submit()", class: "form-control")
+			= select_tag(:language, options_for_select(ALLOW_LANGUAGES, current_mode.capitalize), onchange: "submit()", class: "form-control")
 	.form-group
 		.col-sm-4
 			= select_tag(:code_theme, options_for_select(%w(3024-day 3024-night monokai base16-dark), current_code_theme), onchange: "submit()",class: "form-control")

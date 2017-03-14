@@ -1,3 +1,5 @@
 %h3.text-center 
-	= "My Solutions In #{params[:problem_id]}"
+	= params[:id]
+	's Solutions In 
+	= link_to params[:problem_id], problem_path(params[:problem_id])
 = markdown(render file: "public/users/#{params[:id]}/#{params[:problem_id]}.md")

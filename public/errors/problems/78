@@ -1,8 +1,0 @@
-main.c: In function ‘main’:
-main.c:5:3: error: expected identifier or ‘(’ before ‘int’
-   int b = 0;
-   ^
-main.c:7:22: error: ‘b’ undeclared (first use in this function)
-     printf("%d", a / b);
-                      ^
-main.c:7:22: note: each undeclared identifier is reported only once for each function it appears in

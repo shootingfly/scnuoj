@@ -9,43 +9,45 @@
 #### 2. 系统特色
  + 界面多主题
  + 支持代码高亮
- + 支持超过8门编程语言
+ + 支持9种编程语言
+ + 支持在线保存AC代码
  + 支持中英文界面
  + 支持vim sublime emac三种编辑模式
  + 支持多种编辑主题
+ + 编辑器F8 滚动 F9 保存 F10 恢复 F11 全屏
 
 #### 3. 编译器版本
-+ gcc     4.4.5
-+ g++     4.4.5
-+ java    1.6.2
-+ pascal  2.4.0
-+ ruby    2.0
-+ lua     5.1.4
-+ perl    5.10
-+ python2 2.7.3
-+ python3 3.3.0
-+ go      1.0
-+ ghc     7.6.2
++ gcc      5.4.0
++ g++     5.4.0
++ java    1.8.0
++ go      1.6.2
++ crystal 0.21.0
+<hr>
++ ruby    2.3.1
++ lua     5.2.4
++ python2 2.7.12
++ python3 3.5.2
 
-#### 4. 编译参数
-+ gcc : gcc main.c -o main -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE
-+ g++ : g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main
-+ java : javac Main.java
-+ ruby : reek main.rb
-+ perl : perl -c main.pl
-+ pascal : fpc main.pas -O2 -Co -Ct -Ci
-+ go : go build -ldflags "-s -w" main.go
-+ lua : luac -o main main.lua
-+ python2 : python2 -m py_compile main.py
-+ python3 : python3 -m py_compile main.py
-+ haskell : ghc -o main main.hs
+
+#### 4. 编译及执行参数
++ C : gcc main.c -o main --static -DONLINE_JUDGE ; ./main
++ C++ : g++ main.cpp --static -DONLINE_JUDGE -o main ; ./main
++ Java : javac Main.java ; java main
++ Go : go build -ldflags '-s -w' main.go ; ./main
++ Crystal : crystal build main.cr ; ./main
+<hr>
++ Lua : luac main.lua
++ Ruby : ruby main.rb
++ Python2 : python2  main.py
++ Python3 : python3  main.py
 
 #### 5. 平台说明
 + 时间及内存限制说明
         按照语言的性能分为两种: 
-        静态语言: C、C++、go、haskell、lua、pascal
-        动态语言: java、python2、python3、ruby、perl
+        静态语言: C、C++、Go、Java、Crystal
+        动态语言: Lua、Ruby、Python2、Python3
         其中动态语言的时间和内存限制皆为静态语言的两倍
+> 本平台根据评测过程中是否进行编译分为静态语言和动态语言，不过Java 比 Lua 还慢是没错@_@
 
 + 返回结果说明
   + AC 接受
@@ -70,13 +72,12 @@
 + C
 
 ``` c
-
 #include<stdio.h>
 int main()
 {
 	int a,b;
 	scanf("%d %d",&a,&b);
-	printf("%d\n",&a+b);
+	printf("%d\n",a+b);
 	return 0;
 }
 ```
@@ -84,33 +85,45 @@ int main()
 + C++
 
 ``` c++
-
 #include<iostream>
+using namespace std;
 int main()
 {
-	int a,b;
-	cin<<a<<b;
-	cout>>a+b>>endl;
-	return 0;
+  int a,b;
+  cin>>a>>b;
+  cout<<a+b<<endl;
+  return 0;
 }
 ```
 
-+ PASCAL
++ Crystal
 
-``` pascal
+``` ruby
+puts gets.as(String).split.map(&.to_i).sum
+```
 
-var
-    a,b:integer;
-begin
-    readln(a,b);
-    writeln(a+b);
-end.
++ Go
+
+```go
+package main
+import "fmt"      
+func main(){      
+    var a,b int      
+    fmt.Scanf("%d %d", &a,&b)      
+    fmt.Printf("%d\n", a+b)      
+}
+```
+
++ Lua
+
+``` lua
+a,b = io.read("*number", "*number")
+print(a+b)
 ```
 
 + Java
 
 ``` java
-
 import java.io.*;
 import java.util.*;
 public class Main
@@ -126,59 +139,46 @@ public class Main
 }
 ```
 
-+ Lua
-
-``` lua
-
-a,b = io.read("*number", "*number")
-print(a+b)
-```
-
-+ Perl
-
-``` perl
-
-my ($a,$b) = split(/\D+/,);
-print "$a $b " . ($a + $b) . "\n";
-```
-
-+ Ruby
-
-``` ruby
-
-puts gets.split.map(&:to_i).inject(&:+)
-```
-
 + Python2
 
 ``` python
-
 print sum(int(x) for x in raw_input().split())
 ```
 
 + Python3
 
 ``` python
-
 print(sum(int(x) for x in input().split()))
 ```
+
++ Ruby
+
+``` ruby
+puts gets.split.map(&:to_i).inject(&:+)
+```
+
+> 以下语言未支持
 
 + Haskell
 
 ``` haskell
-
 main = getLine >>= print . sum . map read . words
 ```
 
-+ Go
++ PASCAL
 
-```go
+``` pascal
+var
+    a,b:integer;
+begin
+    readln(a,b);
+    writeln(a+b);
+end.
+```
 
-package main
-import "fmt"      
-func main(){      
-    var a,b int      
-    fmt.Scanf("%d %d", &a,&b)      
-    fmt.Printf("%d", a+b)      
-}
++ Perl
+
+``` perl
+my ($a,$b) = split(/\D+/,);
+print "$a $b " . ($a + $b) . "\n";
 ```

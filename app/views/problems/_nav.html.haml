@@ -1,6 +1,6 @@
 .panel.panel-default
 	.panel-heading.text-center 
-		= @problem.total_name(current_locale)
+		= @problem.total_name
 	%table.table.table-striped
 		%tbody
 			%tr
@@ -17,7 +17,7 @@
 				%td= @problem_detail.submit
 			%tr
 				%th= t('PassRatio')
-				%td= @problem_detail.pass_ratio
+				%td= "#{@problem_detail.ratio}%"
 			%tr
 				%th= t('Difficulty')
 				%td= @problem.difficulty

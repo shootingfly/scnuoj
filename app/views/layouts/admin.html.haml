@@ -2,7 +2,7 @@
 %html
 	%head
 		%meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-		= render_admin_title
+		%title= @page_title || "SCNUOJ"
 		= stylesheet_link_tag  'readable', media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag 'admin/admin', media: 'all', 'data-turbolinks-track' => true
 		= stylesheet_link_tag 'admin/common', media: 'all', 'data-turbolinks-track' => true

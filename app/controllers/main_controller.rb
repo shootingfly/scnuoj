@@ -1,19 +1,19 @@
 class MainController < ApplicationController
 
     def home
-        @page_title = 'Home'
+        @page_title = t 'Home'
     end
 
     def about
-        @page_title = 'About'
+        @page_title = t 'About'
     end
 
     def faq
-        @page_title = 'FAQ'
+        @page_title = t 'FAQ'
     end
     
     def joinus
-        @page_title = 'Joinus'
+        @page_title = t 'Joinus'
     end
 
     def login

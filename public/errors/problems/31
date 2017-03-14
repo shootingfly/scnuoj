@@ -1,3 +1,5 @@
-main.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
- ffff
- ^
+Error in main.cr:1: [1mexpected a function type, not Symbol[0m
+
+puts gets.as(String).split.map(&:to_i).inject(&:+)
+                                [32;1m^[0m
+

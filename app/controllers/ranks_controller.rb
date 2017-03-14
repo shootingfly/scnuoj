@@ -1,7 +1,7 @@
 class RanksController < ApplicationController
 
   def index
-  	@page_title = 'Rank'
+  	@page_title = t 'Rank'
   	respond_to do |format|
   		format.html
   		format.json {render json: RankDatatable.new(view_context)}
@@ -9,7 +9,7 @@ class RanksController < ApplicationController
   end
 
   def week
-  	@page_title = 'WeekRank'
+  	@page_title = t 'WeekRank'
   	respond_to do |format|
   		format.html
   		format.json {render json: WeekRankDatatable.new(view_context)}

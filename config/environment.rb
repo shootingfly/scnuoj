@@ -10,35 +10,41 @@ DEFAULT_KEYMAP = "sublime"
 DEFAULT_LOCALE = "en"
 DEFAULT_CODE_THEME = "3024-day"
 
-ALLOW_LANGUAGES = %w(C C++ Java Python2 Python3 Ruby Go PHP Scala)
-SLOWS = %w(Ruby Perl Java Python)
-
+ALLOW_LANGUAGES = %w(C C++ Java Crystal Ruby Python2 Python3 Go Lua)
+SLOWS = %w(Ruby Python2 Python3 Lua)
+NPROC = `ps -u 1000 | wc -l`.to_i
 CODE_FILE = {
     "C" => "main.c",
     "C++" => "main.cpp",
-    "Ruby" => "main.rb",
     "Java" => "Main.java",
-    "Perl" => "main.pl",
+    "Crystal" => "main.cr",
+    "Ruby" => "main.rb",
     "Python2" => "main.py",
-    "Python3" => "main.py"
+    "Python3" => "main.py",
+    "Go" => "main.go",
+    "Lua" => "main.lua"
 }
 BUILD_CMD = {
     "C" => "gcc main.c -o main",
     "C++" => "g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main",
-    "Ruby"  => "ruby -c main.rb",
     "Java" =>"javac Main.java",
-    "Perl" =>"perl -c main.pl",
+    "Crystal" => "crystal build main.cr",
+    "Ruby"  => "ruby -c main.rb",
     "Python2" => 'python2 -m py_compile main.py', 
-    "Python3" => "python3 -m py_compile main.py"       
+    "Python3" => "python3 -m py_compile main.py",
+    "Go" => "go build -ldflags '-s -w' main.go",
+    "Lua" => ""
 }
 EXE_CMD = {
     "C" => "./main",
     "C++" => "./main",
-    "Ruby" => "ruby main.rb",
     "Java" => "java Main",
-    "Perl" => "perl main.pl",
-    "Python2"=> "python2 main.pyc",
-    "Python3" => "python3 main.pyc"
+    "Crystal" => "./main",
+    "Ruby" => "ruby main.rb",
+    "Python2"=> "python2 main.py",
+    "Python3" => "python3 main.py",
+    "Go" => "./main",
+    "Lua" => "lua main.lua"
 }
 # Result
 AC = "Accepted"
@@ -49,6 +55,16 @@ ME = "Memory Limit Exceeded"
 PE = "Presentation Error"
 OE = "Output Limit Exceeded"
 WA = "Wrong Answer"
+HASH = {
+    AC => "ac",
+    CE => "ce",
+    RE => "re",
+    TE => "te",
+    ME => "me",
+    PE => "pe",
+    OE => "oe",
+    WA => "wa"
+}
 # Path
 USER_PATH = "#{Rails.public_path}/users"
 TMP_PATH= "#{Rails.public_path}/tmpfile"
@@ -56,6 +72,6 @@ TMP_PATH= "#{Rails.public_path}/tmpfile"
 JUDGE_PATH_C = "#{Rails.public_path}/judges/contests"
 ERROR_PATH_C = "#{Rails.public_path}/errors/contests"
 # Problem
-JUDGE_PATH = "#{Rails.public_path}/judges/problems"
+JUDGE_PATH = "#{Rails.public_path}/judges"
 ERROR_PATH = "#{Rails.public_path}/errors/problems"
 TEST_PATH = "#{Rails.public_path}/problems/testdatas"

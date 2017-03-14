@@ -1,3 +1,4 @@
-main.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
- ssssssssssss
- ^
+main.cpp:1:21: fatal error: iostream.h: 没有那个文件或目录
+ #include<iostream.h>
+                     ^
+compilation terminated.

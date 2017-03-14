@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
 
     def edit
-        @page_title = 'Edit User'
+        @page_title = t 'EditUser'
     end
 
     def update
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     end
 
     def password
-        @page_title = 'Edit Password'
+        @page_title = t 'EditPassword'
     end
 
     def password_post

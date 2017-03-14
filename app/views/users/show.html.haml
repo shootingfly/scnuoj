@@ -4,43 +4,43 @@
 .col-md-1
 .col-md-5
 	.panel.panel-info
-		.panel-heading.text-center 个人资料信息
+		.panel-heading.text-center= t "UserInfo"
 		%table.table.table-striped
 			%tbody
 				%tr
-					%th 用户昵称
+					%th= t "User"
 					%td= @user.username
 				%tr
-					%th 学号
+					%th= t "StudentID"
 					%td= @user.student_id
 				%tr
-					%th 班级
+					%th= t "Class"
 					%td= @user.classgrade
 				%tr
-					%th 宿舍
+					%th= t "Dormitory"
 					%td= @user.dormitory
 				%tr
-					%th 电话
+					%th= t "Phone"
 					%td= @user.phone
 				%tr
-					%th 个性签名
+					%th= t "Signature"
 					%td= @user.signature
 				%tr
-					%th Rank
+					%th= t "Rank"
 					%td= @user_detail.rank
 				%tr
-					%th Score
+					%th= t "Score"
 					%td= @user_detail.score
 .col-md-5
 	.panel.panel-info
-		.panel-heading.text-center 错误记录卡
+		.panel-heading.text-center= t "ErrorRecords"
 		%table.table.table-striped
 			%tbody
 				%tr
-					%th AC数
+					%th AC
 					%td= @user_detail.ac
 				%tr
-					%th 提交数
+					%th Submit
 					%td= @user_detail.submit
 				%tr
 					%th Wrong Answer
@@ -62,7 +62,7 @@
 					%td= @user_detail.oe
 .col-md-10.col-md-offset-1
 	.panel.panel-info
-		.panel-heading.text-center AC Records
+		.panel-heading.text-center=  t "ACRecords"
 		%table.table.table-striped
 			%tbody
 				%tr
@@ -72,7 +72,7 @@
 						%br
 .col-md-10.col-md-offset-1
 	.panel.panel-info
-		.panel-heading.text-center Contest Records
+		.panel-heading.text-center= t "ContestRecords"
 		%table.table.table-striped
 			%tbody
 				%tr

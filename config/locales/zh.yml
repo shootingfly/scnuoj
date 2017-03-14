@@ -87,5 +87,7 @@ zh:
   ACNum: 'AC数'
   SpaceLimit:  '内存限制'
   TimeLimit: '时间限制'
-
-
+  UserInfo: '个人信息'
+  ErrorRecords: '错误统计'
+  ACRecords: 'AC 记录'
+  ContestRecords: '比赛记录'

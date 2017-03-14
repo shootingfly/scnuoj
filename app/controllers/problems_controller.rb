@@ -3,7 +3,7 @@ class ProblemsController < ApplicationController
     before_action :set_problem, only: [:show, :comment, :judge]
 
     def index
-        @page_title = 'Problem'
+        @page_title = t 'Problem'
         respond_to do |format|
             format.html
             format.json { render json: ProblemDatatable.new(view_context) }
@@ -11,7 +11,7 @@ class ProblemsController < ApplicationController
     end
 
     def show
-        @page_title = @problem.title
+        @page_title = @problem.problem_title
         render 'problem'
     end
 
@@ -25,7 +25,7 @@ class ProblemsController < ApplicationController
         if problem.nil?
             problem = Problem.order("problem_id DESC").take
         end
-        redirect_to problem_path(problem)
+        redirect_to problem_path(problem) 
     end
 
     def next
@@ -37,14 +37,14 @@ class ProblemsController < ApplicationController
     end
 
     def comment
-        @page_title = 'Comment'
+        @page_title = @problem.problem_title
         @comments = @problem.comments.order("id DESC").page(params[:page]).includes(:user)
         render 'problem'
     end
 
     def judge
         if current_user
-            @page_title = 'Judge'
+            @page_title = @problem.problem_title
             @code = Code.new
             render 'problem'
         else
@@ -56,8 +56,7 @@ class ProblemsController < ApplicationController
     def judge_job
         @code = Code.new(code_params)
         if @code.save
-            problem = Problem.find_by(problem_id: params[:id])
-            result = JudgeJob.perform_now(@code, problem.time, problem.space)
+            result = JudgeJob.perform_now(@code, params[:time], params[:space])
             redirect_to statuses_path, notice: result
         else
             render :judge
@@ -72,7 +71,7 @@ class ProblemsController < ApplicationController
     end
 
     def code_params
-        params.require(:code).permit!
+        params.require(:code).permit(:student_id, :problem_id, :language, :code)
     end
 
 end

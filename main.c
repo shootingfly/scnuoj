@@ -1,6 +1,5 @@
-#include <stdio.h>
-
 // Accepted
+#include <stdio.h>
 int main() {
     int a, b;
   
@@ -36,7 +35,7 @@ int main() {
     int a, b;
   
     scanf("%d %d", &a, &b);
-    printf("%d           ", a - b);
+    printf("%d           ",  a + b);
     return 0;
 }
 // Time Limited Error
@@ -52,9 +51,10 @@ int main() {
 #include <stdio.h>
 
 int main() {
-    int a = 1;
-    int b = 0;
-  
-    printf("%d", a / b);
+    int a;
+    int b;
+    scanf("%d %d", &a, &b);
+    int c = 0;
+    printf("%d\n", a / c);
     return 0;
 }

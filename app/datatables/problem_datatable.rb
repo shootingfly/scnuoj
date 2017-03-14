@@ -25,7 +25,7 @@ class ProblemDatatable < AjaxDatatablesRails::Base
 	  [     
 	  	ac?(problem.problem_id),
 		link_to(problem.problem_id, problem_path(problem)),
-		link_to(problem.problem_title(current_locale) , problem_path(problem)),
+		link_to(problem.problem_title, problem_path(problem)),
 		problem.difficulty,
 		problem.problem_detail.pass,
 		problem.source

@@ -22,13 +22,13 @@ class StatusDatatable < AjaxDatatablesRails::Base
     def data
         @current = current_user.try(:username)
         records.map do |status|
-            if status.result == "Accepted"
-                status.result ="<label class='text-success'>#{status.result }</label>"
-            elsif status.result == "Compile Error"
-                status.result = "#{link_to status.result, error_status_path(status.run_id)}"
-            elsif status.result != "Wrong Answer"
-                status.result ="<label class='text-warning'>#{status.result }</label>"
-            end
+            status.result =
+                case status.result
+                when AC                 then "<label class='text-success'>#{status.result}</label>"
+                when CE, RE         then "#{link_to status.result, error_status_path(status.run_id)}"
+                when WA                then "<label class='text-danger'>#{status.result}</label>"
+                else    "<label class='text-warning'>#{status.result }</label>"
+                end
             [
                 current?(status.username),
                 status.run_id,

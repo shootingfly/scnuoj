@@ -4,12 +4,6 @@ require 'rouge'
 require 'rouge/plugins/redcarpet'
 module ApplicationHelper
 
-    # def render_title
-    #     # title = @page_title ? "#{t(@page_title)} | #{t('SCNUOJ')}" : "#{t('SCNUOJ')}"
-    #     title = @page_title ? "#{@page_title} | SCNUOJ" : "SCNUOJ"
-    #     content_tag(:title, title)
-    # end
-
     class HTML < Redcarpet::Render::HTML
         # def block_code(code, language)
         #   CodeRay.scan(code, language).div(:tab_width=>1)

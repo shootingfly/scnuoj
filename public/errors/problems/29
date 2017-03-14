@@ -1,3 +1,6 @@
-main.c:1:1: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ at end of input
- erfr
- ^
+Error in main.cr:1: undefined method 'split' for Nil[33;1m (compile-time type is (String | Nil))[0m
+
+puts gets.split.map(&:to_i).inject(&:+)
+          [32;1m^~~~~[0m
+
+Rerun with --error-trace to show a complete error trace.
