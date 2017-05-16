@@ -1,6 +1,0 @@
-Error in main.cr:1: undefined method 'cast' for String
-
-a, b = gets.as(String).cast(Int).split.map(&.to_i)
-                       [32;1m^~~~[0m
-
-

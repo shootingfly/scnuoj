@@ -33,7 +33,7 @@
 							%li= link_to t('Show'), user_path(current_user)
 							%li= link_to t('Edit'), info_path
 							%li= link_to t('ChangePassword'), password_path
-							%li.divider
+							%li.divider	
 							%li= link_to t('Logout'), logout_path, method: "delete"
 				- else
 					%li{class: ("active" if action_name == "login")}= link_to t('Login'), login_path

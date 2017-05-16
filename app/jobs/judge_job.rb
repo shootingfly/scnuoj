@@ -22,7 +22,7 @@ class JudgeJob < ActiveJob::Base
         if @result == AC
             @time_cost, @space_cost = (@time_cost.max * 1000).to_i, @space_cost.max
         else
-            @time_cost, @space_cost = 0 , 0
+            @time_cost, @space_cost = 0, 0
         end
         Status.create({
                         run_id: code.id,
@@ -66,6 +66,7 @@ class JudgeJob < ActiveJob::Base
             end
         end
         user_detail.save
+        @result
     end
 
     def compile?(code_id, lang)
@@ -85,8 +86,7 @@ class JudgeJob < ActiveJob::Base
             result = nil
             out = ""
             time_before = Time.now
-            puts "s",Process.getrlimit(:NPROC)
-            Open3.popen3("timeout 1 #{exe_cmd}", :pgroup => true, :rlimit_nproc => [450,450],  :rlimit_cpu => 1) do |i,o,e,wt|
+            Open3.popen3("timeout 1 #{exe_cmd}",  :rlimit_cpu => 1) do |i,o,e,wt|
                      i.puts(standard_in) rescue nil
                      result =
                         if (err = e.read).present?

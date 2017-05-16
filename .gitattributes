@@ -1,0 +1,6 @@
+*.cr linguist-language=ruby
+*.js linguist-language=ruby
+*.css linguist-language=ruby
+*.html linguist-language=ruby
+*.haml linguist-language=ruby
+*.erb linguist-language=ruby

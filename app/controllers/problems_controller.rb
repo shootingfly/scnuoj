@@ -57,7 +57,7 @@ class ProblemsController < ApplicationController
         @code = Code.new(code_params)
         if @code.save
             result = JudgeJob.perform_now(@code, params[:time], params[:space])
-            redirect_to statuses_path, notice: result
+            redirect_to statuses_path, notice: (result if result != AC)
         else
             render :judge
         end
